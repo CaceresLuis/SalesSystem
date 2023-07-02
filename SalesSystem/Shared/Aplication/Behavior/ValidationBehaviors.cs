@@ -9,7 +9,7 @@ namespace SalesSystem.Shared.Aplication.Behavior
     {
         private readonly IValidator<TRequest>? _validator;
 
-        public ValidationBehaviors(IValidator<TRequest>? validator)
+        public ValidationBehaviors(IValidator<TRequest>? validator = null)
         {
             _validator = validator;
         }
