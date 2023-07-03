@@ -1,8 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SalesSystem.Categories.Aplication.Dto;
 using SalesSystem.Categories.Aplication.Create;
 using SalesSystem.Categories.Aplication.GetAll;
+using ErrorOr;
+using SalesSystem.Categories.Aplication.GetById;
+using SalesSystem.Categories.Domain.Dto;
+using SalesSystem.Categories.Aplication.Update;
+using SalesSystem.Categories.Aplication.Delete;
 
 namespace SalesSystem.Api.Controllers
 {
@@ -20,7 +24,19 @@ namespace SalesSystem.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            ErrorOr.ErrorOr<IReadOnlyList<CategoryResponseDto>> categoryResult = await _mediator.Send(new GetAllCategoriesQuery());
+            ErrorOr<IReadOnlyList<CategoryResponseDto>> categoryResult = await _mediator.Send(new GetAllCategoriesQuery());
+
+            return categoryResult.Match
+                (
+                    categories => Ok(categories),
+                    errors => Problem(errors)
+                 );
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            ErrorOr<CategoryResponseDto> categoryResult = await _mediator.Send(new GetByIdCategoryQuery(id));
 
             return categoryResult.Match
                 (
@@ -32,9 +48,35 @@ namespace SalesSystem.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCategoryCommand command)
         {
-            ErrorOr.ErrorOr<Unit> createResult = await _mediator.Send(command);
+            ErrorOr<Unit> createResult = await _mediator.Send(command);
 
             return createResult.Match(categoryId => Ok(categoryId), errors => Problem(errors));
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateCategoryCommand command)
+        {
+            if(id != command.Id)
+            {
+                List<Error> errors = new()
+                {
+                    Error.Validation("Category.UpdateInvalid", "The request Id does not match with the url Id")
+                };
+
+                return Problem(errors);
+            }
+
+            ErrorOr<Unit> updateResult = await _mediator.Send(command);
+
+            return updateResult.Match(categoryId => NoContent(), errors => Problem(errors));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            ErrorOr<Unit> deleteResult = await _mediator.Send(new DeleteCategoryCommand(id));
+
+            return deleteResult.Match(categoryId => NoContent(), errors => Problem(errors));
         }
     }
 }

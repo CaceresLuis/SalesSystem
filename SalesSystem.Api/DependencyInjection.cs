@@ -1,4 +1,6 @@
-﻿namespace SalesSystem.Api
+﻿using SalesSystem.Api.Middlerware;
+
+namespace SalesSystem.Api
 {
     public static class DependencyInjection
     {
@@ -7,6 +9,7 @@
             services.AddSwaggerGen();
             services.AddControllers();
             services.AddEndpointsApiExplorer();
+            services.AddTransient<GlobalExceptionHandlingMiddelware>();
 
             return services;
         }

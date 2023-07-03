@@ -1,7 +1,5 @@
-﻿using ErrorOr;
-using MediatR;
-using SalesSystem.Categories.Domain;
-using SalesSystem.Categories.Aplication.Dto;
+﻿using SalesSystem.Categories.Domain;
+using SalesSystem.Categories.Domain.Dto;
 
 namespace SalesSystem.Categories.Aplication.GetAll
 {
@@ -22,7 +20,11 @@ namespace SalesSystem.Categories.Aplication.GetAll
             (
                 category.Id.Value,
                 category.Name,
-                category.CreateAt
+                category.CreateAt,
+                category.UpdateAt,
+                category.DeleteAt,
+                category.IsUpdated,
+                category.IsDeleted
             )).ToList();
         }
     }

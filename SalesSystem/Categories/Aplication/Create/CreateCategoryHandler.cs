@@ -1,6 +1,4 @@
-﻿using ErrorOr;
-using MediatR;
-using SalesSystem.Categories.Domain;
+﻿using SalesSystem.Categories.Domain;
 using SalesSystem.Shared.Domain.Primitives;
 
 namespace SalesSystem.Categories.Aplication.Create
@@ -26,8 +24,8 @@ namespace SalesSystem.Categories.Aplication.Create
                         request.Name,
                         DateTime.UtcNow,
                         DateTime.MinValue,
-                        false,
                         DateTime.MinValue,
+                        false,
                         false
                     );
 

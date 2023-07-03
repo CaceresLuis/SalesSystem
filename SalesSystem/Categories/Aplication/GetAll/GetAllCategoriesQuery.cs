@@ -1,6 +1,4 @@
-﻿using ErrorOr;
-using MediatR;
-using SalesSystem.Categories.Aplication.Dto;
+﻿using SalesSystem.Categories.Domain.Dto;
 
 namespace SalesSystem.Categories.Aplication.GetAll
 {

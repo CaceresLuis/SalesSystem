@@ -2,12 +2,12 @@
 {
     public interface ICategoryRepository
     {
-        //Task<Category?> GetAsync(int id);
+        Task<Category?> GetByIdAsync(CategoryId id);
         Task Add(Category category);
         void Update(Category category);
         void Delete(Category category);
         Task<IEnumerable<Category>> GetAllAsync();
-        Task<bool> SaveChangesAsync();
         Task<IEnumerable<Category>> GetAllDeletedAsync();
+        Task<bool> ExistAsync(CategoryId id);
     }
 }

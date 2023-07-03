@@ -1,5 +1,6 @@
 using SalesSystem.Api;
 using SalesSystem.Api.Extension;
+using SalesSystem.Api.Middlerware;
 using SalesSystem.Shared.Aplication;
 using SalesSystem.Shared.Infrastructure.Services;
 
@@ -23,6 +24,8 @@ app.UseExceptionHandler("/error");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<GlobalExceptionHandlingMiddelware>();
 
 app.MapControllers();
 

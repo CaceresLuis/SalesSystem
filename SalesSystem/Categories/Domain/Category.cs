@@ -6,7 +6,7 @@ namespace SalesSystem.Categories.Domain
     {
         private Category() { }
 
-        public Category(CategoryId id, string name, DateTime createAt, DateTime upDateAt, bool isUpdated, DateTime deleteAt, bool isDeleted)
+        public Category(CategoryId id, string name, DateTime createAt, DateTime upDateAt, DateTime deleteAt, bool isUpdated, bool isDeleted)
         {
             Id = id;
             Name = name;
@@ -18,6 +18,21 @@ namespace SalesSystem.Categories.Domain
 
         }
 
+        public Category(CategoryId id, string name, DateTime upDateAt, bool isUpdated)
+        {
+            Id = id;
+            Name = name;
+            UpdateAt = upDateAt;
+            IsUpdated = isUpdated;
+        }
+
+        public Category(CategoryId id, DateTime deletedAt, bool isDeleted)
+        {
+            Id = id;
+            DeleteAt = deletedAt;
+            IsDeleted = isDeleted;
+        }
+
         public CategoryId Id { get; private set; }
         public string Name { get; private set; } = string.Empty;
         public DateTime CreateAt { get; set; }
@@ -25,5 +40,15 @@ namespace SalesSystem.Categories.Domain
         public DateTime UpdateAt { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime DeleteAt { get; set; }
+
+        public static Category UpdateCategory(Guid id, string name, DateTime createAt, DateTime upDateAt, DateTime deleteAt, bool isUpdate, bool isDeleted)
+        {
+            return new Category(new CategoryId(id), name, createAt, upDateAt, deleteAt, isUpdate, isDeleted);
+        }
+
+        public static Category DeleteCategory(Guid id, string name, DateTime createAt, DateTime upDateAt, DateTime deleteAt, bool isUpdate, bool isDeleted)
+        {
+            return new Category(new CategoryId(id), name, createAt, upDateAt, deleteAt, isUpdate, isDeleted);
+        }
     }
 }

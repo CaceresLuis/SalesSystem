@@ -1,6 +1,4 @@
-﻿using ErrorOr;
-using MediatR;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Results;
 
 namespace SalesSystem.Shared.Aplication.Behavior

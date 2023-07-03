@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Categories\Aplication\Delete\" />
     <Folder Include="Categories\Domain\ValueObjects\" />
     <Folder Include="Shared\Infrastructure\Persistence\Migrations\" />
   </ItemGroup>

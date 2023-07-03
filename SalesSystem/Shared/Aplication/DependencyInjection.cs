@@ -1,5 +1,4 @@
-﻿using MediatR;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using SalesSystem.Shared.Aplication.Behavior;
 
