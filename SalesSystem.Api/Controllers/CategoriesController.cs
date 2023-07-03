@@ -1,10 +1,8 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using SalesSystem.Categories.Domain.Dto;
 using SalesSystem.Categories.Aplication.Create;
 using SalesSystem.Categories.Aplication.GetAll;
-using ErrorOr;
 using SalesSystem.Categories.Aplication.GetById;
-using SalesSystem.Categories.Domain.Dto;
 using SalesSystem.Categories.Aplication.Update;
 using SalesSystem.Categories.Aplication.Delete;
 
@@ -56,7 +54,7 @@ namespace SalesSystem.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateCategoryCommand command)
         {
-            if(id != command.Id)
+            if (id != command.Id)
             {
                 List<Error> errors = new()
                 {

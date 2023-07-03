@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using SalesSystem.Products.Domain;
+using Microsoft.EntityFrameworkCore;
 using SalesSystem.Categories.Domain;
 using Microsoft.Extensions.Configuration;
 using SalesSystem.Shared.Aplication.Data;
 using SalesSystem.Shared.Domain.Primitives;
 using Microsoft.Extensions.DependencyInjection;
+using SalesSystem.Products.Infrastructure.Persistence;
 using SalesSystem.Categories.Infrastructure.Persistence;
 
 namespace SalesSystem.Shared.Infrastructure.Services
@@ -24,6 +26,7 @@ namespace SalesSystem.Shared.Infrastructure.Services
             services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
             services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             return services;

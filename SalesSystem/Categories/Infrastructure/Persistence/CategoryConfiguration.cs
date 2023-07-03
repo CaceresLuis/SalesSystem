@@ -9,8 +9,8 @@ namespace SalesSystem.Categories.Infrastructure.Persistence
         public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.HasKey(c => c.Id);
-            builder.Property(c => c.Name).HasMaxLength(100);
-            builder.Property(c => c.CreateAt);
+            builder.Property(c => c.Name).HasMaxLength(100).IsRequired();
+            builder.Property(c => c.CreateAt).IsRequired();
             builder.Property(c => c.UpdateAt);
             builder.Property(c => c.DeleteAt);
             builder.Property(c => c.IsUpdated);

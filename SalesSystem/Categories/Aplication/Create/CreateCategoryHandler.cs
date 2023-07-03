@@ -16,29 +16,22 @@ namespace SalesSystem.Categories.Aplication.Create
 
         public async Task<ErrorOr<Unit>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                Category category = new
-                    (
-                        new CategoryId(Guid.NewGuid()),
-                        request.Name,
-                        DateTime.UtcNow,
-                        DateTime.MinValue,
-                        DateTime.MinValue,
-                        false,
-                        false
-                    );
+            Category category = new
+                (
+                    new CategoryId(Guid.NewGuid()),
+                    request.Name,
+                    DateTime.UtcNow,
+                    DateTime.MinValue,
+                    DateTime.MinValue,
+                    false,
+                    false
+                );
 
-                await _categoryRepository.Add(category);
+            _categoryRepository.Add(category);
 
-                await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-                return Unit.Value;
-            }
-            catch (Exception ex)
-            {
-                return Error.Failure("CreateCategory.Failuer", ex.Message);
-            }
+            return Unit.Value;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using SalesSystem.Products.Domain;
+using Microsoft.EntityFrameworkCore;
 using SalesSystem.Categories.Domain;
 using SalesSystem.Shared.Aplication.Data;
 using SalesSystem.Shared.Domain.Primitives;
@@ -14,6 +15,7 @@ namespace SalesSystem.Shared.Infrastructure
             _publisher = publisher ?? throw new ArgumentNullException(nameof(publisher));
         }
 
+        public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

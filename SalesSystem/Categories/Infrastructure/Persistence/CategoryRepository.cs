@@ -13,7 +13,7 @@ namespace SalesSystem.Categories.Infrastructure.Persistence
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task Add(Category category) => await _context.Categories.AddAsync(category);
+        public void Add(Category category) => _context.Categories.Add(category);
 
         public async Task<bool> ExistAsync(CategoryId id) => await _context.Categories.AnyAsync(c => c.Id == id && !c.IsDeleted);
 
