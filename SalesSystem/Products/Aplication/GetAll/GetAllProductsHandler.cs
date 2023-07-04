@@ -27,7 +27,8 @@ namespace SalesSystem.Products.Aplication.GetAll
                     product.UpdateAt,
                     product.DeleteAt,
                     product.IsUpdated,
-                    product.IsUpdated
+                    product.IsUpdated,
+                    product.ProductCategories.Select(pc => pc.Category.Name).ToList()
                 )).ToList();
         }
     }

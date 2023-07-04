@@ -1,14 +1,14 @@
 ﻿using SalesSystem.Categories.Domain;
 using Microsoft.EntityFrameworkCore;
-using SalesSystem.Shared.Infrastructure;
+using SalesSystem.Shared.Aplication.Data;
 
 namespace SalesSystem.Categories.Infrastructure.Persistence
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IApplicationDbContext _context;
 
-        public CategoryRepository(ApplicationDbContext context)
+        public CategoryRepository(IApplicationDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }

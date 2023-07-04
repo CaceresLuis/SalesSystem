@@ -4,9 +4,11 @@ using SalesSystem.Categories.Domain;
 using Microsoft.Extensions.Configuration;
 using SalesSystem.Shared.Aplication.Data;
 using SalesSystem.Shared.Domain.Primitives;
+using SalesSystem.ProductCategories.Domain;
 using Microsoft.Extensions.DependencyInjection;
 using SalesSystem.Products.Infrastructure.Persistence;
 using SalesSystem.Categories.Infrastructure.Persistence;
+using SalesSystem.ProductCategories.Infrastructure.Persistence;
 
 namespace SalesSystem.Shared.Infrastructure.Services
 {
@@ -28,6 +30,7 @@ namespace SalesSystem.Shared.Infrastructure.Services
 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 
             return services;
         }

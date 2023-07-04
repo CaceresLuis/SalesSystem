@@ -11,6 +11,7 @@
         DateTime UpdateAt,
         DateTime DeleteAt,
         bool IsUpdated,
-        bool IsDeleted
+        bool IsDeleted,
+        List<string> Categorias
     );
 }

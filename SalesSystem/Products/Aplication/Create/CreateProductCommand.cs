@@ -5,6 +5,7 @@
             string Name,
             string Description,
             decimal Price,
-            int Stock
+            int Stock,
+            List<Guid> Categories
         ) : IRequest<ErrorOr<Unit>>;
 }

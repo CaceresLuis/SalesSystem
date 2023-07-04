@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Folder Include="Categories\Domain\ValueObjects\" />
+    <Folder Include="ProductCategories\Aplication\" />
     <Folder Include="Shared\Infrastructure\Persistence\Migrations\" />
   </ItemGroup>
 

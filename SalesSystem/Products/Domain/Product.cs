@@ -1,4 +1,6 @@
-﻿using SalesSystem.Shared.Domain.Primitives;
+﻿using SalesSystem.ProductCategories.Domain;
+using SalesSystem.Shared.Domain.Primitives;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SalesSystem.Products.Domain
 {
@@ -16,7 +18,7 @@ namespace SalesSystem.Products.Domain
         public DateTime UpdateAt { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime DeleteAt { get; set; }
-
+        public ICollection<ProductCategory>? ProductCategories { get; set; }
 
         public Product(ProductId id, string name, string description, decimal price, int stock, DateTime createAt, DateTime upDateAt, DateTime deleteAt, bool isUpdated, bool isDeleted)
         {

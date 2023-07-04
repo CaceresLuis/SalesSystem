@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SalesSystem.Categories.Domain;
 using SalesSystem.Shared.Aplication.Data;
 using SalesSystem.Shared.Domain.Primitives;
+using SalesSystem.ProductCategories.Domain;
 
 namespace SalesSystem.Shared.Infrastructure
 {
@@ -17,6 +18,7 @@ namespace SalesSystem.Shared.Infrastructure
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

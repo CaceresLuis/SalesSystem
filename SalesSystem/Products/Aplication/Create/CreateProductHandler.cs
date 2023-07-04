@@ -1,4 +1,6 @@
 ﻿using SalesSystem.Products.Domain;
+using SalesSystem.Categories.Domain;
+using SalesSystem.ProductCategories.Domain;
 using SalesSystem.Shared.Domain.Primitives;
 
 namespace SalesSystem.Products.Aplication.Create
@@ -7,11 +9,15 @@ namespace SalesSystem.Products.Aplication.Create
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IProductCategoryRepository _productCategoryRepository;
 
-        public CreateProductHandler(IUnitOfWork unitOfWork, IProductRepository productRepository)
+        public CreateProductHandler(IUnitOfWork unitOfWork, IProductRepository productRepository, IProductCategoryRepository productCategoryRepository, ICategoryRepository categoryRepository)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
+            _productCategoryRepository = productCategoryRepository ?? throw new ArgumentNullException(nameof(productCategoryRepository));
         }
 
         public async Task<ErrorOr<Unit>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
@@ -32,8 +38,26 @@ namespace SalesSystem.Products.Aplication.Create
 
             _productRepository.Add(product);
 
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            if(request.Categories is not null) 
+            {
+                foreach( var category in request.Categories )
+                {
+                    Category? categoryDb = await _categoryRepository.GetByIdAsync(new CategoryId(category));
+                    if (categoryDb is not null)
+                    {
+                        ProductCategory productCategory = new
+                            (
+                                0,
+                                categoryDb.Id,
+                                product.Id
+                            );
 
+                        _productCategoryRepository.Add(productCategory);
+                    }
+                }
+            }
+
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
     }

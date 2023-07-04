@@ -29,8 +29,11 @@ namespace SalesSystem.Products.Aplication.GetById
                     product.UpdateAt,
                     product.DeleteAt,
                     product.IsUpdated,
-                    product.IsUpdated
+                    product.IsUpdated,
+                    product.ProductCategories.Select(pc => pc.Category.Name).ToList()
                 );
+
+            throw new NotImplementedException();
         }
     }
 }
