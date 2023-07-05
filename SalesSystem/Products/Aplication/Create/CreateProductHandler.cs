@@ -48,8 +48,8 @@ namespace SalesSystem.Products.Aplication.Create
                         ProductCategory productCategory = new
                             (
                                 0,
-                                categoryDb.Id,
-                                product.Id
+                                categoryDb.Id!,
+                                product.Id!
                             );
 
                         _productCategoryRepository.Add(productCategory);

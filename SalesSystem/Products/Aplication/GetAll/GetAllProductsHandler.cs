@@ -21,7 +21,7 @@ namespace SalesSystem.Products.Aplication.GetAll
 
             return products.Select(product => new ProductResponseDto
             (
-                product.Id.Value,
+                product.Id!.Value,
                 product.Name,
                 product.Description,
                 product.Price,
@@ -33,7 +33,7 @@ namespace SalesSystem.Products.Aplication.GetAll
                 product.IsUpdated,
                 product.ProductCategories!.Select(pc => new ProductCategoryResponseDto
                 (
-                    pc.Category.Id.Value,
+                    pc.Category!.Id!.Value,
                     pc.Category.Name
                 )).ToList()
             )).ToList();

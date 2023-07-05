@@ -33,11 +33,11 @@ namespace SalesSystem.ProductCategories.Aplication.Create
                         ProductCategory productCategory = new
                             (
                                 0,
-                                categoryDb.Id,
-                                product.Id
+                                categoryDb.Id!,
+                                product.Id!
                             );
 
-                        if (!await _productCategoryRepository.ProductCategoryRelationExistAsync(product.Id, categoryDb.Id))
+                        if (!await _productCategoryRepository.ProductCategoryRelationExistAsync(product.Id!, categoryDb.Id!))
                             _productCategoryRepository.Add(productCategory);
                     }
                 }

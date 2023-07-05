@@ -19,7 +19,7 @@ namespace SalesSystem.Products.Infrastructure.Persistence
             builder.Property(p => p.IsUpdated);
             builder.Property(p => p.IsDeleted);
 
-            builder.Property(p => p.Id).HasConversion(produtId => produtId.Value, value => new ProductId(value));
+            builder.Property(p => p.Id).HasConversion(produtId => produtId!.Value, value => new ProductId(value));
         }
     }
 }

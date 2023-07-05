@@ -16,7 +16,7 @@ namespace SalesSystem.Categories.Infrastructure.Persistence
             builder.Property(c => c.IsUpdated);
             builder.Property(c => c.IsDeleted);
 
-            builder.Property(c => c.Id).HasConversion(categoryId => categoryId.Value, value => new CategoryId(value));
+            builder.Property(c => c.Id).HasConversion(categoryId => categoryId!.Value, value => new CategoryId(value));
         }
     }
 }

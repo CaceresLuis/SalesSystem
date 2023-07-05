@@ -20,7 +20,7 @@ namespace SalesSystem.Categories.Aplication.GetById
 
             return new CategoryResponseDto
             (
-                category.Id.Value,
+                category.Id!.Value,
                 category.Name,
                 category.CreateAt,
                 category.UpdateAt,

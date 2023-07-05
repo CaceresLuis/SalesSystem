@@ -21,6 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Carts\Application\" />
+    <Folder Include="Carts\Infrastructure\" />
     <Folder Include="Categories\Domain\ValueObjects\" />
     <Folder Include="Shared\Infrastructure\Persistence\Migrations\" />
   </ItemGroup>

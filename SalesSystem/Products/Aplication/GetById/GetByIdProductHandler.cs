@@ -20,7 +20,7 @@ namespace SalesSystem.Products.Aplication.GetById
 
             return new ProductResponseDto
             (
-                product.Id.Value,
+                product.Id!.Value,
                 product.Name,
                 product.Description,
                 product.Price,
@@ -32,7 +32,7 @@ namespace SalesSystem.Products.Aplication.GetById
                 product.IsUpdated,
                 product.ProductCategories!.Select(pc => new ProductCategoryResponseDto
                 (
-                    pc.Category.Id.Value,
+                    pc.Category!.Id!.Value,
                     pc.Category.Name
                 )).ToList()
             );

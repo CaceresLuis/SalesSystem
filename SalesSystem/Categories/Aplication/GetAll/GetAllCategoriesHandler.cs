@@ -18,7 +18,7 @@ namespace SalesSystem.Categories.Aplication.GetAll
 
             return categories.Select(category => new CategoryResponseDto
             (
-                category.Id.Value,
+                category.Id!.Value,
                 category.Name,
                 category.CreateAt,
                 category.UpdateAt,

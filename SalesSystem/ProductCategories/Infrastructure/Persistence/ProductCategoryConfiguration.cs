@@ -12,8 +12,8 @@ namespace SalesSystem.ProductCategories.Infrastructure.Persistence
         {
             builder.HasKey(p => p.Id);
 
-            builder.Property(c => c.CategoryId).HasConversion(categoryId => categoryId.Value, value => new CategoryId(value));
-            builder.Property(p => p.ProductId).HasConversion(produtId => produtId.Value, value => new ProductId(value));
+            builder.Property(c => c.CategoryId).HasConversion(categoryId => categoryId!.Value, value => new CategoryId(value));
+            builder.Property(p => p.ProductId).HasConversion(produtId => produtId!.Value, value => new ProductId(value));
         }
     }
 }

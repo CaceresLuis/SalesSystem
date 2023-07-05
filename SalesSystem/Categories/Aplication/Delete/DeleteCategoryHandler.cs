@@ -20,9 +20,9 @@ namespace SalesSystem.Categories.Aplication.Delete
             if (await _categoryRepository.GetByIdAsync(new CategoryId(request.Id)) is not Category categoryDb)
                 return ErrosCategory.NotFoundCategory;
 
-            Category category = Category.DeleteCategory
+            Category category = Category.UpdateCategory
                 (
-                    categoryDb.Id.Value,
+                    categoryDb.Id!.Value,
                     categoryDb.Name,
                     categoryDb.CreateAt,
                     categoryDb.UpdateAt,

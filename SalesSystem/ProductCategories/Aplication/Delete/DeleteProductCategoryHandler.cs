@@ -18,10 +18,10 @@ namespace SalesSystem.ProductCategories.Aplication.Delete
 
         public async Task<ErrorOr<Unit>> Handle(DeleteProductCategoryCommand request, CancellationToken cancellationToken)
         {
-            ProductCategory? productCategoryExit = await _productCategoryRepository.ProductCategoryExistAsync(new ProductId(request.ProductId), new CategoryId(request.CategoriesId));
-            if (productCategoryExit is not null)
+            ProductCategory? productCategory = await _productCategoryRepository.ProductCategoryExistAsync(new ProductId(request.ProductId), new CategoryId(request.CategoriesId));
+            if (productCategory is not null)
             {
-                _productCategoryRepository.Delete(productCategoryExit);
+                _productCategoryRepository.Delete(productCategory);
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
             }
 
