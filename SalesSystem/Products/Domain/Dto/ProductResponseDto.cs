@@ -12,6 +12,6 @@
         DateTime DeleteAt,
         bool IsUpdated,
         bool IsDeleted,
-        List<string> Categorias
+        List<ProductCategoryResponseDto> Categorias
     );
 }

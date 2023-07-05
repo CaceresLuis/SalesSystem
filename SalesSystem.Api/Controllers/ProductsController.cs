@@ -5,10 +5,12 @@ using SalesSystem.Products.Aplication.GetAll;
 using SalesSystem.Products.Aplication.Update;
 using SalesSystem.Products.Aplication.Delete;
 using SalesSystem.Products.Aplication.GetById;
+using SalesSystem.ProductCategories.Aplication.Create;
+using SalesSystem.ProductCategories.Aplication.Delete;
 
 namespace SalesSystem.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ProductsController : ApiController
     {
@@ -51,6 +53,14 @@ namespace SalesSystem.Api.Controllers
             return createResult.Match(productId => Ok(productId), errors => Problem(errors));
         }
 
+        [HttpPost("AddCategoryToProduct")]
+        public async Task<IActionResult> AddCategoryToProduct([FromBody] CreateProductCategoryCommand command)
+        {
+            ErrorOr<Unit> createResult = await _mediator.Send(command);
+
+            return createResult.Match(productId => Ok(productId), errors => Problem(errors));
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateProductCommand command)
         {
@@ -73,6 +83,14 @@ namespace SalesSystem.Api.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             ErrorOr<Unit> deleteResult = await _mediator.Send(new DeleteProductCommand(id));
+
+            return deleteResult.Match(productId => NoContent(), errors => Problem(errors));
+        }
+
+        [HttpDelete("DeleteCategoryToProduct")]
+        public async Task<IActionResult> DeleteCategoryToProduct([FromBody] DeleteProductCategoryCommand command)
+        {
+            ErrorOr<Unit> deleteResult = await _mediator.Send(command);
 
             return deleteResult.Match(productId => NoContent(), errors => Problem(errors));
         }

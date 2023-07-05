@@ -19,21 +19,23 @@ namespace SalesSystem.Products.Aplication.GetById
                 return ErrorsProduct.NotFoundProduct;
 
             return new ProductResponseDto
+            (
+                product.Id.Value,
+                product.Name,
+                product.Description,
+                product.Price,
+                product.Stock,
+                product.CreateAt,
+                product.UpdateAt,
+                product.DeleteAt,
+                product.IsUpdated,
+                product.IsUpdated,
+                product.ProductCategories!.Select(pc => new ProductCategoryResponseDto
                 (
-                    product.Id.Value,
-                    product.Name,
-                    product.Description,
-                    product.Price,
-                    product.Stock,
-                    product.CreateAt,
-                    product.UpdateAt,
-                    product.DeleteAt,
-                    product.IsUpdated,
-                    product.IsUpdated,
-                    product.ProductCategories.Select(pc => pc.Category.Name).ToList()
-                );
-
-            throw new NotImplementedException();
+                    pc.Category.Id.Value,
+                    pc.Category.Name
+                )).ToList()
+            );
         }
     }
 }

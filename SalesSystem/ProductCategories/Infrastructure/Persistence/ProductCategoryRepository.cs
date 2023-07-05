@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using SalesSystem.Products.Domain;
+using Microsoft.EntityFrameworkCore;
+using SalesSystem.Categories.Domain;
 using SalesSystem.Shared.Aplication.Data;
 using SalesSystem.ProductCategories.Domain;
 
@@ -15,10 +17,12 @@ namespace SalesSystem.ProductCategories.Infrastructure.Persistence
 
         public void Add(ProductCategory productCategory) => _context.ProductCategories.Add(productCategory);
 
-        public async Task<IEnumerable<ProductCategory>> GetAllAsync() => await _context.ProductCategories.ToListAsync();
+        public async Task<bool> ProductCategoryRelationExistAsync(ProductId productId, CategoryId categoryId) => await _context.ProductCategories.AnyAsync(pc => pc.ProductId == productId && pc.CategoryId == categoryId);
 
-        public void Update(ProductCategory productCategory) => _context.ProductCategories.Update(productCategory);
+        public async Task<ProductCategory?> ProductCategoryExistAsync(ProductId productId, CategoryId categoryId) => await _context.ProductCategories.SingleOrDefaultAsync(pc => pc.ProductId == productId && pc.CategoryId == categoryId);
 
         public void Delete(ProductCategory productCategory) => _context.ProductCategories.Remove(productCategory);
+
+        public async Task<IEnumerable<ProductCategory>> GetAllAsync() => await _context.ProductCategories.ToListAsync();
     }
 }
