@@ -1,14 +1,14 @@
-﻿using SalesSystem.Products.Domain;
-using Microsoft.EntityFrameworkCore;
-using SalesSystem.Categories.Domain;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SalesSystem.Shared.Aplication.Data;
 using SalesSystem.Shared.Domain.Primitives;
-using SalesSystem.ProductCategories.Domain;
 using Microsoft.Extensions.DependencyInjection;
-using SalesSystem.Products.Infrastructure.Persistence;
-using SalesSystem.Categories.Infrastructure.Persistence;
-using SalesSystem.ProductCategories.Infrastructure.Persistence;
+using SalesSystem.Modules.Categories.Domain;
+using SalesSystem.Modules.Categories.Infrastructure.Persistence;
+using SalesSystem.Modules.ProductCategories.Domain;
+using SalesSystem.Modules.ProductCategories.Infrastructure.Persistence;
+using SalesSystem.Modules.Products.Domain;
+using SalesSystem.Modules.Products.Infrastructure.Persistence;
 
 namespace SalesSystem.Shared.Infrastructure.Services
 {

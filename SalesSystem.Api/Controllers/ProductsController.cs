@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SalesSystem.Products.Domain.Dto;
-using SalesSystem.Products.Aplication.Create;
-using SalesSystem.Products.Aplication.GetAll;
-using SalesSystem.Products.Aplication.Update;
-using SalesSystem.Products.Aplication.Delete;
-using SalesSystem.Products.Aplication.GetById;
-using SalesSystem.ProductCategories.Aplication.Create;
-using SalesSystem.ProductCategories.Aplication.Delete;
+using SalesSystem.Modules.Products.Domain.Dto;
+using SalesSystem.Modules.Products.Aplication.Create;
+using SalesSystem.Modules.Products.Aplication.Update;
+using SalesSystem.Modules.Products.Aplication.GetAll;
+using SalesSystem.Modules.Products.Aplication.GetById;
+using SalesSystem.Modules.Products.Aplication.Delete;
+using SalesSystem.Modules.ProductCategories.Aplication.Create;
+using SalesSystem.Modules.ProductCategories.Aplication.Delete;
 
 namespace SalesSystem.Api.Controllers
 {

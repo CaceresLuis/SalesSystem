@@ -1,9 +1,9 @@
-﻿using SalesSystem.Products.Domain;
-using Microsoft.EntityFrameworkCore;
-using SalesSystem.Categories.Domain;
+﻿using Microsoft.EntityFrameworkCore;
 using SalesSystem.Shared.Aplication.Data;
 using SalesSystem.Shared.Domain.Primitives;
-using SalesSystem.ProductCategories.Domain;
+using SalesSystem.Modules.Categories.Domain;
+using SalesSystem.Modules.ProductCategories.Domain;
+using SalesSystem.Modules.Products.Domain;
 
 namespace SalesSystem.Shared.Infrastructure
 {

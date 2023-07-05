@@ -1,7 +1,7 @@
-﻿using SalesSystem.Products.Domain;
-using Microsoft.EntityFrameworkCore;
-using SalesSystem.Categories.Domain;
-using SalesSystem.ProductCategories.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using SalesSystem.Modules.Categories.Domain;
+using SalesSystem.Modules.ProductCategories.Domain;
+using SalesSystem.Modules.Products.Domain;
 
 namespace SalesSystem.Shared.Aplication.Data
 {
