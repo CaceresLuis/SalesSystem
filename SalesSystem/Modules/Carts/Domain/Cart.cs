@@ -1,4 +1,5 @@
 ﻿using SalesSystem.Modules.CartItems.Domain;
+using SalesSystem.Modules.Users.Domain;
 using SalesSystem.Shared.Domain.Primitives;
 
 namespace SalesSystem.Modules.Carts.Domain
@@ -8,11 +9,11 @@ namespace SalesSystem.Modules.Carts.Domain
         private Cart() { }
 
         public CartId? Id { get; private set; }
-        //TODO: Id y relacion real con el usuario
-        public Guid? UserId { get; private set; }
+        public User? User { get; private set; }
+        public string? UserId { get; private set; }
         public ICollection<CartItem>? CartItems { get; set; }
 
-        public Cart(CartId? id, Guid? userId)
+        public Cart(CartId? id, string? userId)
         {
             Id = id;
             UserId = userId;

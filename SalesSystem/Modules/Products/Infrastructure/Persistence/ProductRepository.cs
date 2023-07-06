@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SalesSystem.Shared.Aplication.Data;
 using SalesSystem.Modules.Products.Domain;
+using SalesSystem.Shared.Infrastructure;
 
 namespace SalesSystem.Modules.Products.Infrastructure.Persistence
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly IApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public ProductRepository(IApplicationDbContext context)
+        public ProductRepository(ApplicationDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }

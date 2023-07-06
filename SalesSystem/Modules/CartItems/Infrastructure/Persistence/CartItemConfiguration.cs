@@ -13,6 +13,7 @@ namespace SalesSystem.Modules.CartItems.Infrastructure.Persistence
             builder.HasKey(ci => ci.Id);
 
             builder.Property(ci => ci.CartId).HasConversion(cartId => cartId!.Value, value => new CartId(value));
+            builder.Property(ci => ci.Id).HasConversion(cartItemId => cartItemId!.Value, value => new CartItemId(value));
             builder.Property(ci => ci.ProductId).HasConversion(produtId => produtId!.Value, value => new ProductId(value));
         }
     }

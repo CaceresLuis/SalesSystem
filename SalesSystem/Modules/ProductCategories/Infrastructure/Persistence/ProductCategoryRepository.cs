@@ -3,14 +3,15 @@ using SalesSystem.Shared.Aplication.Data;
 using SalesSystem.Modules.Categories.Domain;
 using SalesSystem.Modules.ProductCategories.Domain;
 using SalesSystem.Modules.Products.Domain;
+using SalesSystem.Shared.Infrastructure;
 
 namespace SalesSystem.Modules.ProductCategories.Infrastructure.Persistence
 {
     internal class ProductCategoryRepository : IProductCategoryRepository
     {
-        private readonly IApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public ProductCategoryRepository(IApplicationDbContext context)
+        public ProductCategoryRepository(ApplicationDbContext context)
         {
             _context = context;
         }
