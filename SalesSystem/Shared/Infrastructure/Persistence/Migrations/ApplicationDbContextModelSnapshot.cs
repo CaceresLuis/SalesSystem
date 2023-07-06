@@ -50,8 +50,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -158,8 +158,9 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
 
             modelBuilder.Entity("SalesSystem.Modules.Users.Domain.Role", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("text");
@@ -177,8 +178,9 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
 
             modelBuilder.Entity("SalesSystem.Modules.Users.Domain.User", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
@@ -272,8 +274,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -304,8 +306,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -320,13 +322,11 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -356,7 +356,9 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                 {
                     b.HasOne("SalesSystem.Modules.Users.Domain.User", "User")
                         .WithOne("Cart")
-                        .HasForeignKey("SalesSystem.Modules.Carts.Domain.Cart", "UserId");
+                        .HasForeignKey("SalesSystem.Modules.Carts.Domain.Cart", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -380,7 +382,9 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                 {
                     b.HasOne("SalesSystem.Modules.Users.Domain.User", "User")
                         .WithMany("UserAddres")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -389,7 +393,9 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                 {
                     b.HasOne("SalesSystem.Modules.Users.Domain.User", "User")
                         .WithMany("UserCards")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

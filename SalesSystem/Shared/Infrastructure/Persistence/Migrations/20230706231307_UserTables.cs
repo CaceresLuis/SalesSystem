@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace SalesSystem.shared.infrastructure.persistence.migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class UserTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,7 +53,7 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                 name: "Role",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
                     NormalizedName = table.Column<string>(type: "text", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
@@ -67,7 +67,7 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     FirstName = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
                     LastName = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
                     CreateAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -124,7 +124,7 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: true)
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -133,7 +133,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         name: "FK_Carts_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -141,7 +142,7 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     City = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Department = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     AddressSpecific = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false)
@@ -153,7 +154,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         name: "FK_UserAddres_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -161,7 +163,7 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     CardNumber = table.Column<string>(type: "text", nullable: false),
                     OwnerCard = table.Column<string>(type: "text", nullable: false),
                     ExpiredDate = table.Column<string>(type: "text", nullable: false),
@@ -174,7 +176,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         name: "FK_UserCards_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -182,8 +185,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    RoleId = table.Column<string>(type: "text", nullable: false)
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {

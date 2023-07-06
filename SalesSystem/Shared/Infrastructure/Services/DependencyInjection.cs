@@ -1,23 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using SalesSystem.Shared.Aplication.Data;
+using Microsoft.AspNetCore.Identity;
+using SalesSystem.Modules.Users.Domain;
 using SalesSystem.Modules.Products.Domain;
+using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.Categories.Domain;
 using Microsoft.Extensions.DependencyInjection;
 using SalesSystem.Modules.ProductCategories.Domain;
+using SalesSystem.Modules.Users.Infrastructure.Persistence;
 using SalesSystem.Modules.Products.Infrastructure.Persistence;
+using SalesSystem.Modules.CartItems.Infrastructure.Persistence;
 using SalesSystem.Modules.Categories.Infrastructure.Persistence;
 using SalesSystem.Modules.ProductCategories.Infrastructure.Persistence;
-using SalesSystem.Modules.Users.Domain;
-using Microsoft.AspNetCore.Identity;
-using SalesSystem.Modules.CartItems.Domain;
-using SalesSystem.Modules.CartItems.Infrastructure.Persistence;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using System.Text;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace SalesSystem.Shared.Infrastructure.Services
 {
@@ -41,6 +36,7 @@ namespace SalesSystem.Shared.Infrastructure.Services
             services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
             //services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICartItemRepository, CartItemRepository>();

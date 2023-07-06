@@ -3,8 +3,10 @@ using SalesSystem.Modules.Carts.Domain;
 
 namespace SalesSystem.Modules.Users.Domain
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<Guid>
     {
+        private User() { }
+
         public string? FirstName { get; private set; }
         public string? LastName { get; private set; }
         public ICollection<UserCard>? UserCards { get; set; }
@@ -18,5 +20,20 @@ namespace SalesSystem.Modules.Users.Domain
         public DateTime DeleteAt { get; private set; }
         public bool IsUpdated { get; private set; }
         public bool IsDeleted { get; private set; }
+
+        public User(Guid id, string email, string firstName, string lastName, string phoneNumbre, DateTime createAt, DateTime upDateAt, DateTime deleteAt, bool isUpdated, bool isDeleted)
+        {
+            Id = id;
+            Email = email;
+            UserName = email;
+            LastName = lastName;
+            FirstName = firstName;
+            PhoneNumber = phoneNumbre;
+            CreateAt = createAt;
+            UpdateAt = upDateAt;
+            DeleteAt = deleteAt;
+            IsUpdated = isUpdated;
+            IsDeleted = isDeleted;
+        }
     }
 }
