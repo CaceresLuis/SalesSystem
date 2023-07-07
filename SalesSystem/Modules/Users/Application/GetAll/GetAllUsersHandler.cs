@@ -22,6 +22,7 @@ namespace SalesSystem.Modules.Users.Application.GetAll
                 user.FirstName!,
                 user.LastName!,
                 user.Email!,
+                user.Cart!.Id!.Value,
                 user.CreateAt,
                 user.UpdateAt,
                 user.DeleteAt,

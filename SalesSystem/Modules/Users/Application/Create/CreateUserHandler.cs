@@ -1,6 +1,8 @@
-﻿using SalesSystem.Modules.Categories.Domain.DomainErrors;
+﻿using SalesSystem.Modules.Carts.Domain;
 using SalesSystem.Modules.Users.Domain;
 using SalesSystem.Shared.Domain.Primitives;
+using SalesSystem.Modules.Users.Domain.DomainErrors;
+using SalesSystem.Modules.Users.Domain.ValueObjetcs;
 
 namespace SalesSystem.Modules.Users.Application.Create
 {
@@ -8,22 +10,27 @@ namespace SalesSystem.Modules.Users.Application.Create
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
+        private readonly ICartRepository _cartRepository;
 
-        public CreateUserHandler(IUserRepository userRepository, IUnitOfWork unitOfWork)
+        public CreateUserHandler(IUserRepository userRepository, IUnitOfWork unitOfWork, ICartRepository cartRepository)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _cartRepository = cartRepository;
         }
 
         public async Task<ErrorOr<Unit>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
+            if (PhoneNumber.Create(request.PhoneNumber) is not PhoneNumber phoneNumber)
+                return ErrorsUser.PhoneNumberWithBadFormat;
+
             User user = new
             (
                 Guid.NewGuid(),
                 request.Email,
                 request.FistName,
                 request.LastName,
-                request.PhoneNumber,
+                phoneNumber,
                 DateTime.UtcNow,
                 DateTime.MinValue,
                 DateTime.MinValue,
@@ -31,7 +38,13 @@ namespace SalesSystem.Modules.Users.Application.Create
                 false
             );
 
+            Cart cart = new(new CartId(Guid.NewGuid()), user.Id);
+
             await _userRepository.AddAsync(user, request.Password);
+
+            _cartRepository.Add(cart);
+
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }

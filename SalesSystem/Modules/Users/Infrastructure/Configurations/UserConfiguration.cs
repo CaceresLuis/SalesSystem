@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SalesSystem.Modules.Users.Domain;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SalesSystem.Modules.Users.Domain.ValueObjetcs;
 
 namespace SalesSystem.Modules.Users.Infrastructure.Configurations
 {
@@ -16,7 +17,9 @@ namespace SalesSystem.Modules.Users.Infrastructure.Configurations
             builder.Property(u => u.FirstName).HasMaxLength(150);
 
             builder.Ignore(u => u.FullName);
-            //builder.Ignore(u => u.Cart);
+
+            builder.Property(c => c.PhoneNumber).HasConversion(phoneNumber => phoneNumber!.Value, value => PhoneNumber.Create(value)!).HasMaxLength(9);
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SalesSystem.Modules.Carts.Domain;
+using SalesSystem.Modules.Users.Domain.ValueObjetcs;
 
 namespace SalesSystem.Modules.Users.Domain
 {
@@ -14,6 +15,7 @@ namespace SalesSystem.Modules.Users.Domain
         public string? FullName => $"{FirstName} {LastName}";
         public Cart? Cart { get; set; }
         public virtual ICollection<UserRole>? UserRoles { get; set; }
+        public new PhoneNumber? PhoneNumber { get; set; }
 
         public DateTime CreateAt { get; private set; }
         public DateTime UpdateAt { get; private set; }
@@ -21,7 +23,7 @@ namespace SalesSystem.Modules.Users.Domain
         public bool IsUpdated { get; private set; }
         public bool IsDeleted { get; private set; }
 
-        public User(Guid id, string email, string firstName, string lastName, string phoneNumbre, DateTime createAt, DateTime upDateAt, DateTime deleteAt, bool isUpdated, bool isDeleted)
+        public User(Guid id, string email, string firstName, string lastName, PhoneNumber phoneNumbre, DateTime createAt, DateTime upDateAt, DateTime deleteAt, bool isUpdated, bool isDeleted)
         {
             Id = id;
             Email = email;

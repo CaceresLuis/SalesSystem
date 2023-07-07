@@ -17,8 +17,6 @@ namespace SalesSystem.Modules.Products.Aplication.GetAll
         {
             IEnumerable<Product> products = await _productRepository.GetAllAsync();
 
-            List<ICollection<ProductCategory>?> data = products.Select(p => p.ProductCategories).ToList();
-
             return products.Select(product => new ProductResponseDto
             (
                 product.Id!.Value,

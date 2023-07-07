@@ -6,6 +6,7 @@
         string FirstName,
         string LastName,
         string Email,
+        Guid CartId,
         DateTime CreateAt,
         DateTime UpdateAt,
         DateTime DeleteAt,

@@ -9,5 +9,6 @@
         Task<IEnumerable<Category>> GetAllAsync();
         Task<IEnumerable<Category>> GetAllDeletedAsync();
         Task<bool> ExistAsync(CategoryId id);
+        Task<Category?> GetByNameAsync(string name);
     }
 }

@@ -16,10 +16,12 @@ namespace SalesSystem.Modules.Categories.Infrastructure.Persistence
         public void Add(Category category) => _context.Categories.Add(category);
 
         public async Task<bool> ExistAsync(CategoryId id) => await _context.Categories.AnyAsync(c => c.Id == id && !c.IsDeleted);
-
+        
         public async Task<IEnumerable<Category>> GetAllAsync() => await _context.Categories.Where(c => !c.IsDeleted).ToListAsync();
 
         public async Task<IEnumerable<Category>> GetAllDeletedAsync() => await _context.Categories.Where(c => c.IsDeleted).ToListAsync();
+
+        public async Task<Category?> GetByNameAsync(string name) => await _context.Categories.Where(c => c.Name == name).SingleOrDefaultAsync();
 
         public async Task<Category?> GetByIdAsync(CategoryId id) => await _context.Categories.AsNoTracking().SingleOrDefaultAsync(c => c.Id == id && !c.IsDeleted);
 

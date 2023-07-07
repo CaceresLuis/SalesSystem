@@ -17,8 +17,15 @@ namespace SalesSystem.Modules.Categories.Aplication.Update
 
         public async Task<ErrorOr<Unit>> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
         {
+
             if (await _categoryRepository.GetByIdAsync(new CategoryId(request.Id)) is not Category categoryDb)
                 return ErrosCategory.NotFoundCategory;
+
+            if (categoryDb.Name == request.Name)
+                return Unit.Value;
+
+            if(await _categoryRepository.GetByNameAsync(request.Name) is not null)
+                return ErrosCategory.CategoryNameAlreadyExist;
 
             Category category = Category.UpdateCategory
                 (
@@ -36,6 +43,7 @@ namespace SalesSystem.Modules.Categories.Aplication.Update
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
+
         }
     }
 }

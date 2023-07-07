@@ -42,8 +42,7 @@ namespace SalesSystem.Modules.Products.Aplication.Create
             {
                 foreach (Guid category in request.Categories)
                 {
-                    Category? categoryDb = await _categoryRepository.GetByIdAsync(new CategoryId(category));
-                    if (categoryDb is not null)
+                    if (await _categoryRepository.GetByIdAsync(new CategoryId(category)) is Category categoryDb)
                     {
                         ProductCategory productCategory = new
                             (
