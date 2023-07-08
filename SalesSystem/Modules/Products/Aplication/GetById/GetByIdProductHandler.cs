@@ -29,7 +29,7 @@ namespace SalesSystem.Modules.Products.Aplication.GetById
                 product.UpdateAt,
                 product.DeleteAt,
                 product.IsUpdated,
-                product.IsUpdated,
+                product.IsDeleted,
                 product.ProductCategories!.Select(pc => new ProductCategoryResponseDto
                 (
                     pc.Category!.Id!.Value,

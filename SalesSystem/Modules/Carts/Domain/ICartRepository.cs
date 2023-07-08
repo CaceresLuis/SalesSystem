@@ -4,7 +4,7 @@
     {
         void Add(Cart cart);
         void Delete(Cart cart);
-        Task<Cart?> GetByIdAsync(Guid id);
+        Task<Cart?> GetByIdAsync(CartId id);
         Task<IEnumerable<Cart>> GetAllAsync();
     }
 }

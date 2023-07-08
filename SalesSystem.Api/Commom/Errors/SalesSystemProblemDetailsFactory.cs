@@ -1,5 +1,4 @@
-﻿using ErrorOr;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using SalesSystem.Api.Commom.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;

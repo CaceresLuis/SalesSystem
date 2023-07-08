@@ -21,9 +21,9 @@ namespace SalesSystem.Modules.Categories.Infrastructure.Persistence
 
         public async Task<IEnumerable<Category>> GetAllDeletedAsync() => await _context.Categories.Where(c => c.IsDeleted).ToListAsync();
 
-        public async Task<Category?> GetByNameAsync(string name) => await _context.Categories.Where(c => c.Name == name).SingleOrDefaultAsync();
+        public async Task<Category?> GetByNameAsync(string name) => await _context.Categories.AsNoTracking().Where(c => c.Name == name).FirstOrDefaultAsync();
 
-        public async Task<Category?> GetByIdAsync(CategoryId id) => await _context.Categories.AsNoTracking().SingleOrDefaultAsync(c => c.Id == id && !c.IsDeleted);
+        public async Task<Category?> GetByIdAsync(CategoryId id) => await _context.Categories.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id && !c.IsDeleted);
 
         public void Update(Category category) => _context.Categories.Update(category);
 

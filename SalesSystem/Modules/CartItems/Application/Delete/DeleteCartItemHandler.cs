@@ -2,6 +2,7 @@
 using SalesSystem.Modules.Products.Domain;
 using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Shared.Domain.Primitives;
+using SalesSystem.Modules.CartItems.Domain.ValueObjects;
 
 namespace SalesSystem.Modules.CartItems.Application.Delete
 {
@@ -18,12 +19,11 @@ namespace SalesSystem.Modules.CartItems.Application.Delete
 
         public async Task<ErrorOr<Unit>> Handle(DeleteCartItemCommand request, CancellationToken cancellationToken)
         {
-            CartItem? cartItem = await _cartItemRepository.CartItemExistAsync(new CartId(request.CartId), new ProductId(request.ProductId));
-            if (cartItem is not null)
-            {
-                _cartItemRepository.Delete(cartItem);
-                await _unitOfWork.SaveChangesAsync(cancellationToken);
-            }
+            if (await _cartItemRepository.CartItemExistAsync(new CartId(request.CartId), new ProductId(request.ProductId)) is not CartItem cartItem)
+                return ErrorCartItem.NotFoundCartItem;
+
+            _cartItemRepository.Delete(cartItem);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }

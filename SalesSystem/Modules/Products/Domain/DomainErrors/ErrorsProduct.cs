@@ -2,6 +2,6 @@
 {
     public class ErrorsProduct
     {
-        public static Error NotFoundProduct => Error.NotFound("Product", "Produt don't exist.");
+        public static Error NotFoundProduct => Error.NotFound("Product.NotFound", "Produt don't exist.");
     }
 }

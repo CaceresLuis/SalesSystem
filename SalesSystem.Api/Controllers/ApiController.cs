@@ -26,11 +26,10 @@ namespace SalesSystem.Api.Controllers
             {
                 ErrorType.Conflict => StatusCodes.Status409Conflict,
                 ErrorType.NotFound => StatusCodes.Status404NotFound,
-                ErrorType.Validation => StatusCodes.Status400BadRequest,
                 _ => StatusCodes.Status500InternalServerError
             };
 
-            return Problem(statusCode: statusCode, title: error.Description);
+            return Problem(statusCode: statusCode, title: error.Code, detail: error.Description);
         }
 
         private IActionResult ValidationProblem(List<Error> errors)

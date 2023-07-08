@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SalesSystem.Modules.Users.Domain.Dto;
 using SalesSystem.Modules.Users.Application.Create;
 using SalesSystem.Modules.Users.Application.GetAll;
+using SalesSystem.Modules.Users.Application.GetByEmail;
 
 namespace SalesSystem.Api.Controllers
 {
@@ -18,9 +20,21 @@ namespace SalesSystem.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            ErrorOr<IReadOnlyList<Modules.Users.Domain.Dto.UserResponseDto>> result = await _mediator.Send(new GetAllUsersQuery());
+            ErrorOr<IReadOnlyList<UserResponseDto>> result = await _mediator.Send(new GetAllUsersQuery());
 
-            return result.Match(users => Ok(users),errors => Problem(errors));
+            return result.Match(users => Ok(users), errors => Problem(errors));
+        }
+
+        [HttpGet("{emailOrId}")]
+        public async Task<IActionResult> GetByEmail(string emailOrId)
+        {
+            ErrorOr<UserResponseDto> result = await _mediator.Send(new GetUserQuery(emailOrId));
+
+            return result.Match
+                (
+                    user => Ok(user),
+                    errors => Problem(errors)
+                 );
         }
 
         [HttpPost]

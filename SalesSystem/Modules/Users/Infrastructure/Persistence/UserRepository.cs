@@ -16,12 +16,19 @@ namespace SalesSystem.Modules.Users.Infrastructure.Persistence
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
 
-        public async Task UpdateAsync(User user) => await _userManager.UpdateAsync(user);
+        public async Task<IdentityResult> UpdateAsync(User user) => await _userManager.UpdateAsync(user);
 
-        public async Task<User?> GetByEmail(string email) => await _userManager.FindByEmailAsync(email);
+        public async Task<IdentityResult> AddAsync(User user, string password) => await _userManager.CreateAsync(user, password);
 
-        public async Task AddAsync(User user, string password) => await _userManager.CreateAsync(user, password);
+        public async Task<User?> GetById(Guid id) => await _context.Users.Include(u => u.Cart).FirstOrDefaultAsync(u => u.Id == id);
 
-        public async Task<IEnumerable<User>> GetAll() => await _userManager.Users.Where(u => u.Cart != null).Include(u => u.Cart).ToListAsync();
+        public async Task<IdentityResult> AddUserToRole(User user, string roleName) => await _userManager.AddToRoleAsync(user, roleName);
+
+        public async Task<bool> UserExistAsync(string email) => await _context.Users.AsNoTracking().AnyAsync(u => u.NormalizedEmail == email.ToUpper());
+
+        public async Task<IEnumerable<User>> GetAll() => await _userManager.Users.AsNoTracking().Where(u => u.Cart != null).Include(u => u.Cart).ToListAsync();
+
+        public async Task<User?> GetByEmail(string email) => await _context.Users.Include(u => u.Cart).FirstOrDefaultAsync(u => u.NormalizedEmail == email.ToUpper());
+
     }
 }

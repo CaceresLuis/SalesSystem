@@ -17,8 +17,8 @@ namespace SalesSystem.Modules.Carts.Infrastructure
 
         public void Delete(Cart cart) => _context.Carts.Remove(cart);
 
-        public async Task<IEnumerable<Cart>> GetAllAsync() => await _context.Carts.ToListAsync();
+        public async Task<IEnumerable<Cart>> GetAllAsync() => await _context.Carts.AsNoTracking().ToListAsync();
 
-        public async Task<Cart?> GetByIdAsync(Guid id) => await _context.Carts.SingleOrDefaultAsync(c => c.UserId == id);
+        public async Task<Cart?> GetByIdAsync(CartId id) => await _context.Carts.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }
 }

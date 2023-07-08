@@ -1,4 +1,5 @@
-﻿using SalesSystem.Modules.Carts.Domain;
+﻿using Microsoft.AspNetCore.Identity;
+using SalesSystem.Modules.Carts.Domain;
 using SalesSystem.Modules.Users.Domain;
 using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.Users.Domain.DomainErrors;
@@ -40,7 +41,9 @@ namespace SalesSystem.Modules.Users.Application.Create
 
             Cart cart = new(new CartId(Guid.NewGuid()), user.Id);
 
-            await _userRepository.AddAsync(user, request.Password);
+            IdentityResult AddUser = await _userRepository.AddAsync(user, request.Password);
+            if (!AddUser.Succeeded)
+                return ErrorsUser.UserError(AddUser.Errors.First().Description);
 
             _cartRepository.Add(cart);
 

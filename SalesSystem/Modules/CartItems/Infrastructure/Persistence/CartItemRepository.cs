@@ -1,34 +1,32 @@
-﻿using SalesSystem.Modules.CartItems.Domain;
+﻿using Microsoft.EntityFrameworkCore;
 using SalesSystem.Modules.Carts.Domain;
+using SalesSystem.Shared.Infrastructure;
 using SalesSystem.Modules.Products.Domain;
+using SalesSystem.Modules.CartItems.Domain;
 
 namespace SalesSystem.Modules.CartItems.Infrastructure.Persistence
 {
     internal class CartItemRepository : ICartItemRepository
     {
-        public void Add(CartItem cartItem)
+        private readonly ApplicationDbContext _context;
+
+        public CartItemRepository(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<CartItem> CartItemExistAsync(CartId cartId, ProductId productId)
-        {
-            throw new NotImplementedException();
-        }
+        public void Add(CartItem cartItem) => _context.CartItems.Add(cartItem);
 
-        public void Delete(CartItem cartItem)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(CartItem cartItem) => _context.CartItems.Update(cartItem);
 
-        public Task<IEnumerable<CartItem>> GetAllAsync(CartId cartId)
-        {
-            throw new NotImplementedException();
-        }
+        public void Delete(CartItem cartItem) => _context.CartItems.Remove(cartItem);
 
-        public Task<CartItem?> GetByIdAsync(CartItemId id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<CartItem?> GetByIdAsync(CartItemId id) => await _context.CartItems.AsNoTracking()
+            .Include(ci => ci.Product)!.ThenInclude(p => p.ProductCategories)!.ThenInclude(pc => pc.Category).SingleOrDefaultAsync(ci => ci.Id == id);
+
+        public async Task<IEnumerable<CartItem>> GetAllAsync(CartId cartId) => await _context.CartItems.AsNoTracking().Where(ci => ci.CartId == cartId)
+            .Include(ci => ci.Product)!.ThenInclude(p => p.ProductCategories)!.ThenInclude(pc => pc.Category).ToListAsync();
+
+        public async Task<CartItem?> CartItemExistAsync(CartId cartId, ProductId productId) => await _context.CartItems.AsNoTracking().SingleOrDefaultAsync(ci => ci.CartId == cartId && ci.ProductId == productId);
     }
 }

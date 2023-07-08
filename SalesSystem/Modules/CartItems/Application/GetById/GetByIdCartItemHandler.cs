@@ -1,7 +1,7 @@
 ﻿using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Modules.CartItems.Domain.Dto;
-using SalesSystem.Modules.Products.Domain.DomainErrors;
 using SalesSystem.Modules.Products.Domain.Dto;
+using SalesSystem.Modules.Products.Domain.DomainErrors;
 
 namespace SalesSystem.Modules.CartItems.Application.GetById
 {
@@ -16,9 +16,7 @@ namespace SalesSystem.Modules.CartItems.Application.GetById
 
         public async Task<ErrorOr<CartItemResponseDto>> Handle(GetByIdCartItemQuery request, CancellationToken cancellationToken)
         {
-            CartItem? cartItem = await _cartItemRepository.GetByIdAsync(new CartItemId(request.Id));
-
-            if (cartItem is null)
+            if (await _cartItemRepository.GetByIdAsync(new CartItemId(request.Id)) is not CartItem cartItem)
                 return ErrorsProduct.NotFoundProduct;
 
             return new CartItemResponseDto

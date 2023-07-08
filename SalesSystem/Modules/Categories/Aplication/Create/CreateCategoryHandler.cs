@@ -1,5 +1,6 @@
-﻿using SalesSystem.Modules.Categories.Domain;
-using SalesSystem.Shared.Domain.Primitives;
+﻿using SalesSystem.Shared.Domain.Primitives;
+using SalesSystem.Modules.Categories.Domain;
+using SalesSystem.Modules.Categories.Domain.DomainErrors;
 
 namespace SalesSystem.Modules.Categories.Aplication.Create
 {
@@ -16,6 +17,9 @@ namespace SalesSystem.Modules.Categories.Aplication.Create
 
         public async Task<ErrorOr<Unit>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
+            if (await _categoryRepository.GetByNameAsync(request.Name) is not null)
+                return ErrosCategory.CategoryNameAlreadyExist;
+
             Category category = new
                 (
                     new CategoryId(Guid.NewGuid()),
