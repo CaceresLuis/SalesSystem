@@ -1,6 +1,7 @@
 ﻿using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.Products.Domain;
 using SalesSystem.Modules.Products.Domain.DomainErrors;
+using SalesSystem.Shared.Domain.ValueObjects;
 
 namespace SalesSystem.Modules.Products.Aplication.Update
 {
@@ -35,7 +36,8 @@ namespace SalesSystem.Modules.Products.Aplication.Update
                 );
 
             _productRepository.Update(product);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            if (await _unitOfWork.SaveChangesAsync(cancellationToken) < 1)
+                return SaveError.GenericError;
 
             return Unit.Value;
         }

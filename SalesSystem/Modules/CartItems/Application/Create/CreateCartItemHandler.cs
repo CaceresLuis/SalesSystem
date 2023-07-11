@@ -4,33 +4,28 @@ using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.Carts.Domain.ValueObjects;
 using SalesSystem.Modules.Products.Domain.DomainErrors;
+using SalesSystem.Shared.Domain.ValueObjects;
 
 namespace SalesSystem.Modules.CartItems.Application.Create
 {
     internal class CreateCartItemHandler : IRequestHandler<CreateCartItemCommad, ErrorOr<Unit>>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ICartRepository _cartRepository;
-        private readonly IProductRepository _productRepository;
-        private readonly ICartItemRepository _cartItemRepository;
 
-        public CreateCartItemHandler(IUnitOfWork unitOfWork, ICartItemRepository cartItemRepository, IProductRepository productRepository, ICartRepository cartRepository)
+        public CreateCartItemHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            _cartRepository = cartRepository ?? throw new ArgumentNullException(nameof(cartRepository));
-            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
-            _cartItemRepository = cartItemRepository ?? throw new ArgumentNullException(nameof(cartItemRepository));
         }
 
         public async Task<ErrorOr<Unit>> Handle(CreateCartItemCommad request, CancellationToken cancellationToken)
         {
-            if (await _cartRepository.GetByIdAsync(new CartId(request.CartId)) is not Cart cart)
+            if (await _unitOfWork.CartRepository.GetByIdAsync(new CartId(request.CartId)) is not Cart cart)
                 return ErrosCart.NotFoundCart;
 
-            if (await _productRepository.GetByIdAsync(new ProductId(request.ProductId)) is not Product product)
+            if (await _unitOfWork.ProductRepository.GetByIdAsync(new ProductId(request.ProductId)) is not Product product)
                 return ErrorsProduct.NotFoundProduct;
 
-            if (await _cartItemRepository.CartItemExistAsync(cart.Id!, product.Id!) is CartItem cartItemDb)
+            if (await _unitOfWork.CartItemRepository.CartItemExistAsync(cart.Id!, product.Id!) is CartItem cartItemDb)
             {
                 int qyt = cartItemDb.Qty + request.Qty;
                 CartItem cartItemUpdate = new
@@ -41,7 +36,7 @@ namespace SalesSystem.Modules.CartItems.Application.Create
                     qyt
                 );
 
-                _cartItemRepository.Update(cartItemUpdate);
+                _unitOfWork.CartItemRepository.Update(cartItemUpdate);
             }
             else
             {
@@ -53,10 +48,11 @@ namespace SalesSystem.Modules.CartItems.Application.Create
                     request.Qty
                 );
 
-                _cartItemRepository.Add(cartItem);
+                _unitOfWork.CartItemRepository.Add(cartItem);
             }
 
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            if(await _unitOfWork.SaveChangesAsync(cancellationToken) < 1)
+                return SaveError.GenericError;
 
             return Unit.Value;
         }

@@ -1,5 +1,6 @@
 ﻿using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.Categories.Domain;
+using SalesSystem.Shared.Domain.ValueObjects;
 using SalesSystem.Modules.Categories.Domain.DomainErrors;
 
 namespace SalesSystem.Modules.Categories.Aplication.Update
@@ -7,24 +8,22 @@ namespace SalesSystem.Modules.Categories.Aplication.Update
     public class UpdateCategoryHandler : IRequestHandler<UpdateCategoryCommand, ErrorOr<Unit>>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ICategoryRepository _categoryRepository;
 
-        public UpdateCategoryHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+        public UpdateCategoryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
 
         public async Task<ErrorOr<Unit>> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
         {
 
-            if (await _categoryRepository.GetByIdAsync(new CategoryId(request.Id)) is not Category categoryDb)
+            if (await _unitOfWork.CategoryRepository.GetByIdAsync(new CategoryId(request.Id)) is not Category categoryDb)
                 return ErrosCategory.NotFoundCategory;
 
             if (categoryDb.Name == request.Name)
                 return Unit.Value;
 
-            if(await _categoryRepository.GetByNameAsync(request.Name) is not null)
+            if(await _unitOfWork.CategoryRepository.GetByNameAsync(request.Name) is not null)
                 return ErrosCategory.CategoryNameAlreadyExist;
 
             Category category = Category.UpdateCategory
@@ -38,12 +37,12 @@ namespace SalesSystem.Modules.Categories.Aplication.Update
                     categoryDb.IsDeleted
                 );
 
-            _categoryRepository.Update(category);
+            _unitOfWork.CategoryRepository.Update(category);
 
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            if (await _unitOfWork.SaveChangesAsync(cancellationToken) < 1)
+                return SaveError.GenericError;
 
             return Unit.Value;
-
         }
     }
 }

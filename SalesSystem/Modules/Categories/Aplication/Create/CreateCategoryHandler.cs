@@ -1,5 +1,6 @@
 ﻿using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.Categories.Domain;
+using SalesSystem.Shared.Domain.ValueObjects;
 using SalesSystem.Modules.Categories.Domain.DomainErrors;
 
 namespace SalesSystem.Modules.Categories.Aplication.Create
@@ -7,17 +8,15 @@ namespace SalesSystem.Modules.Categories.Aplication.Create
     public sealed class CreateCategoryHandler : IRequestHandler<CreateCategoryCommand, ErrorOr<Unit>>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ICategoryRepository _categoryRepository;
 
-        public CreateCategoryHandler(IUnitOfWork unitOfWork, ICategoryRepository categoryRepository)
+        public CreateCategoryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
 
         public async Task<ErrorOr<Unit>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
-            if (await _categoryRepository.GetByNameAsync(request.Name) is not null)
+            if (await _unitOfWork.CategoryRepository.GetByNameAsync(request.Name) is not null)
                 return ErrosCategory.CategoryNameAlreadyExist;
 
             Category category = new
@@ -31,9 +30,10 @@ namespace SalesSystem.Modules.Categories.Aplication.Create
                     false
                 );
 
-            _categoryRepository.Add(category);
+            _unitOfWork.CategoryRepository.Add(category);
 
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            if (await _unitOfWork.SaveChangesAsync(cancellationToken) < 1)
+                return SaveError.GenericError;
 
             return Unit.Value;
         }

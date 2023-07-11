@@ -1,5 +1,6 @@
 ﻿using SalesSystem.Modules.Products.Domain;
 using SalesSystem.Shared.Domain.Primitives;
+using SalesSystem.Shared.Domain.ValueObjects;
 using SalesSystem.Modules.Products.Domain.DomainErrors;
 
 namespace SalesSystem.Modules.Products.Aplication.Delete
@@ -7,17 +8,15 @@ namespace SalesSystem.Modules.Products.Aplication.Delete
     internal class DeleteProductHandler : IRequestHandler<DeleteProductCommand, ErrorOr<Unit>>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IProductRepository _productRepository;
 
-        public DeleteProductHandler(IUnitOfWork unitOfWork, IProductRepository productRepository)
+        public DeleteProductHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
         }
 
         public async Task<ErrorOr<Unit>> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
-            if (await _productRepository.GetByIdAsync(new ProductId(request.Id)) is not Product productBd)
+            if (await _unitOfWork.ProductRepository.GetByIdAsync(new ProductId(request.Id)) is not Product productBd)
                 return ErrorsProduct.NotFoundProduct;
 
             Product product = Product.UpdateProduct
@@ -34,8 +33,10 @@ namespace SalesSystem.Modules.Products.Aplication.Delete
                     true
                 );
 
-            _productRepository.Update(product);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            _unitOfWork.ProductRepository.Update(product);
+
+            if (await _unitOfWork.SaveChangesAsync(cancellationToken) < 1)
+                return SaveError.GenericError;
 
             return Unit.Value;
         }

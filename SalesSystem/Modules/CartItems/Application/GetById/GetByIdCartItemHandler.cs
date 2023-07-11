@@ -1,22 +1,23 @@
 ﻿using SalesSystem.Modules.CartItems.Domain;
-using SalesSystem.Modules.CartItems.Domain.Dto;
+using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.Products.Domain.Dto;
+using SalesSystem.Modules.CartItems.Domain.Dto;
 using SalesSystem.Modules.Products.Domain.DomainErrors;
 
 namespace SalesSystem.Modules.CartItems.Application.GetById
 {
     internal class GetByIdCartItemHandler : IRequestHandler<GetByIdCartItemQuery, ErrorOr<CartItemResponseDto>>
     {
-        private readonly ICartItemRepository _cartItemRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GetByIdCartItemHandler(ICartItemRepository cartItemRepository)
+        public GetByIdCartItemHandler(IUnitOfWork unitOfWork)
         {
-            _cartItemRepository = cartItemRepository ?? throw new ArgumentNullException(nameof(cartItemRepository));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
         public async Task<ErrorOr<CartItemResponseDto>> Handle(GetByIdCartItemQuery request, CancellationToken cancellationToken)
         {
-            if (await _cartItemRepository.GetByIdAsync(new CartItemId(request.Id)) is not CartItem cartItem)
+            if (await _unitOfWork.CartItemRepository.GetByIdAsync(new CartItemId(request.Id)) is not CartItem cartItem)
                 return ErrorsProduct.NotFoundProduct;
 
             return new CartItemResponseDto

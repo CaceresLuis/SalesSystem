@@ -2,6 +2,7 @@
 using SalesSystem.Modules.Products.Domain;
 using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Shared.Domain.Primitives;
+using SalesSystem.Shared.Domain.ValueObjects;
 using SalesSystem.Modules.CartItems.Domain.ValueObjects;
 
 namespace SalesSystem.Modules.CartItems.Application.Delete
@@ -9,21 +10,20 @@ namespace SalesSystem.Modules.CartItems.Application.Delete
     internal class DeleteCartItemHandler : IRequestHandler<DeleteCartItemCommand, ErrorOr<Unit>>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ICartItemRepository _cartItemRepository;
 
-        public DeleteCartItemHandler(IUnitOfWork unitOfWork, ICartItemRepository cartItemRepository)
+        public DeleteCartItemHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            _cartItemRepository = cartItemRepository ?? throw new ArgumentNullException(nameof(cartItemRepository));
         }
 
         public async Task<ErrorOr<Unit>> Handle(DeleteCartItemCommand request, CancellationToken cancellationToken)
         {
-            if (await _cartItemRepository.CartItemExistAsync(new CartId(request.CartId), new ProductId(request.ProductId)) is not CartItem cartItem)
+            if (await _unitOfWork.CartItemRepository.CartItemExistAsync(new CartId(request.CartId), new ProductId(request.ProductId)) is not CartItem cartItem)
                 return ErrorCartItem.NotFoundCartItem;
 
-            _cartItemRepository.Delete(cartItem);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            _unitOfWork.CartItemRepository.Delete(cartItem);
+            if (await _unitOfWork.SaveChangesAsync(cancellationToken) < 1)
+                return SaveError.GenericError;
 
             return Unit.Value;
         }

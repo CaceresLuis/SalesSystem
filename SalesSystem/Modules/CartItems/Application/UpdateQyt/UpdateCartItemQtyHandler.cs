@@ -1,5 +1,6 @@
-﻿using SalesSystem.Modules.CartItems.Domain;
-using SalesSystem.Shared.Domain.Primitives;
+﻿using SalesSystem.Shared.Domain.Primitives;
+using SalesSystem.Modules.CartItems.Domain;
+using SalesSystem.Shared.Domain.ValueObjects;
 using SalesSystem.Modules.CartItems.Domain.ValueObjects;
 
 namespace SalesSystem.Modules.CartItems.Application.UpdateQyt
@@ -7,17 +8,15 @@ namespace SalesSystem.Modules.CartItems.Application.UpdateQyt
     internal class UpdateCartItemQtyHandler : IRequestHandler<UpdateCartItemQtyCommand, ErrorOr<Unit>>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ICartItemRepository _cartItemRepository;
 
-        public UpdateCartItemQtyHandler(IUnitOfWork unitOfWork, ICartItemRepository cartItemRepository)
+        public UpdateCartItemQtyHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            _cartItemRepository = cartItemRepository ?? throw new ArgumentNullException(nameof(cartItemRepository));
         }
 
         public async Task<ErrorOr<Unit>> Handle(UpdateCartItemQtyCommand request, CancellationToken cancellationToken)
         {
-            if (await _cartItemRepository.GetByIdAsync(new CartItemId(request.CartItemId)) is not CartItem cartItem)
+            if (await _unitOfWork.CartItemRepository.GetByIdAsync(new CartItemId(request.CartItemId)) is not CartItem cartItem)
                 return ErrorCartItem.NotFoundCartItem;
 
             CartItem cartItemUpdate = new
@@ -28,9 +27,10 @@ namespace SalesSystem.Modules.CartItems.Application.UpdateQyt
                 request.Qty
             );
 
-            _cartItemRepository.Update(cartItemUpdate);
+            _unitOfWork.CartItemRepository.Update(cartItemUpdate);
 
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            if (await _unitOfWork.SaveChangesAsync(cancellationToken) < 1)
+                return SaveError.GenericError;
 
             return Unit.Value;
         }

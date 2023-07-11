@@ -1,21 +1,22 @@
 ﻿using SalesSystem.Modules.Products.Domain;
-using SalesSystem.Modules.Products.Domain.DomainErrors;
+using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.Products.Domain.Dto;
+using SalesSystem.Modules.Products.Domain.DomainErrors;
 
 namespace SalesSystem.Modules.Products.Aplication.GetById
 {
     internal class GetByIdProductHandler : IRequestHandler<GetByIdProductQuery, ErrorOr<ProductResponseDto>>
     {
-        private readonly IProductRepository _productRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GetByIdProductHandler(IProductRepository productRepository)
+        public GetByIdProductHandler(IUnitOfWork unitOfWork)
         {
-            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
         public async Task<ErrorOr<ProductResponseDto>> Handle(GetByIdProductQuery request, CancellationToken cancellationToken)
         {
-            if (await _productRepository.GetByIdAsync(new ProductId(request.Id)) is not Product product)
+            if (await _unitOfWork.ProductRepository.GetByIdAsync(new ProductId(request.Id)) is not Product product)
                 return ErrorsProduct.NotFoundProduct;
 
             return new ProductResponseDto
