@@ -31,7 +31,6 @@ namespace SalesSystem.Shared.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Ignore<IdentityUserClaim<Guid>>();
             modelBuilder.Ignore<IdentityUserLogin<Guid>>();
             modelBuilder.Ignore<IdentityUserToken<Guid>>();
             modelBuilder.Ignore<IdentityRoleClaim<Guid>>();

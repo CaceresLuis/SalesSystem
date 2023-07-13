@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SalesSystem.Modules.Users.Domain.Dto;
+using SalesSystem.Modules.Users.Application.Get;
+using SalesSystem.Modules.Users.Application.Login;
 using SalesSystem.Modules.Users.Application.Create;
 using SalesSystem.Modules.Users.Application.GetAll;
-using SalesSystem.Modules.Users.Application.GetByEmail;
 
 namespace SalesSystem.Api.Controllers
 {
@@ -15,6 +16,14 @@ namespace SalesSystem.Api.Controllers
         public UsersController(ISender mediator)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] LoginQuery query)
+        {
+            ErrorOr<TokenDto> result = await _mediator.Send(query);
+
+            return result.Match(result => Ok(result), errors => Problem(errors));
         }
 
         [HttpGet]

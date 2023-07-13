@@ -7,7 +7,7 @@ using SalesSystem.Shared.Infrastructure.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddApplication().AddPresentation().AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication().AddPresentation(builder.Configuration).AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
@@ -24,6 +24,7 @@ app.UseExceptionHandler("/error");
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.UseMiddleware<GlobalExceptionHandlingMiddelware>();

@@ -10,6 +10,7 @@ using SalesSystem.Modules.Categories.Domain;
 using SalesSystem.Modules.Carts.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using SalesSystem.Modules.ProductCategories.Domain;
+using SalesSystem.Modules.Users.Infrastructure;
 using SalesSystem.Modules.Users.Infrastructure.Persistence;
 using SalesSystem.Modules.Products.Infrastructure.Persistence;
 using SalesSystem.Modules.CartItems.Infrastructure.Persistence;
@@ -31,7 +32,7 @@ namespace SalesSystem.Shared.Infrastructure.Services
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql("name=ConnectionStrings:PostgresConnection"));
             //services.AddDbContext<SalesContext>(options => options.UseNpgsql(configuration.GetConnectionString("")));
 
-            services.AddIdentity<User, Role>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+            //services.AddIdentity<User, Role>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ICartRepository, CartRepository>();
@@ -41,32 +42,9 @@ namespace SalesSystem.Shared.Infrastructure.Services
             services.AddScoped<ICartItemRepository, CartItemRepository>();
             services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 
+            services.AddScoped<IGenerateToken, GenerateToken>();
+
             return services;
         }
     }
 }
-
-
-
-////Get SecretKey of userManager Secrets, also apply in JwtGenerator
-//string keySecret = "YOURSECRETKEYssds494sa984a98s984";
-////Config para manejo de usuarios, login, etc
-//IdentityBuilder builder = services.AddIdentityCore<User>();
-//IdentityBuilder identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
-//identityBuilder.AddRoles<IdentityRole>();
-//identityBuilder.AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<User, IdentityRole>>();
-//identityBuilder.AddEntityFrameworkStores<ApplicationDbContext>();
-//identityBuilder.AddSignInManager<SignInManager<User>>();
-//services.TryAddSingleton<ISystemClock, SystemClock>();
-////Configuracion autenticacion                       //Secret key
-//SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(keySecret));
-//services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
-//{
-//    opt.TokenValidationParameters = new TokenValidationParameters
-//    {
-//        ValidateIssuerSigningKey = true,
-//        IssuerSigningKey = key,
-//        ValidateAudience = false,
-//        ValidateIssuer = false
-//    };
-//});

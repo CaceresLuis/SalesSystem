@@ -2,7 +2,7 @@
 using SalesSystem.Modules.Users.Domain.Dto;
 using SalesSystem.Modules.Users.Domain.DomainErrors;
 
-namespace SalesSystem.Modules.Users.Application.GetByEmail
+namespace SalesSystem.Modules.Users.Application.Get
 {
     internal class GetUserHandler : IRequestHandler<GetUserQuery, ErrorOr<UserResponseDto>>
     {
