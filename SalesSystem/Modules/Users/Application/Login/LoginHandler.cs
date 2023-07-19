@@ -2,6 +2,7 @@
 using SalesSystem.Modules.Users.Domain;
 using SalesSystem.Modules.Users.Domain.Dto;
 using SalesSystem.Modules.Users.Domain.DomainErrors;
+using SalesSystem.Modules.Users.Domain.Entities;
 
 namespace SalesSystem.Modules.Users.Application.Login
 {

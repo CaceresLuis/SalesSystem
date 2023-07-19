@@ -1,24 +1,22 @@
-﻿using SalesSystem.Shared.Domain.Primitives;
-using SalesSystem.Modules.Products.Domain;
-using SalesSystem.Modules.Products.Domain.DomainErrors;
+﻿using SalesSystem.Modules.Products.Domain;
+using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Shared.Domain.ValueObjects;
+using SalesSystem.Modules.Products.Domain.DomainErrors;
 
 namespace SalesSystem.Modules.Products.Aplication.Update
 {
     internal class UpdateProductHandler : IRequestHandler<UpdateProductCommand, ErrorOr<Unit>>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IProductRepository _productRepository;
 
-        public UpdateProductHandler(IUnitOfWork unitOfWork, IProductRepository productRepository)
+        public UpdateProductHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
         }
 
         public async Task<ErrorOr<Unit>> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
-            if (await _productRepository.GetByIdAsync(new ProductId(request.Id)) is not Product productBd)
+            if (await _unitOfWork.ProductRepository.GetByIdAsync(new ProductId(request.Id)) is not Product productBd)
                 return ErrorsProduct.NotFoundProduct;
 
             Product product = Product.UpdateProduct
@@ -35,7 +33,7 @@ namespace SalesSystem.Modules.Products.Aplication.Update
                     productBd.IsDeleted
                 );
 
-            _productRepository.Update(product);
+            _unitOfWork.ProductRepository.Update(product);
             if (await _unitOfWork.SaveChangesAsync(cancellationToken) < 1)
                 return SaveError.GenericError;
 

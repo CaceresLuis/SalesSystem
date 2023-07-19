@@ -5,6 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using SalesSystem.Modules.Users.Domain;
 using Microsoft.Extensions.Configuration;
 using SalesSystem.Modules.Users.Domain.Dto;
+using SalesSystem.Modules.Users.Domain.Entities;
 
 namespace SalesSystem.Modules.Users.Infrastructure
 {

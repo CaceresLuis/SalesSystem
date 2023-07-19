@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SalesSystem.Modules.Carts.Domain;
 using SalesSystem.Modules.Users.Domain.ValueObjetcs;
+using SalesSystem.Shared.Domain.DomainEvents;
 
-namespace SalesSystem.Modules.Users.Domain
+namespace SalesSystem.Modules.Users.Domain.Entities
 {
     public class User : IdentityUser<Guid>
     {
@@ -36,6 +37,13 @@ namespace SalesSystem.Modules.Users.Domain
             DeleteAt = deleteAt;
             IsUpdated = isUpdated;
             IsDeleted = isDeleted;
+        }
+
+        public record UserCreated(Guid id, string email, string firstName, string lastName, PhoneNumber phoneNumbre, DateTime createAt);
+
+        public void PersoneRegistered()
+        {
+            Events.UserCreated.Publish(new UserCreated(Id, Email!, FirstName!, LastName!, PhoneNumber!, CreateAt));
         }
     }
 }

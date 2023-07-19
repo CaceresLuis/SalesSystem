@@ -1,6 +1,6 @@
 ﻿using SalesSystem.Shared.Domain.Primitives;
 
-namespace SalesSystem.Modules.Users.Domain
+namespace SalesSystem.Modules.Users.Domain.Entities
 {
     public sealed class UserAddres : AggregrateRoot
     {

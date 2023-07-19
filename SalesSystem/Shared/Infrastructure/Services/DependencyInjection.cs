@@ -40,6 +40,7 @@ namespace SalesSystem.Shared.Infrastructure.Services
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICartItemRepository, CartItemRepository>();
+            services.AddScoped<IUserAddressRepository, UserAddressRepository>();
             services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 
             services.AddScoped<IGenerateToken, GenerateToken>();

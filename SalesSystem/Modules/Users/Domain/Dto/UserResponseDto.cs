@@ -7,6 +7,7 @@
         string LastName,
         string Email,
         Guid CartId,
+        List<UserAddressResponseDto> UserAddress,
         DateTime CreateAt,
         DateTime UpdateAt,
         DateTime DeleteAt,

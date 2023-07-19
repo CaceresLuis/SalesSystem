@@ -4,6 +4,7 @@ using SalesSystem.Modules.Users.Application.Get;
 using SalesSystem.Modules.Users.Application.Login;
 using SalesSystem.Modules.Users.Application.Create;
 using SalesSystem.Modules.Users.Application.GetAll;
+using SalesSystem.Modules.Users.Application.CreateUserAddres;
 
 namespace SalesSystem.Api.Controllers
 {
@@ -51,6 +52,13 @@ namespace SalesSystem.Api.Controllers
         {
             if (command.Password != command.PasswordConfirm) return BadRequest("Passwords do not match");
 
+            ErrorOr<Unit> create = await _mediator.Send(command);
+            return create.Match(user => Ok(user), errors => Problem(errors));
+        }
+
+        [HttpPost("AddUserAddress")]
+        public async Task<IActionResult> AddUserAddress([FromBody] CreateUserAddresCommand command)
+        {
             ErrorOr<Unit> create = await _mediator.Send(command);
             return create.Match(user => Ok(user), errors => Problem(errors));
         }

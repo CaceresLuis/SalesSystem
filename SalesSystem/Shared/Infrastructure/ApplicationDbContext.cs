@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SalesSystem.Modules.Users.Domain;
 using SalesSystem.Modules.Carts.Domain;
 using SalesSystem.Modules.Products.Domain;
 using SalesSystem.Shared.Domain.Primitives;
@@ -8,6 +7,7 @@ using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Modules.Categories.Domain;
 using SalesSystem.Modules.ProductCategories.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using SalesSystem.Modules.Users.Domain.Entities;
 
 namespace SalesSystem.Shared.Infrastructure
 {

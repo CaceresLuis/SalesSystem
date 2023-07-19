@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using SalesSystem.Modules.Users.Domain.Entities;
 
 namespace SalesSystem.Modules.Users.Domain
 {

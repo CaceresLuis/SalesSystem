@@ -14,6 +14,7 @@ namespace SalesSystem.Shared.Domain.Primitives
         public IProductRepository ProductRepository { get; }
         public ICategoryRepository CategoryRepository { get; }
         public ICartItemRepository CartItemRepository { get; }
+        public IUserAddressRepository UserAddressRepository { get; }
         public IProductCategoryRepository ProductCategoryRepository { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }

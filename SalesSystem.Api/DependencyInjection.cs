@@ -3,9 +3,9 @@ using SalesSystem.Api.Middlerware;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using SalesSystem.Modules.Users.Domain;
 using SalesSystem.Shared.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using SalesSystem.Modules.Users.Domain.Entities;
 
 namespace SalesSystem.Api
 {

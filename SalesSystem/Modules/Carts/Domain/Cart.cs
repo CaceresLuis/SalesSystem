@@ -1,5 +1,5 @@
 ﻿using SalesSystem.Modules.CartItems.Domain;
-using SalesSystem.Modules.Users.Domain;
+using SalesSystem.Modules.Users.Domain.Entities;
 using SalesSystem.Shared.Domain.Primitives;
 
 namespace SalesSystem.Modules.Carts.Domain

@@ -1,5 +1,6 @@
 ﻿using SalesSystem.Modules.Users.Domain;
 using SalesSystem.Modules.Users.Domain.Dto;
+using SalesSystem.Modules.Users.Domain.Entities;
 
 namespace SalesSystem.Modules.Users.Application.GetAll
 {
@@ -23,6 +24,12 @@ namespace SalesSystem.Modules.Users.Application.GetAll
                 user.LastName!,
                 user.Email!,
                 user.Cart!.Id!.Value,
+                user.UserAddres!.Select(u => new UserAddressResponseDto
+                (
+                    u.Department!,
+                    u.City!,
+                    u.AddressSpecific!
+                )).ToList(),
                 user.CreateAt,
                 user.UpdateAt,
                 user.DeleteAt,

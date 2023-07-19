@@ -19,9 +19,9 @@ namespace SalesSystem.Modules.Products.Infrastructure.Persistence
 
         public async Task<IEnumerable<Product>> GetAllDeletedAsync() => await _context.Products.AsNoTracking().Where(p => p.IsDeleted).ToListAsync();
 
-        public async Task<IEnumerable<Product>> GetAllAsync() => await _context.Products.AsNoTracking().Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Where(p => !p.IsDeleted).ToListAsync();
+        public async Task<IEnumerable<Product>> GetAllAsync() => await _context.Products.AsNoTracking().Include(p => p.ProductCategories!).ThenInclude(pc => pc.Category).Where(p => !p.IsDeleted).ToListAsync();
 
-        public async Task<Product?> GetByIdAsync(ProductId id) => await _context.Products.AsNoTracking().Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).SingleOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
+        public async Task<Product?> GetByIdAsync(ProductId id) => await _context.Products.AsNoTracking().Include(p => p.ProductCategories!).ThenInclude(pc => pc.Category).SingleOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
 
         public void Update(Product product) => _context.Products.Update(product);
 
