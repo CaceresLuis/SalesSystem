@@ -1,4 +1,5 @@
-﻿using SalesSystem.Modules.Users.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using SalesSystem.Modules.Users.Domain;
 using SalesSystem.Shared.Infrastructure;
 using SalesSystem.Modules.Users.Domain.Entities;
 
@@ -18,5 +19,7 @@ namespace SalesSystem.Modules.Users.Infrastructure.Persistence
         public void Update(UserAddres userAddres) => _context.UserAddres.Update(userAddres);
 
         public void Delete(UserAddres userAddres) => _context.UserAddres.Remove(userAddres);
+
+        public async Task<UserAddres?> Get(Guid id, Guid userId) => await _context.UserAddres.AsNoTracking().FirstOrDefaultAsync(ud => ud.Id == id && ud.UserId == userId);
     }
 }

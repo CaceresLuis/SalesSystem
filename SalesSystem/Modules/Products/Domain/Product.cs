@@ -1,6 +1,6 @@
 ﻿using SalesSystem.Modules.CartItems.Domain;
-using SalesSystem.Modules.ProductCategories.Domain;
 using SalesSystem.Shared.Domain.Primitives;
+using SalesSystem.Modules.ProductCategories.Domain;
 
 namespace SalesSystem.Modules.Products.Domain
 {

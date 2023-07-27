@@ -6,7 +6,9 @@
 
         public static Error UserError(string error) => Error.Conflict("User.Conflict", error);
         public static Error UserNotFound => Error.NotFound("User.NotFound", "User don't exist");
+        public static Error UserCardNotFound => Error.NotFound("UserCard.NotFound", "User Card don't exist");
         public static Error UserInvalid => Error.Failure("User.WronCredential", "wrong username or password");
         public static Error UserBloked => Error.Failure("User.Bloked", "The user has been temporarily blocked");
+        public static Error UserAddresNotFound => Error.NotFound("UserAddress.NotFound", "User Address don't exist");
     }
 }

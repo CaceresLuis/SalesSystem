@@ -9,8 +9,8 @@ using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.Categories.Domain;
 using SalesSystem.Modules.Carts.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using SalesSystem.Modules.ProductCategories.Domain;
 using SalesSystem.Modules.Users.Infrastructure;
+using SalesSystem.Modules.ProductCategories.Domain;
 using SalesSystem.Modules.Users.Infrastructure.Persistence;
 using SalesSystem.Modules.Products.Infrastructure.Persistence;
 using SalesSystem.Modules.CartItems.Infrastructure.Persistence;
@@ -38,6 +38,7 @@ namespace SalesSystem.Shared.Infrastructure.Services
             services.AddScoped<ICartRepository, CartRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IUserCardRepository, UserCardRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICartItemRepository, CartItemRepository>();
             services.AddScoped<IUserAddressRepository, UserAddressRepository>();

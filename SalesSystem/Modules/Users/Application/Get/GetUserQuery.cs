@@ -2,5 +2,5 @@
 
 namespace SalesSystem.Modules.Users.Application.Get
 {
-    public record GetUserQuery(string User) : IRequest<ErrorOr<UserResponseDto>>;
+    public record GetUserQuery(string User) : IRequest<ErrorOr<SingleUserResponseDto>>;
 }

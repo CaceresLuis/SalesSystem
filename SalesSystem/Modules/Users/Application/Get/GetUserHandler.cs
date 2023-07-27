@@ -1,28 +1,28 @@
-﻿using SalesSystem.Modules.Users.Domain;
-using SalesSystem.Modules.Users.Domain.Dto;
+﻿using SalesSystem.Modules.Users.Domain.Dto;
+using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.Users.Domain.Entities;
 using SalesSystem.Modules.Users.Domain.DomainErrors;
 
 namespace SalesSystem.Modules.Users.Application.Get
 {
-    internal class GetUserHandler : IRequestHandler<GetUserQuery, ErrorOr<UserResponseDto>>
+    internal class GetUserHandler : IRequestHandler<GetUserQuery, ErrorOr<SingleUserResponseDto>>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GetUserHandler(IUserRepository userRepository)
+        public GetUserHandler(IUnitOfWork unitOfWork)
         {
-            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task<ErrorOr<UserResponseDto>> Handle(GetUserQuery request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<SingleUserResponseDto>> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
-            User? user = Guid.TryParse(request.User, out Guid email) ? await _userRepository.GetById(email) : await _userRepository.GetByEmail(request.User);
+            User? user = Guid.TryParse(request.User, out Guid email) ? await _unitOfWork.UserRepository.GetById(email) : await _unitOfWork.UserRepository.GetByEmail(request.User);
 
 
             if (user == null)
                 return ErrorsUser.UserNotFound;
 
-            return new UserResponseDto
+            return new SingleUserResponseDto
             (
                 user.Id,
                 user.FirstName!,
@@ -31,9 +31,16 @@ namespace SalesSystem.Modules.Users.Application.Get
                 user.Cart!.Id!.Value,
                 user.UserAddres!.Select(u => new UserAddressResponseDto
                 (
+                    u.Id,
                     u.Department!,
                     u.City!,
                     u.AddressSpecific!
+                )).ToList(),
+                user.UserCards!.Select(u => new UserCardResponseDto
+                (
+                    u.Id,
+                    u.CardNumber!,
+                    u.OwnerCard!
                 )).ToList(),
                 user.CreateAt,
                 user.UpdateAt,

@@ -1,4 +1,5 @@
-﻿using SalesSystem.Shared.Domain.Primitives;
+﻿using SalesSystem.Modules.Products.Domain;
+using SalesSystem.Shared.Domain.Primitives;
 
 namespace SalesSystem.Modules.Users.Domain.Entities
 {

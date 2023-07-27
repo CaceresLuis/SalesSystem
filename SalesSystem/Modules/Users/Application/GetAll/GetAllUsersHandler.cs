@@ -1,21 +1,21 @@
-﻿using SalesSystem.Modules.Users.Domain;
-using SalesSystem.Modules.Users.Domain.Dto;
+﻿using SalesSystem.Modules.Users.Domain.Dto;
+using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.Users.Domain.Entities;
 
 namespace SalesSystem.Modules.Users.Application.GetAll
 {
     internal class GetAllUsersHandler : IRequestHandler<GetAllUsersQuery, ErrorOr<IReadOnlyList<UserResponseDto>>>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GetAllUsersHandler(IUserRepository userRepository)
+        public GetAllUsersHandler(IUnitOfWork unitOfWork)
         {
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
         public async Task<ErrorOr<IReadOnlyList<UserResponseDto>>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
-            IEnumerable<User> Users = await _userRepository.GetAll();
+            IEnumerable<User> Users = await _unitOfWork.UserRepository.GetAll();
 
             return Users.Select(user => new UserResponseDto
             (
@@ -26,6 +26,7 @@ namespace SalesSystem.Modules.Users.Application.GetAll
                 user.Cart!.Id!.Value,
                 user.UserAddres!.Select(u => new UserAddressResponseDto
                 (
+                    u.Id,
                     u.Department!,
                     u.City!,
                     u.AddressSpecific!

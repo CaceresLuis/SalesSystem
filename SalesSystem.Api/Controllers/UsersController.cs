@@ -4,7 +4,11 @@ using SalesSystem.Modules.Users.Application.Get;
 using SalesSystem.Modules.Users.Application.Login;
 using SalesSystem.Modules.Users.Application.Create;
 using SalesSystem.Modules.Users.Application.GetAll;
+using SalesSystem.Modules.Users.Application.CreatUserCard;
+using SalesSystem.Modules.Users.Application.DeleteUserCard;
 using SalesSystem.Modules.Users.Application.CreateUserAddres;
+using SalesSystem.Modules.Users.Application.DeleteUserAddress;
+using SalesSystem.Modules.Users.Application.UpdateUserAddress;
 
 namespace SalesSystem.Api.Controllers
 {
@@ -38,13 +42,9 @@ namespace SalesSystem.Api.Controllers
         [HttpGet("{emailOrId}")]
         public async Task<IActionResult> GetByEmail(string emailOrId)
         {
-            ErrorOr<UserResponseDto> result = await _mediator.Send(new GetUserQuery(emailOrId));
+            ErrorOr<SingleUserResponseDto> result = await _mediator.Send(new GetUserQuery(emailOrId));
 
-            return result.Match
-                (
-                    user => Ok(user),
-                    errors => Problem(errors)
-                 );
+            return result.Match(user => Ok(user), errors => Problem(errors));
         }
 
         [HttpPost]
@@ -58,6 +58,34 @@ namespace SalesSystem.Api.Controllers
 
         [HttpPost("AddUserAddress")]
         public async Task<IActionResult> AddUserAddress([FromBody] CreateUserAddresCommand command)
+        {
+            ErrorOr<Unit> create = await _mediator.Send(command);
+            return create.Match(user => Ok(user), errors => Problem(errors));
+        }
+
+        [HttpPut("UpdateUserAddress")]
+        public async Task<IActionResult> UpdateUserAddress([FromBody] UpdateUserAddressCommand command)
+        {
+            ErrorOr<Unit> create = await _mediator.Send(command);
+            return create.Match(user => Ok(user), errors => Problem(errors));
+        }
+
+        [HttpDelete("DeleteUserAddress")]
+        public async Task<IActionResult> DeleteUserAddress([FromBody] DeleteUserAddressCommand command)
+        {
+            ErrorOr<Unit> create = await _mediator.Send(command);
+            return create.Match(user => Ok(user), errors => Problem(errors));
+        }
+
+        [HttpPost("AddUserCard")]
+        public async Task<IActionResult> AddUserCard([FromBody] CreateUserCardCommand command)
+        {
+            ErrorOr<Unit> create = await _mediator.Send(command);
+            return create.Match(user => Ok(user), errors => Problem(errors));
+        }
+
+        [HttpDelete("DeleteUserCard")]
+        public async Task<IActionResult> DeleteUserCard([FromBody] DeleteUserCardCommand command)
         {
             ErrorOr<Unit> create = await _mediator.Send(command);
             return create.Match(user => Ok(user), errors => Problem(errors));

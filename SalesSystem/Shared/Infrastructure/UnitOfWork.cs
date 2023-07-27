@@ -14,12 +14,14 @@ namespace SalesSystem.Shared.Infrastructure
         public ICartRepository CartRepository { get; }
         public IUserRepository UserRepository { get; }
         public IProductRepository ProductRepository { get; }
+        public IUserCardRepository UserCardRepository { get; }
         public ICategoryRepository CategoryRepository { get; }
         public ICartItemRepository CartItemRepository { get; }
         public IUserAddressRepository UserAddressRepository { get; }
         public IProductCategoryRepository ProductCategoryRepository { get; }
 
-        public UnitOfWork(ApplicationDbContext context, ICategoryRepository categoryRepository, IProductRepository productRepository, ICartRepository cartRepository, IUserRepository userRepository, ICartItemRepository cartItemRepository, IProductCategoryRepository productCategoryRepository, IUserAddressRepository userAddressRepository)
+
+        public UnitOfWork(ApplicationDbContext context, ICategoryRepository categoryRepository, IProductRepository productRepository, ICartRepository cartRepository, IUserRepository userRepository, ICartItemRepository cartItemRepository, IProductCategoryRepository productCategoryRepository, IUserAddressRepository userAddressRepository, IUserCardRepository userCardRepository)
         {
             _context = context;
             UserRepository = userRepository;
@@ -27,6 +29,7 @@ namespace SalesSystem.Shared.Infrastructure
             ProductRepository = productRepository;
             CategoryRepository = categoryRepository;
             CartItemRepository = cartItemRepository;
+            UserCardRepository = userCardRepository;
             UserAddressRepository = userAddressRepository;
             ProductCategoryRepository = productCategoryRepository;
         }

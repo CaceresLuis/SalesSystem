@@ -7,5 +7,6 @@ namespace SalesSystem.Modules.Users.Domain
         void Add(UserAddres userAddres);
         void Delete(UserAddres userAddres);
         void Update(UserAddres userAddres);
+        Task<UserAddres?> Get(Guid id, Guid userId);
     }
 }
