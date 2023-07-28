@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SalesSystem.Modules.CartItems.Domain.Dto;
 using SalesSystem.Modules.CartItems.Application.Create;
 using SalesSystem.Modules.CartItems.Application.Delete;
 using SalesSystem.Modules.CartItems.Application.GetAll;
@@ -20,13 +21,9 @@ namespace SalesSystem.Api.Controllers
         [HttpGet("{cartId}")]
         public async Task<IActionResult> GetAll(Guid cartId)
         {
-            ErrorOr<IReadOnlyList<Modules.CartItems.Domain.Dto.CartItemResponseDto>> result = await _mediator.Send(new GetAllCartItemQuery(cartId));
+            ErrorOr<IReadOnlyList<CartItemResponseDto>> result = await _mediator.Send(new GetAllCartItemQuery(cartId));
 
-            return result.Match
-                (
-                    categories => Ok(categories),
-                    errors => Problem(errors)
-                 );
+            return result.Match(items => Ok(items), errors => Problem(errors));
         }
 
         [HttpPost]

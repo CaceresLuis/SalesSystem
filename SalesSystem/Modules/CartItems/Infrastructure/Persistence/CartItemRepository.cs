@@ -12,7 +12,7 @@ namespace SalesSystem.Modules.CartItems.Infrastructure.Persistence
 
         public CartItemRepository(ApplicationDbContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public void Add(CartItem cartItem) => _context.CartItems.Add(cartItem);
@@ -22,10 +22,10 @@ namespace SalesSystem.Modules.CartItems.Infrastructure.Persistence
         public void Delete(CartItem cartItem) => _context.CartItems.Remove(cartItem);
 
         public async Task<CartItem?> GetByIdAsync(CartItemId id) => await _context.CartItems.AsNoTracking()
-            .Include(ci => ci.Product)!.ThenInclude(p => p.ProductCategories)!.ThenInclude(pc => pc.Category).SingleOrDefaultAsync(ci => ci.Id == id);
+            .Include(ci => ci.Product)!.ThenInclude(p => p!.ProductCategories)!.ThenInclude(pc => pc.Category).SingleOrDefaultAsync(ci => ci.Id == id);
 
         public async Task<IEnumerable<CartItem>> GetAllAsync(CartId cartId) => await _context.CartItems.AsNoTracking().Where(ci => ci.CartId == cartId)
-            .Include(ci => ci.Product)!.ThenInclude(p => p.ProductCategories)!.ThenInclude(pc => pc.Category).ToListAsync();
+            .Include(ci => ci.Product)!.ThenInclude(p => p!.ProductCategories)!.ThenInclude(pc => pc.Category).ToListAsync();
 
         public async Task<CartItem?> CartItemExistAsync(CartId cartId, ProductId productId) => await _context.CartItems.AsNoTracking().SingleOrDefaultAsync(ci => ci.CartId == cartId && ci.ProductId == productId);
     }

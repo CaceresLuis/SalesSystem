@@ -5,12 +5,14 @@ using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Modules.Categories.Domain;
 using SalesSystem.Modules.ProductCategories.Domain;
+using SalesSystem.Modules.Buys.Domain;
 
 namespace SalesSystem.Shared.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
+        public IBuyRepository BuyRepository { get; }
         public ICartRepository CartRepository { get; }
         public IUserRepository UserRepository { get; }
         public IProductRepository ProductRepository { get; }
@@ -21,9 +23,10 @@ namespace SalesSystem.Shared.Infrastructure
         public IProductCategoryRepository ProductCategoryRepository { get; }
 
 
-        public UnitOfWork(ApplicationDbContext context, ICategoryRepository categoryRepository, IProductRepository productRepository, ICartRepository cartRepository, IUserRepository userRepository, ICartItemRepository cartItemRepository, IProductCategoryRepository productCategoryRepository, IUserAddressRepository userAddressRepository, IUserCardRepository userCardRepository)
+        public UnitOfWork(ApplicationDbContext context, ICategoryRepository categoryRepository, IProductRepository productRepository, ICartRepository cartRepository, IUserRepository userRepository, ICartItemRepository cartItemRepository, IProductCategoryRepository productCategoryRepository, IUserAddressRepository userAddressRepository, IUserCardRepository userCardRepository, IBuyRepository buyRepository)
         {
             _context = context;
+            BuyRepository = buyRepository;
             UserRepository = userRepository;
             CartRepository = cartRepository;
             ProductRepository = productRepository;

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
+using SalesSystem.Modules.Buys.Domain;
 using SalesSystem.Modules.Users.Domain;
 using SalesSystem.Modules.Carts.Domain;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +11,7 @@ using SalesSystem.Modules.Carts.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using SalesSystem.Modules.Users.Infrastructure;
 using SalesSystem.Modules.ProductCategories.Domain;
+using SalesSystem.Modules.Buys.Infrastructure.Persistence;
 using SalesSystem.Modules.Users.Infrastructure.Persistence;
 using SalesSystem.Modules.Products.Infrastructure.Persistence;
 using SalesSystem.Modules.CartItems.Infrastructure.Persistence;
@@ -35,6 +36,7 @@ namespace SalesSystem.Shared.Infrastructure.Services
             //services.AddIdentity<User, Role>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IBuyRepository, BuyRepository>();
             services.AddScoped<ICartRepository, CartRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();

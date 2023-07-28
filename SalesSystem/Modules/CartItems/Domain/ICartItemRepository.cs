@@ -7,9 +7,9 @@ namespace SalesSystem.Modules.CartItems.Domain
     {
         void Add(CartItem cartItem);
         void Delete(CartItem cartItem);
+        void Update(CartItem cartItem);
         Task<CartItem?> GetByIdAsync(CartItemId id);
         Task<IEnumerable<CartItem>>? GetAllAsync(CartId cartId);
         Task<CartItem?> CartItemExistAsync(CartId cartId, ProductId productId);
-        void Update(CartItem cartItem);
     }
 }
