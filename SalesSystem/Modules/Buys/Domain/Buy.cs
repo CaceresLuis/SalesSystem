@@ -11,12 +11,12 @@ namespace SalesSystem.Modules.Buys.Domain
         public BuyId? Id { get; private set; }
         public ProductId? ProductId { get; private set; }
         public Product? Product { get; set; }
-        public Guid? UserId { get; private set; }
+        public string? UserId { get; private set; }
         public User? User { get; private set; }
         public int Qty { get; private set; }
         public DateTime DateBuy { get; private set; }
 
-        public Buy(BuyId? id, ProductId? productId, Guid? userId, int qty, DateTime dateBuy)
+        public Buy(BuyId? id, ProductId? productId, string userId, int qty, DateTime dateBuy)
         {
             Id = id;
             ProductId = productId;

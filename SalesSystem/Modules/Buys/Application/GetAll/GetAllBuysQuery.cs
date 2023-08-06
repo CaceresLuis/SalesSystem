@@ -2,5 +2,5 @@
 
 namespace SalesSystem.Modules.Buys.Application.GetAll
 {
-    public record GetAllBuysQuery(Guid UserId) : IRequest<ErrorOr<IReadOnlyList<BuyResponseDto>>>;
+    public record GetAllBuysQuery(string UserId) : IRequest<ErrorOr<IReadOnlyList<BuyResponseDto>>>;
 }

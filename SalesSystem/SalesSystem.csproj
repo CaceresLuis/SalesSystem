@@ -19,14 +19,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.31.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Modules\Carts\Application\" />
     <Folder Include="Modules\Categories\Domain\ValueObjects\" />
-    <Folder Include="Shared\Infrastructure\Persistence\Migrations\" />
+    <Folder Include="Shared\Infrastructure\Persistence\" />
   </ItemGroup>
 
 </Project>

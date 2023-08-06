@@ -5,6 +5,6 @@
         void Add(Buy buy);
         void Delete(Buy buy);
         Task<Buy?> GetByIdAsync(BuyId id);
-        Task<IEnumerable<Buy>> GetAllAsync(Guid userId);
+        Task<IEnumerable<Buy>> GetAllAsync(string userId);
     }
 }

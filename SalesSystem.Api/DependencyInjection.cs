@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 using SalesSystem.Shared.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SalesSystem.Modules.Users.Domain.Entities;
+using Microsoft.OpenApi.Models;
 
 namespace SalesSystem.Api
 {
@@ -13,7 +14,37 @@ namespace SalesSystem.Api
     {
         public static IServiceCollection AddPresentation(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop API", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = @"JWT Authorization header using the Bearer scheme. <br /> <br />
+                      Enter 'Bearer' [space] and then your token in the text input below.<br /> <br />
+                      Example: 'Bearer 12345abcdef'<br /> <br />",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                      new OpenApiSecurityScheme
+                      {
+                        Reference = new OpenApiReference
+                          {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                          },
+                          Scheme = "oauth2",
+                          Name = "Bearer",
+                          In = ParameterLocation.Header,
+                       },
+                        new List<string>()
+                    }
+                 });
+            });
             services.AddEndpointsApiExplorer();
             services.AddTransient<GlobalExceptionHandlingMiddelware>();
             services.AddControllers().AddJsonOptions(c => c.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
@@ -30,7 +61,7 @@ namespace SalesSystem.Api
                     ClockSkew = TimeSpan.Zero
                 });
 
-            services.AddIdentity<User, Role>(config =>
+            services.AddIdentity<User, IdentityRole>(config =>
             {
                 config.Password.RequireDigit = false;
                 config.Password.RequiredUniqueChars = 0;

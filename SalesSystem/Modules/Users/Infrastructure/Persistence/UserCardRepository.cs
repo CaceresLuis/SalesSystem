@@ -18,6 +18,6 @@ namespace SalesSystem.Modules.Users.Infrastructure.Persistence
 
         public void Delete(UserCard userCard) => _context.UserCards.Remove(userCard);
 
-        public async Task<UserCard?> Get(Guid id, Guid userId) => await _context.UserCards.AsNoTracking().FirstOrDefaultAsync(uc => uc.Id == id && uc.UserId == userId);
+        public async Task<UserCard?> Get(Guid id, string userId) => await _context.UserCards.AsNoTracking().FirstOrDefaultAsync(uc => uc.Id == id && uc.UserId == userId);
     }
 }

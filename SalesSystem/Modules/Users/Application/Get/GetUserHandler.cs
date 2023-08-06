@@ -16,7 +16,7 @@ namespace SalesSystem.Modules.Users.Application.Get
 
         public async Task<ErrorOr<SingleUserResponseDto>> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
-            User? user = Guid.TryParse(request.User, out Guid email) ? await _unitOfWork.UserRepository.GetById(email) : await _unitOfWork.UserRepository.GetByEmail(request.User);
+            User? user = await _unitOfWork.UserRepository.GetByEmail(request.User);
 
 
             if (user == null)

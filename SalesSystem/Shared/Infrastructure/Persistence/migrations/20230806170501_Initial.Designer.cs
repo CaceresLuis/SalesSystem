@@ -12,8 +12,8 @@ using SalesSystem.Shared.Infrastructure;
 namespace SalesSystem.shared.infrastructure.persistence.migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230713025946_AddClaims")]
-    partial class AddClaims
+    [Migration("20230806170501_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,33 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,12 +65,122 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserClaims");
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("SalesSystem.Modules.Buys.Domain.Buy", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("DateBuy")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Qty")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Buys");
                 });
 
             modelBuilder.Entity("SalesSystem.Modules.CartItems.Domain.CartItem", b =>
@@ -75,8 +211,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -181,36 +317,16 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("SalesSystem.Modules.Users.Domain.Role", b =>
+            modelBuilder.Entity("SalesSystem.Modules.Users.Domain.Entities.User", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ConcurrencyStamp")
+                    b.Property<string>("Id")
                         .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Role", (string)null);
-                });
-
-            modelBuilder.Entity("SalesSystem.Modules.Users.Domain.User", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreateAt")
@@ -220,8 +336,9 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
+                        .HasMaxLength(256)
                         .IsUnicode(true)
-                        .HasColumnType("text");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
@@ -247,10 +364,12 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("text");
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("text");
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
@@ -272,14 +391,22 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("text");
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("SalesSystem.Modules.Users.Domain.UserAddres", b =>
+            modelBuilder.Entity("SalesSystem.Modules.Users.Domain.Entities.UserAddres", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -300,8 +427,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -310,7 +437,7 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                     b.ToTable("UserAddres");
                 });
 
-            modelBuilder.Entity("SalesSystem.Modules.Users.Domain.UserCard", b =>
+            modelBuilder.Entity("SalesSystem.Modules.Users.Domain.Entities.UserCard", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -332,8 +459,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -342,25 +469,70 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                     b.ToTable("UserCards");
                 });
 
-            modelBuilder.Entity("SalesSystem.Modules.Users.Domain.UserRole", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uuid");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("SalesSystem.Modules.Users.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("SalesSystem.Modules.Users.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.HasKey("Id");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasIndex("RoleId");
+                    b.HasOne("SalesSystem.Modules.Users.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.HasIndex("UserId");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("SalesSystem.Modules.Users.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.ToTable("UserRole", (string)null);
+            modelBuilder.Entity("SalesSystem.Modules.Buys.Domain.Buy", b =>
+                {
+                    b.HasOne("SalesSystem.Modules.Products.Domain.Product", "Product")
+                        .WithMany("Buys")
+                        .HasForeignKey("ProductId");
+
+                    b.HasOne("SalesSystem.Modules.Users.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SalesSystem.Modules.CartItems.Domain.CartItem", b =>
@@ -380,11 +552,9 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
 
             modelBuilder.Entity("SalesSystem.Modules.Carts.Domain.Cart", b =>
                 {
-                    b.HasOne("SalesSystem.Modules.Users.Domain.User", "User")
+                    b.HasOne("SalesSystem.Modules.Users.Domain.Entities.User", "User")
                         .WithOne("Cart")
-                        .HasForeignKey("SalesSystem.Modules.Carts.Domain.Cart", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SalesSystem.Modules.Carts.Domain.Cart", "UserId");
 
                     b.Navigation("User");
                 });
@@ -404,43 +574,20 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("SalesSystem.Modules.Users.Domain.UserAddres", b =>
+            modelBuilder.Entity("SalesSystem.Modules.Users.Domain.Entities.UserAddres", b =>
                 {
-                    b.HasOne("SalesSystem.Modules.Users.Domain.User", "User")
+                    b.HasOne("SalesSystem.Modules.Users.Domain.Entities.User", "User")
                         .WithMany("UserAddres")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SalesSystem.Modules.Users.Domain.UserCard", b =>
+            modelBuilder.Entity("SalesSystem.Modules.Users.Domain.Entities.UserCard", b =>
                 {
-                    b.HasOne("SalesSystem.Modules.Users.Domain.User", "User")
+                    b.HasOne("SalesSystem.Modules.Users.Domain.Entities.User", "User")
                         .WithMany("UserCards")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("SalesSystem.Modules.Users.Domain.UserRole", b =>
-                {
-                    b.HasOne("SalesSystem.Modules.Users.Domain.Role", "Role")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SalesSystem.Modules.Users.Domain.User", "User")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -457,25 +604,20 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
 
             modelBuilder.Entity("SalesSystem.Modules.Products.Domain.Product", b =>
                 {
+                    b.Navigation("Buys");
+
                     b.Navigation("CartItems");
 
                     b.Navigation("ProductCategories");
                 });
 
-            modelBuilder.Entity("SalesSystem.Modules.Users.Domain.Role", b =>
-                {
-                    b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("SalesSystem.Modules.Users.Domain.User", b =>
+            modelBuilder.Entity("SalesSystem.Modules.Users.Domain.Entities.User", b =>
                 {
                     b.Navigation("Cart");
 
                     b.Navigation("UserAddres");
 
                     b.Navigation("UserCards");
-
-                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

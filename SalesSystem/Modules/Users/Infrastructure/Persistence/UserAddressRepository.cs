@@ -20,6 +20,6 @@ namespace SalesSystem.Modules.Users.Infrastructure.Persistence
 
         public void Delete(UserAddres userAddres) => _context.UserAddres.Remove(userAddres);
 
-        public async Task<UserAddres?> Get(Guid id, Guid userId) => await _context.UserAddres.AsNoTracking().FirstOrDefaultAsync(ud => ud.Id == id && ud.UserId == userId);
+        public async Task<UserAddres?> Get(Guid id, string userId) => await _context.UserAddres.AsNoTracking().FirstOrDefaultAsync(ud => ud.Id == id && ud.UserId == userId);
     }
 }

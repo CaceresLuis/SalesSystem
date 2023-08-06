@@ -33,7 +33,7 @@ namespace SalesSystem.Modules.Users.Infrastructure.Persistence
 
         public async Task<IEnumerable<User>> GetAll() => await _userManager.Users.AsNoTracking().Where(u => u.Cart != null).Include(u => u.Cart).Include(u => u.UserAddres).ToListAsync();
 
-        public async Task<User?> GetById(Guid id) => await _context.Users.AsNoTracking().Include(u => u.Cart).Include(u => u.UserAddres).Include(u => u.UserCards).FirstOrDefaultAsync(u => u.Id == id);
+       // public async Task<User?> GetById(string id) => await _context.Users.AsNoTracking().Include(u => u.Cart).Include(u => u.UserAddres).Include(u => u.UserCards).FirstOrDefaultAsync(u => u.Id == id);
 
         public async Task<User?> GetByEmail(string email) => await _context.Users.AsNoTracking().Include(u => u.Cart).Include(u => u.UserAddres).Include(u => u.UserCards).FirstOrDefaultAsync(u => u.NormalizedEmail == email.ToUpper());
 

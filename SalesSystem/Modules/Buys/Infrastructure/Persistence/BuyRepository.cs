@@ -19,6 +19,6 @@ namespace SalesSystem.Modules.Buys.Infrastructure.Persistence
 
         public async Task<Buy?> GetByIdAsync(BuyId id) => await _context.Buys.AsNoTracking().Include(b => b.Product)!.ThenInclude(p => p!.ProductCategories)!.ThenInclude(pc => pc.Category).SingleOrDefaultAsync(b => b.Id == id);
 
-        public async Task<IEnumerable<Buy>> GetAllAsync(Guid userId) => await _context.Buys.AsNoTracking().Where(b => b.UserId == userId).Include(ci => ci.Product)!.ThenInclude(p => p!.ProductCategories)!.ThenInclude(pc => pc.Category).ToListAsync();
+        public async Task<IEnumerable<Buy>> GetAllAsync(string userId) => await _context.Buys.AsNoTracking().Where(b => b.UserId == userId).Include(ci => ci.Product)!.ThenInclude(p => p!.ProductCategories)!.ThenInclude(pc => pc.Category).ToListAsync();
     }
 }

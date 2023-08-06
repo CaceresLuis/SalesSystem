@@ -23,7 +23,6 @@ namespace SalesSystem.Modules.Users.Application.Create
 
             User user = new
             (
-                Guid.NewGuid(),
                 request.Email,
                 request.FistName,
                 request.LastName,

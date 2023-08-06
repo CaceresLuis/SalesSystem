@@ -5,11 +5,14 @@ using SalesSystem.Modules.Categories.Aplication.Update;
 using SalesSystem.Modules.Categories.Aplication.GetAll;
 using SalesSystem.Modules.Categories.Aplication.Delete;
 using SalesSystem.Modules.Categories.Aplication.GetById;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SalesSystem.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CategoriesController : ApiController
     {
         private readonly ISender _mediator;
@@ -19,6 +22,7 @@ namespace SalesSystem.Api.Controllers
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

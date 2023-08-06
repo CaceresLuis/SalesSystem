@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SalesSystem.Modules.Users.Domain.ValueObjetcs;
 using SalesSystem.Modules.Users.Domain.Entities;
+using SalesSystem.Modules.Users.Domain.ValueObjetcs;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace SalesSystem.Modules.Users.Infrastructure.Configurations
 {

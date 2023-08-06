@@ -2,7 +2,7 @@
 {
     public record UserResponseDto
     (
-        Guid Id,
+        string Id,
         string FirstName,
         string LastName,
         string Email,

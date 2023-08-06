@@ -18,7 +18,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpGet("All/{userId}")]
-        public async Task<IActionResult> GetAll(Guid userId)
+        public async Task<IActionResult> GetAll(string userId)
         {
             ErrorOr<IReadOnlyList<BuyResponseDto>> result = await _mediator.Send(new GetAllBuysQuery(userId));
 

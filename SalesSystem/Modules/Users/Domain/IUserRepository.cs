@@ -5,7 +5,7 @@ namespace SalesSystem.Modules.Users.Domain
 {
     public interface IUserRepository
     {
-        Task<User?> GetById(Guid id);
+        //Task<User?> GetById(Guid id);
         Task<IEnumerable<User>> GetAll();
         Task<User?> GetByEmail(string email);
         Task<bool> UserExistAsync(string email);

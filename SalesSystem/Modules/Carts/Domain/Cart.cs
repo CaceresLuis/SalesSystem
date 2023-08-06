@@ -10,10 +10,10 @@ namespace SalesSystem.Modules.Carts.Domain
 
         public CartId? Id { get; private set; }
         public User? User { get; private set; }
-        public Guid UserId { get; private set; }
+        public string? UserId { get; private set; }
         public ICollection<CartItem>? CartItems { get; set; }
 
-        public Cart(CartId? id, Guid userId)
+        public Cart(CartId? id, string userId)
         {
             Id = id;
             UserId = userId;

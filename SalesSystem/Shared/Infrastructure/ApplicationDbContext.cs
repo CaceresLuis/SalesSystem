@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SalesSystem.Modules.Buys.Domain;
 using SalesSystem.Modules.Carts.Domain;
 using SalesSystem.Modules.Products.Domain;
@@ -12,8 +11,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace SalesSystem.Shared.Infrastructure
 {
-    public class ApplicationDbContext : IdentityDbContext<User, Role, Guid, IdentityUserClaim<Guid>, UserRole, IdentityUserLogin<Guid>,
-        IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         private readonly IPublisher _publisher;
 
@@ -31,16 +29,12 @@ namespace SalesSystem.Shared.Infrastructure
         public DbSet<UserAddres> UserAddres { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            modelBuilder.Ignore<IdentityUserLogin<Guid>>();
-            modelBuilder.Ignore<IdentityUserToken<Guid>>();
-            modelBuilder.Ignore<IdentityRoleClaim<Guid>>();
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+            builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-            modelBuilder.Entity<Role>(r => { r.HasMany(e => e.UserRoles).WithOne(e => e.Role).HasForeignKey(ur => ur.RoleId).IsRequired(); });
-            modelBuilder.Entity<User>(u => { u.HasMany(u => u.UserRoles).WithOne(u => u.User).HasForeignKey(ur => ur.UserId).IsRequired(); });
+            base.OnModelCreating(builder);
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

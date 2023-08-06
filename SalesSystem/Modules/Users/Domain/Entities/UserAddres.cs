@@ -9,12 +9,12 @@ namespace SalesSystem.Modules.Users.Domain.Entities
 
         public Guid Id { get; set; }
         public User? User { get; set; }
-        public Guid UserId { get; private set; }
+        public string? UserId { get; private set; }
         public string? City { get; private set; }
         public string? Department { get; private set; }
         public string? AddressSpecific { get; private set; }
 
-        public UserAddres(Guid id, Guid userId, string? department, string? city, string? addressSpecific)
+        public UserAddres(Guid id, string userId, string? department, string? city, string? addressSpecific)
         {
             Id = id;
             City = city;
