@@ -37,6 +37,9 @@ namespace SalesSystem.Modules.Users.Application.Create
             Cart cart = new(new CartId(Guid.NewGuid()), user.Id);
 
             IdentityResult AddUser = await _unitOfWork.UserRepository.AddAsync(user, request.Password);
+
+            await _unitOfWork.UserRepository.AddUserToRole(user, "User");
+
             if (!AddUser.Succeeded)
                 return ErrorsUser.UserError(AddUser.Errors.First().Description);
 

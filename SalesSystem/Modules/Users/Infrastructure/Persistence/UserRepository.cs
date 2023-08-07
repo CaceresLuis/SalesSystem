@@ -21,6 +21,14 @@ namespace SalesSystem.Modules.Users.Infrastructure.Persistence
 
         public async Task LogoutAsync() => await _signInManager.SignOutAsync();
 
+        public async Task<List<string>> RolesByUserAsync(User user)
+        {
+            IList<string> data = await _userManager.GetRolesAsync(user);
+
+            List<string> roles = new(data);
+            return roles;
+        }
+
         public async Task<IdentityResult> UpdateAsync(User user) => await _userManager.UpdateAsync(user);
 
         public async Task<IdentityResult> AddAsync(User user, string password) => await _userManager.CreateAsync(user, password);
@@ -31,11 +39,8 @@ namespace SalesSystem.Modules.Users.Infrastructure.Persistence
 
         public async Task<SignInResult> LoginAync(string email, string password) => await _signInManager.PasswordSignInAsync(email, password, false, true);
 
-        public async Task<IEnumerable<User>> GetAll() => await _userManager.Users.AsNoTracking().Where(u => u.Cart != null).Include(u => u.Cart).Include(u => u.UserAddres).ToListAsync();
-
-       // public async Task<User?> GetById(string id) => await _context.Users.AsNoTracking().Include(u => u.Cart).Include(u => u.UserAddres).Include(u => u.UserCards).FirstOrDefaultAsync(u => u.Id == id);
+        public async Task<IEnumerable<User>> GetAll() => await _context.Users.AsNoTracking().Where(u => u.Cart != null).Include(u => u.Cart).Include(u => u.UserAddres).ToListAsync();
 
         public async Task<User?> GetByEmail(string email) => await _context.Users.AsNoTracking().Include(u => u.Cart).Include(u => u.UserAddres).Include(u => u.UserCards).FirstOrDefaultAsync(u => u.NormalizedEmail == email.ToUpper());
-
     }
 }

@@ -2,6 +2,7 @@
 using SalesSystem.Modules.Buys.Domain;
 using SalesSystem.Modules.Users.Domain;
 using SalesSystem.Modules.Carts.Domain;
+using SalesSystem.Modules.Roles.Domain;
 using Microsoft.Extensions.Configuration;
 using SalesSystem.Modules.Products.Domain;
 using SalesSystem.Modules.CartItems.Domain;
@@ -10,6 +11,7 @@ using SalesSystem.Modules.Categories.Domain;
 using SalesSystem.Modules.Carts.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using SalesSystem.Modules.Users.Infrastructure;
+using SalesSystem.Modules.Roles.Infrastructure;
 using SalesSystem.Modules.ProductCategories.Domain;
 using SalesSystem.Modules.Buys.Infrastructure.Persistence;
 using SalesSystem.Modules.Users.Infrastructure.Persistence;
@@ -33,10 +35,9 @@ namespace SalesSystem.Shared.Infrastructure.Services
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql("name=ConnectionStrings:PostgresConnection"));
             //services.AddDbContext<SalesContext>(options => options.UseNpgsql(configuration.GetConnectionString("")));
 
-            //services.AddIdentity<User, Role>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
-
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IBuyRepository, BuyRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<ICartRepository, CartRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();

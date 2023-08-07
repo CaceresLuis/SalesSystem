@@ -18,6 +18,7 @@ namespace SalesSystem.Modules.Users.Application.Get
         {
             User? user = await _unitOfWork.UserRepository.GetByEmail(request.User);
 
+            List<string> roles = await _unitOfWork.UserRepository.RolesByUserAsync(user!);
 
             if (user == null)
                 return ErrorsUser.UserNotFound;
@@ -42,6 +43,7 @@ namespace SalesSystem.Modules.Users.Application.Get
                     u.CardNumber!,
                     u.OwnerCard!
                 )).ToList(),
+                roles,
                 user.CreateAt,
                 user.UpdateAt,
                 user.DeleteAt,

@@ -39,7 +39,7 @@ namespace SalesSystem.Api.Controllers
             return result.Match(users => Ok(users), errors => Problem(errors));
         }
 
-        [HttpGet("{emailOrId}")]
+        [HttpGet("{GetByEmail}")]
         public async Task<IActionResult> GetByEmail(string emailOrId)
         {
             ErrorOr<SingleUserResponseDto> result = await _mediator.Send(new GetUserQuery(emailOrId));

@@ -13,5 +13,6 @@ namespace SalesSystem.Modules.Users.Domain
         Task<SignInResult> LoginAync(string email, string password);
         Task<IdentityResult> AddAsync(User user, string password);
         Task<IdentityResult> AddUserToRole(User user, string roleName);
+        Task<List<string>> RolesByUserAsync(User user);
     }
 }

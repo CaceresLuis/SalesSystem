@@ -5,6 +5,6 @@ namespace SalesSystem.Modules.Users.Domain
 {
     public interface IGenerateToken
     {
-        TokenDto GetToken(User user);
+        Task<TokenDto> GetToken(User user);
     }
 }

@@ -1,11 +1,12 @@
-﻿using SalesSystem.Modules.Users.Domain;
+﻿using SalesSystem.Modules.Buys.Domain;
+using SalesSystem.Modules.Roles.Domain;
+using SalesSystem.Modules.Users.Domain;
 using SalesSystem.Modules.Carts.Domain;
 using SalesSystem.Modules.Products.Domain;
 using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Modules.Categories.Domain;
 using SalesSystem.Modules.ProductCategories.Domain;
-using SalesSystem.Modules.Buys.Domain;
 
 namespace SalesSystem.Shared.Infrastructure
 {
@@ -13,6 +14,7 @@ namespace SalesSystem.Shared.Infrastructure
     {
         private readonly ApplicationDbContext _context;
         public IBuyRepository BuyRepository { get; }
+        public IRoleRepository RoleRepository { get; }
         public ICartRepository CartRepository { get; }
         public IUserRepository UserRepository { get; }
         public IProductRepository ProductRepository { get; }
@@ -23,10 +25,11 @@ namespace SalesSystem.Shared.Infrastructure
         public IProductCategoryRepository ProductCategoryRepository { get; }
 
 
-        public UnitOfWork(ApplicationDbContext context, ICategoryRepository categoryRepository, IProductRepository productRepository, ICartRepository cartRepository, IUserRepository userRepository, ICartItemRepository cartItemRepository, IProductCategoryRepository productCategoryRepository, IUserAddressRepository userAddressRepository, IUserCardRepository userCardRepository, IBuyRepository buyRepository)
+        public UnitOfWork(ApplicationDbContext context, ICategoryRepository categoryRepository, IProductRepository productRepository, ICartRepository cartRepository, IUserRepository userRepository, ICartItemRepository cartItemRepository, IProductCategoryRepository productCategoryRepository, IUserAddressRepository userAddressRepository, IUserCardRepository userCardRepository, IBuyRepository buyRepository, IRoleRepository roleRepository)
         {
             _context = context;
             BuyRepository = buyRepository;
+            RoleRepository = roleRepository;
             UserRepository = userRepository;
             CartRepository = cartRepository;
             ProductRepository = productRepository;

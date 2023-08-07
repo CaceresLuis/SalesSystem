@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using SalesSystem.Modules.Categories.Domain.Dto;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SalesSystem.Modules.Categories.Aplication.Create;
 using SalesSystem.Modules.Categories.Aplication.Update;
 using SalesSystem.Modules.Categories.Aplication.GetAll;
 using SalesSystem.Modules.Categories.Aplication.Delete;
 using SalesSystem.Modules.Categories.Aplication.GetById;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 
 namespace SalesSystem.Api.Controllers
 {
@@ -36,6 +36,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> GetById(Guid id)
         {
             ErrorOr<CategoryResponseDto> categoryResult = await _mediator.Send(new GetByIdCategoryQuery(id));
@@ -48,6 +49,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreateCategoryCommand command)
         {
             ErrorOr<Unit> createResult = await _mediator.Send(command);
@@ -56,6 +58,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateCategoryCommand command)
         {
             if (id != command.Id)

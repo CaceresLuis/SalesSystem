@@ -31,7 +31,7 @@ namespace SalesSystem.Modules.Users.Application.Login
                 return ErrorsUser.UserBloked;
 
 
-            TokenDto token = _generateToken.GetToken(user!);
+            TokenDto token = await _generateToken.GetToken(user!);
             return token;
         }
     }

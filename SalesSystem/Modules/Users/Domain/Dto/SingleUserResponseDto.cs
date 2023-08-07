@@ -9,6 +9,7 @@
         Guid CartId,
         List<UserAddressResponseDto> UserAddress,
         List<UserCardResponseDto> Cards,
+        List<string> Roles,
         DateTime CreateAt,
         DateTime UpdateAt,
         DateTime DeleteAt,

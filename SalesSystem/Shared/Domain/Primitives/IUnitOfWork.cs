@@ -1,4 +1,5 @@
 ﻿using SalesSystem.Modules.Buys.Domain;
+using SalesSystem.Modules.Roles.Domain;
 using SalesSystem.Modules.Users.Domain;
 using SalesSystem.Modules.Carts.Domain;
 using SalesSystem.Modules.Products.Domain;
@@ -11,6 +12,7 @@ namespace SalesSystem.Shared.Domain.Primitives
     public interface IUnitOfWork : IDisposable
     {
         public IBuyRepository BuyRepository { get; }
+        public IRoleRepository RoleRepository { get; }
         public ICartRepository CartRepository { get; }
         public IUserRepository UserRepository { get; }
         public IProductRepository ProductRepository { get; }
