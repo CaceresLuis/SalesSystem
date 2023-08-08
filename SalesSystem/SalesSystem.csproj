@@ -23,10 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\Administrator\Application\" />
     <Folder Include="Modules\Carts\Application\" />
     <Folder Include="Modules\Categories\Domain\ValueObjects\" />
-    <Folder Include="Modules\Users\Domain\Enums\" />
     <Folder Include="Shared\Infrastructure\Persistence\" />
   </ItemGroup>
 

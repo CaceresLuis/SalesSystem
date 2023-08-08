@@ -4,9 +4,8 @@ using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.Users.Domain.Entities;
 using SalesSystem.Modules.Users.Domain.DomainErrors;
 using SalesSystem.Modules.Users.Domain.ValueObjetcs;
-using SalesSystem.Shared.Domain.Enums;
 
-namespace SalesSystem.Modules.Users.Application.Create
+namespace SalesSystem.Modules.Administrator.Application.Create
 {
     internal class CreateUserHandler : IRequestHandler<CreateUserCommand, ErrorOr<Unit>>
     {
@@ -39,7 +38,7 @@ namespace SalesSystem.Modules.Users.Application.Create
 
             IdentityResult AddUser = await _unitOfWork.UserRepository.AddAsync(user, request.Password);
 
-            await _unitOfWork.UserRepository.AddUserToRole(user, UserType.User.ToString());
+            await _unitOfWork.UserRepository.AddUserToRole(user, request.Role);
 
             if (!AddUser.Succeeded)
                 return ErrorsUser.UserError(AddUser.Errors.First().Description);

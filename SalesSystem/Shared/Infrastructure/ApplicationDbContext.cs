@@ -8,6 +8,7 @@ using SalesSystem.Modules.Categories.Domain;
 using SalesSystem.Modules.Users.Domain.Entities;
 using SalesSystem.Modules.ProductCategories.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using SalesSystem.Modules.Users.Infrastructure;
 
 namespace SalesSystem.Shared.Infrastructure
 {
@@ -31,6 +32,7 @@ namespace SalesSystem.Shared.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Seed();
 
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 

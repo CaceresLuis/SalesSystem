@@ -8,15 +8,15 @@ namespace SalesSystem.Modules.Products.Aplication.Create
         {
             RuleFor(p => p.Name)
                  .NotEmpty()
-                 .MaximumLength(100);
+                 .MaximumLength(150);
 
             RuleFor(p => p.Description)
                  .NotEmpty()
-                 .MaximumLength(255);
+                 .MaximumLength(355);
 
             RuleFor(p => p.Price)
                 .NotNull()
-                .PrecisionScale(5, 2, true);
+                .PrecisionScale(10, 2, false);
 
             RuleFor(p => p.Stock)
                 .NotNull()

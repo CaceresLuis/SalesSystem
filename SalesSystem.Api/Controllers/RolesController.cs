@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+using SalesSystem.Modules.Roles.Application.GetAll;
 using SalesSystem.Modules.Roles.Application.Create;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace SalesSystem.Api.Controllers
 {
@@ -17,8 +18,15 @@ namespace SalesSystem.Api.Controllers
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var result = await _mediator.Send(new GetAllRolesQuery());
+
+            return result.Match(roles => Ok(roles), error => Problem(error));
+        }
+
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreateRoleCommand command)
         {
             ErrorOr<Unit> create = await _mediator.Send(command);

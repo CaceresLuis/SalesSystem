@@ -33,7 +33,11 @@ namespace SalesSystem.Modules.Users.Infrastructure.Persistence
 
         public async Task<IdentityResult> AddAsync(User user, string password) => await _userManager.CreateAsync(user, password);
 
+        public async Task<bool> IsUserInRoleAsync(User user, string roleName) => await _userManager.IsInRoleAsync(user, roleName);
+
         public async Task<IdentityResult> AddUserToRole(User user, string roleName) => await _userManager.AddToRoleAsync(user, roleName);
+
+        public async Task<IdentityResult> RemoveRoleUserAsync(User user, string roleName) => await _userManager.RemoveFromRoleAsync(user, roleName);
 
         public async Task<bool> UserExistAsync(string email) => await _context.Users.AsNoTracking().AnyAsync(u => u.NormalizedEmail == email.ToUpper());
 

@@ -19,7 +19,6 @@ namespace SalesSystem.Modules.Users.Infrastructure.Configurations
             builder.Ignore(u => u.FullName);
 
             builder.Property(c => c.PhoneNumber).HasConversion(phoneNumber => phoneNumber!.Value, value => PhoneNumber.Create(value)!).HasMaxLength(9);
-
         }
     }
 }
