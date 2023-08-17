@@ -19,6 +19,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllRolesQuery());
@@ -27,6 +28,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreateRoleCommand command)
         {
             ErrorOr<Unit> create = await _mediator.Send(command);

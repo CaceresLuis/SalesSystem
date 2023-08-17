@@ -1,13 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using SalesSystem.Modules.Buys.Domain.Dto;
 using SalesSystem.Modules.Buys.Application.Create;
 using SalesSystem.Modules.Buys.Application.GetAll;
 using SalesSystem.Modules.Buys.Application.GetById;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace SalesSystem.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class BuyController : ApiController
     {
         private readonly ISender _mediator;
@@ -17,15 +21,20 @@ namespace SalesSystem.Api.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("All/{userId}")]
-        public async Task<IActionResult> GetAll(string userId)
+        [HttpGet("All")]
+        [Authorize(Roles = "Admin, User")]
+        public async Task<IActionResult> GetAll()
         {
-            ErrorOr<IReadOnlyList<BuyResponseDto>> result = await _mediator.Send(new GetAllBuysQuery(userId));
+
+            Claim mailClaim = User.Claims.FirstOrDefault(u => u.Type == "Email")!;
+
+            ErrorOr<IReadOnlyList<BuyResponseDto>> result = await _mediator.Send(new GetAllBuysQuery(mailClaim.Value));
 
             return result.Match(buys => Ok(buys), errors => Problem(errors));
         }
 
         [HttpGet("Get/{buyId}")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> Get(Guid buyId)
         {
             ErrorOr<BuyResponseDto> result = await _mediator.Send(new GetByIdBuyQuery(buyId));
@@ -34,6 +43,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> Create([FromBody] CreateBuyCommand command)
         {
             ErrorOr<Unit> createResult = await _mediator.Send(command);

@@ -2,9 +2,9 @@
 using SalesSystem.Modules.Products.Domain;
 using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Shared.Domain.Primitives;
-using SalesSystem.Modules.Carts.Domain.ValueObjects;
-using SalesSystem.Modules.Products.Domain.DomainErrors;
 using SalesSystem.Shared.Domain.ValueObjects;
+using SalesSystem.Modules.Products.Domain.DomainErrors;
+using SalesSystem.Modules.CartItems.Domain.ValueObjects;
 
 namespace SalesSystem.Modules.CartItems.Application.Create
 {
@@ -19,16 +19,18 @@ namespace SalesSystem.Modules.CartItems.Application.Create
 
         public async Task<ErrorOr<Unit>> Handle(CreateCartItemCommad request, CancellationToken cancellationToken)
         {
-            if (await _unitOfWork.CartRepository.GetByIdAsync(new CartId(request.CartId)) is not Cart cart)
-                return ErrosCart.NotFoundCart;
-
             if (await _unitOfWork.ProductRepository.GetByIdAsync(new ProductId(request.ProductId)) is not Product product)
                 return ErrorsProduct.NotFoundProduct;
+
+            if (await _unitOfWork.CartRepository.GetByIdAsync(new CartId(Guid.Parse(request.CartId))) is not Cart cart)
+                return ErrorCartItem.NotFoundCartItem;
+
+            CartItem cartItem;
 
             if (await _unitOfWork.CartItemRepository.CartItemExistAsync(cart.Id!, product.Id!) is CartItem cartItemDb)
             {
                 int qyt = cartItemDb.Qty + request.Qty;
-                CartItem cartItemUpdate = new
+                cartItem = new
                 (
                     cartItemDb.Id,
                     cartItemDb.ProductId,
@@ -36,11 +38,11 @@ namespace SalesSystem.Modules.CartItems.Application.Create
                     qyt
                 );
 
-                _unitOfWork.CartItemRepository.Update(cartItemUpdate);
+                _unitOfWork.CartItemRepository.Update(cartItem);
             }
             else
             {
-                CartItem cartItem = new
+                cartItem = new
                 (
                     new CartItemId(Guid.NewGuid()),
                     product.Id,
@@ -51,7 +53,7 @@ namespace SalesSystem.Modules.CartItems.Application.Create
                 _unitOfWork.CartItemRepository.Add(cartItem);
             }
 
-            if(await _unitOfWork.SaveChangesAsync(cancellationToken) < 1)
+            if (await _unitOfWork.SaveChangesAsync(cancellationToken) < 1)
                 return SaveError.GenericError;
 
             return Unit.Value;

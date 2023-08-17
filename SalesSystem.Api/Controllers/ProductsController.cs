@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using SalesSystem.Modules.Products.Domain.Dto;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SalesSystem.Modules.Products.Aplication.Create;
 using SalesSystem.Modules.Products.Aplication.Update;
 using SalesSystem.Modules.Products.Aplication.GetAll;
-using SalesSystem.Modules.Products.Aplication.GetById;
 using SalesSystem.Modules.Products.Aplication.Delete;
+using SalesSystem.Modules.Products.Aplication.GetById;
 using SalesSystem.Modules.ProductCategories.Aplication.Create;
 using SalesSystem.Modules.ProductCategories.Aplication.Delete;
 
@@ -12,6 +14,7 @@ namespace SalesSystem.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ProductsController : ApiController
     {
         private readonly ISender _mediator;
@@ -22,6 +25,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             ErrorOr<IReadOnlyList<ProductResponseDto>> productResult = await _mediator.Send(new GetAllProductsQuery());
@@ -34,6 +38,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(Guid id)
         {
             ErrorOr<ProductResponseDto> result = await _mediator.Send(new GetByIdProductQuery(id));
@@ -46,6 +51,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreateProductCommand command)
         {
             ErrorOr<Unit> createResult = await _mediator.Send(command);
@@ -54,6 +60,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpPost("AddCategoryToProduct")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddCategoryToProduct([FromBody] CreateProductCategoryCommand command)
         {
             ErrorOr<Unit> createResult = await _mediator.Send(command);
@@ -62,6 +69,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateProductCommand command)
         {
             if (id != command.Id)
@@ -80,6 +88,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             ErrorOr<Unit> deleteResult = await _mediator.Send(new DeleteProductCommand(id));
@@ -88,6 +97,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpDelete("DeleteCategoryToProduct")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCategoryToProduct([FromBody] DeleteProductCategoryCommand command)
         {
             ErrorOr<Unit> deleteResult = await _mediator.Send(command);

@@ -5,10 +5,10 @@ using SalesSystem.Modules.Products.Domain;
 using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Modules.Categories.Domain;
+using SalesSystem.Modules.Users.Infrastructure;
 using SalesSystem.Modules.Users.Domain.Entities;
 using SalesSystem.Modules.ProductCategories.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using SalesSystem.Modules.Users.Infrastructure;
 
 namespace SalesSystem.Shared.Infrastructure
 {
@@ -28,6 +28,7 @@ namespace SalesSystem.Shared.Infrastructure
         public DbSet<UserCard> UserCards { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<UserAddres> UserAddres { get; set; }
+        public DbSet<TempCartItem> TempCartItems { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -1,14 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using SalesSystem.Modules.CartItems.Domain.Dto;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SalesSystem.Modules.CartItems.Application.Create;
 using SalesSystem.Modules.CartItems.Application.Delete;
 using SalesSystem.Modules.CartItems.Application.GetAll;
 using SalesSystem.Modules.CartItems.Application.UpdateQyt;
+using SalesSystem.Modules.CartItems.Application.CreateTempCartItem;
+using SalesSystem.Modules.CartItems.Application.GetAllTempCartItemp;
 
 namespace SalesSystem.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ShoppingCartController : ApiController
     {
         private readonly ISender _mediator;
@@ -18,23 +24,42 @@ namespace SalesSystem.Api.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("{cartId}")]
-        public async Task<IActionResult> GetAll(Guid cartId)
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAll([FromBody] GetAllTempCartItemQuery command)
         {
-            ErrorOr<IReadOnlyList<CartItemResponseDto>> result = await _mediator.Send(new GetAllCartItemQuery(cartId));
+            Claim? cartClaim = User.Claims.FirstOrDefault(u => u.Type == "CartId");
+            ErrorOr<IReadOnlyList<CartItemResponseDto>> result;
+            if (cartClaim == null)
+            {
+                result = await _mediator.Send(command);
+            }
+            else
+            {
+                result = await _mediator.Send(new GetAllCartItemQuery(Guid.Parse(cartClaim.Value)));
+            }
 
             return result.Match(items => Ok(items), errors => Problem(errors));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateCartItemCommad command)
+        [AllowAnonymous]
+        public async Task<IActionResult> Create([FromBody] CreateTempCartItemCommand command)
         {
-            ErrorOr<Unit> createResult = await _mediator.Send(command);
+            Claim? cartClaim = User.Claims.FirstOrDefault(u => u.Type == "CartId");
+            if (cartClaim == null)
+            {
+                var response = await _mediator.Send(command);
+                return response.Match(cartId => Ok(cartId), errors => Problem(errors));
+            }
 
-            return createResult.Match(cartItemId => Ok(), errors => Problem(errors));
+            CreateCartItemCommad commando = new(cartClaim.Value, command.ProductId, command.Qty);
+            var respon = await _mediator.Send(commando);
+            return respon.Match(cartId => Ok(cartId), errors => Problem(errors));
         }
 
         [HttpPut]
+        [AllowAnonymous]
         public async Task<IActionResult> Update([FromBody] UpdateCartItemQtyCommand command)
         {
             ErrorOr<Unit> result = await _mediator.Send(command);
@@ -43,6 +68,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpDelete]
+        [AllowAnonymous]
         public async Task<IActionResult> Delete([FromBody] DeleteCartItemCommand command)
         {
             ErrorOr<Unit> deleteResult = await _mediator.Send(command);

@@ -36,7 +36,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "User")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(Guid id)
         {
             ErrorOr<CategoryResponseDto> categoryResult = await _mediator.Send(new GetByIdCategoryQuery(id));
@@ -77,6 +77,7 @@ namespace SalesSystem.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             ErrorOr<Unit> deleteResult = await _mediator.Send(new DeleteCategoryCommand(id));

@@ -7,7 +7,6 @@ namespace SalesSystem.Modules.CartItems.Application.Create
         public CreateCartItemCommadValidator()
         {
             RuleFor(ci => ci.Qty).ExclusiveBetween(0, 20);
-            RuleFor(ci => ci.CartId).NotNull().NotEmpty();
             RuleFor(ci => ci.ProductId).NotNull().NotEmpty();
         }
     }

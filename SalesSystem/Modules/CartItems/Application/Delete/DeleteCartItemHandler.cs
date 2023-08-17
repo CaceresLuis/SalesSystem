@@ -1,6 +1,4 @@
-﻿using SalesSystem.Modules.Carts.Domain;
-using SalesSystem.Modules.Products.Domain;
-using SalesSystem.Modules.CartItems.Domain;
+﻿using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Shared.Domain.ValueObjects;
 using SalesSystem.Modules.CartItems.Domain.ValueObjects;
@@ -18,7 +16,7 @@ namespace SalesSystem.Modules.CartItems.Application.Delete
 
         public async Task<ErrorOr<Unit>> Handle(DeleteCartItemCommand request, CancellationToken cancellationToken)
         {
-            if (await _unitOfWork.CartItemRepository.CartItemExistAsync(new CartId(request.CartId), new ProductId(request.ProductId)) is not CartItem cartItem)
+            if (await _unitOfWork.CartItemRepository.GetByIdAsync(new CartItemId(request.CartItemId)) is not CartItem cartItem)
                 return ErrorCartItem.NotFoundCartItem;
 
             _unitOfWork.CartItemRepository.Delete(cartItem);

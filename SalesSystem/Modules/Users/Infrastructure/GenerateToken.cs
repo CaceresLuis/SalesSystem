@@ -1,12 +1,12 @@
 ﻿using System.Text;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using SalesSystem.Modules.Users.Domain;
 using Microsoft.Extensions.Configuration;
 using SalesSystem.Modules.Users.Domain.Dto;
 using SalesSystem.Modules.Users.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 
 namespace SalesSystem.Modules.Users.Infrastructure
 {
@@ -25,12 +25,15 @@ namespace SalesSystem.Modules.Users.Infrastructure
         {
             IList<string> roles = await _userManager.GetRolesAsync(user);
 
+            string cartId = user.Cart!.Id!.Value.ToString();
+
             List<Claim> claims = new()
             {
                 new Claim("Email", user.Email!),
                 new Claim("Id", user.Id.ToString()),
                 new Claim("FullName", user.FullName!),
-                new Claim(ClaimTypes.Role, roles.FirstOrDefault()!)
+                new Claim(ClaimTypes.Role, roles.FirstOrDefault()!),
+                new Claim("CartId", cartId)
             };
 
             SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(_configuration["JwtConfig:jwtKey"]!));
