@@ -1,7 +1,7 @@
 ﻿using SalesSystem.Modules.Products.Domain;
 using SalesSystem.Shared.Domain.Primitives;
 
-namespace SalesSystem.Modules.CartItems.Domain
+namespace SalesSystem.Modules.TempCartItems.Domain
 {
     public sealed class TempCartItem : AggregrateRoot
     {

@@ -28,17 +28,5 @@ namespace SalesSystem.Modules.CartItems.Infrastructure.Persistence
             .Include(ci => ci.Product)!.ThenInclude(p => p!.ProductCategories)!.ThenInclude(pc => pc.Category).ToListAsync();
 
         public async Task<CartItem?> CartItemExistAsync(CartId cartId, ProductId productId) => await _context.CartItems.AsNoTracking().SingleOrDefaultAsync(ci => ci.CartId == cartId && ci.ProductId == productId);
-
-
-
-        public void AddTempCartItem(TempCartItem tempCart) => _context.TempCartItems.Add(tempCart);
-
-        public void UpdateTempCartItem(TempCartItem tempCart) => _context.TempCartItems.Update(tempCart);
-
-        public async Task<TempCartItem?> GetTempCartByIdAsync(Guid id) => await _context.TempCartItems.AsNoTracking()
-            .Include(ci => ci.Product)!.ThenInclude(p => p!.ProductCategories)!.ThenInclude(pc => pc.Category).SingleOrDefaultAsync(tp => tp.Id == id);
-
-        public async Task<IEnumerable<TempCartItem>> GetAllTempCartAsync(Guid cartId) => await _context.TempCartItems.AsNoTracking().Where(ci => ci.Id == cartId)
-            .Include(ci => ci.Product)!.ThenInclude(p => p!.ProductCategories)!.ThenInclude(pc => pc.Category).ToListAsync();
     }
 }

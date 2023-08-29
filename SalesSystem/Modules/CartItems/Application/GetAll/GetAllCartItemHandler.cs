@@ -43,7 +43,8 @@ namespace SalesSystem.Modules.CartItems.Application.GetAll
                         pc.Category.Name)
                     ).ToList()
                 ),
-                cartItem.Qty
+                cartItem.Qty,
+                cartItem.Product.Price * cartItem.Qty
             )).ToList();
         }
     }

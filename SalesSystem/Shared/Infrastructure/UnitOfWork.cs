@@ -7,6 +7,7 @@ using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Modules.Categories.Domain;
 using SalesSystem.Modules.ProductCategories.Domain;
+using SalesSystem.Modules.TempCartItems.Domain;
 
 namespace SalesSystem.Shared.Infrastructure
 {
@@ -22,10 +23,11 @@ namespace SalesSystem.Shared.Infrastructure
         public ICategoryRepository CategoryRepository { get; }
         public ICartItemRepository CartItemRepository { get; }
         public IUserAddressRepository UserAddressRepository { get; }
+        public ITempCartItempRepository TempCartItempRepository { get; }
         public IProductCategoryRepository ProductCategoryRepository { get; }
 
 
-        public UnitOfWork(ApplicationDbContext context, ICategoryRepository categoryRepository, IProductRepository productRepository, ICartRepository cartRepository, IUserRepository userRepository, ICartItemRepository cartItemRepository, IProductCategoryRepository productCategoryRepository, IUserAddressRepository userAddressRepository, IUserCardRepository userCardRepository, IBuyRepository buyRepository, IRoleRepository roleRepository)
+        public UnitOfWork(ApplicationDbContext context, ICategoryRepository categoryRepository, IProductRepository productRepository, ICartRepository cartRepository, IUserRepository userRepository, ICartItemRepository cartItemRepository, IProductCategoryRepository productCategoryRepository, IUserAddressRepository userAddressRepository, IUserCardRepository userCardRepository, IBuyRepository buyRepository, IRoleRepository roleRepository, ITempCartItempRepository tempCartItempRepository)
         {
             _context = context;
             BuyRepository = buyRepository;
@@ -38,6 +40,7 @@ namespace SalesSystem.Shared.Infrastructure
             UserCardRepository = userCardRepository;
             UserAddressRepository = userAddressRepository;
             ProductCategoryRepository = productCategoryRepository;
+            TempCartItempRepository = tempCartItempRepository;
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) => await _context.SaveChangesAsync(cancellationToken);

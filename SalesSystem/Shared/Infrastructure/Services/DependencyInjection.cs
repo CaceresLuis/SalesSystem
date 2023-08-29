@@ -12,12 +12,14 @@ using SalesSystem.Modules.Carts.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using SalesSystem.Modules.Users.Infrastructure;
 using SalesSystem.Modules.Roles.Infrastructure;
+using SalesSystem.Modules.TempCartItems.Domain;
 using SalesSystem.Modules.ProductCategories.Domain;
 using SalesSystem.Modules.Buys.Infrastructure.Persistence;
 using SalesSystem.Modules.Users.Infrastructure.Persistence;
 using SalesSystem.Modules.Products.Infrastructure.Persistence;
 using SalesSystem.Modules.CartItems.Infrastructure.Persistence;
 using SalesSystem.Modules.Categories.Infrastructure.Persistence;
+using SalesSystem.Modules.TempCartItems.Infrastructure.Persistence;
 using SalesSystem.Modules.ProductCategories.Infrastructure.Persistence;
 
 namespace SalesSystem.Shared.Infrastructure.Services
@@ -45,6 +47,7 @@ namespace SalesSystem.Shared.Infrastructure.Services
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICartItemRepository, CartItemRepository>();
             services.AddScoped<IUserAddressRepository, UserAddressRepository>();
+            services.AddScoped<ITempCartItempRepository, TempCartItempRepository>();
             services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 
             services.AddScoped<IGenerateToken, GenerateToken>();

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SalesSystem.Modules.Products.Domain;
-using SalesSystem.Modules.CartItems.Domain;
+using SalesSystem.Modules.TempCartItems.Domain;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace SalesSystem.Modules.CartItems.Infrastructure.Persistence
+namespace SalesSystem.Modules.TempCartItems.Infrastructure.Persistence
 {
     public class CartItempTempUserConfiguration : IEntityTypeConfiguration<TempCartItem>
     {

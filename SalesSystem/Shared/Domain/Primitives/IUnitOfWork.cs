@@ -5,6 +5,7 @@ using SalesSystem.Modules.Carts.Domain;
 using SalesSystem.Modules.Products.Domain;
 using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Modules.Categories.Domain;
+using SalesSystem.Modules.TempCartItems.Domain;
 using SalesSystem.Modules.ProductCategories.Domain;
 
 namespace SalesSystem.Shared.Domain.Primitives
@@ -20,7 +21,9 @@ namespace SalesSystem.Shared.Domain.Primitives
         public ICategoryRepository CategoryRepository { get; }
         public ICartItemRepository CartItemRepository { get; }
         public IUserAddressRepository UserAddressRepository { get; }
+        public ITempCartItempRepository TempCartItempRepository { get; }
         public IProductCategoryRepository ProductCategoryRepository { get; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

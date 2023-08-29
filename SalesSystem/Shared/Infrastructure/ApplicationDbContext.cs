@@ -6,6 +6,7 @@ using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Modules.Categories.Domain;
 using SalesSystem.Modules.Users.Infrastructure;
+using SalesSystem.Modules.TempCartItems.Domain;
 using SalesSystem.Modules.Users.Domain.Entities;
 using SalesSystem.Modules.ProductCategories.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
