@@ -31,6 +31,12 @@ namespace SalesSystem.Modules.Products.Aplication.GetById
                 product.DeleteAt,
                 product.IsUpdated,
                 product.IsDeleted,
+                product.ProductImages!.Select(pc => new ProductImageResponse
+                (
+                    pc.Id,
+                    pc.ImageUrl!,
+                    pc.ProductId!.Value
+                )).ToList(),
                 product.ProductCategories!.Select(pc => new ProductCategoryResponseDto
                 (
                     pc.Category!.Id!.Value,

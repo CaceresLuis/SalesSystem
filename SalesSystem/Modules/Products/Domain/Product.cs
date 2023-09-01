@@ -1,7 +1,7 @@
-﻿using SalesSystem.Modules.CartItems.Domain;
+﻿using SalesSystem.Modules.Buys.Domain;
+using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.ProductCategories.Domain;
-using SalesSystem.Modules.Buys.Domain;
 
 namespace SalesSystem.Modules.Products.Domain
 {
@@ -12,6 +12,7 @@ namespace SalesSystem.Modules.Products.Domain
         public ProductId? Id { get; private set; }
         public string Name { get; private set; } = string.Empty;
         public string Description { get; private set; } = string.Empty;
+        public List<ProductImage>? ProductImages { get; private set; }
         public decimal Price { get; private set; }
         public int Stock { get; private set; }
         public DateTime CreateAt { get; set; }

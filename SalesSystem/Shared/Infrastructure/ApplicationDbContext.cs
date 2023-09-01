@@ -29,6 +29,7 @@ namespace SalesSystem.Shared.Infrastructure
         public DbSet<UserCard> UserCards { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<UserAddres> UserAddres { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<TempCartItem> TempCartItems { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
 

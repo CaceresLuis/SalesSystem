@@ -12,8 +12,8 @@ using SalesSystem.Shared.Infrastructure;
 namespace SalesSystem.shared.infrastructure.persistence.migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230817034006_TempUserCart")]
-    partial class TempUserCart
+    [Migration("20230831175323_Add-ProductImage")]
+    partial class AddProductImage
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,13 +53,13 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                     b.HasData(
                         new
                         {
-                            Id = "c506c0ae-d06e-4d5d-a57d-433c63245883",
+                            Id = "c5012f7b-4cbc-4c66-a467-7fd5af53b57a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "cbbaac48-603d-4004-907b-f9fb1020309c",
+                            Id = "dd5eecad-2615-45b4-a3cf-40f262931194",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -154,13 +154,13 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                     b.HasData(
                         new
                         {
-                            UserId = "93bd6f5d-6af9-45b1-b996-ee198fb746ab",
-                            RoleId = "c506c0ae-d06e-4d5d-a57d-433c63245883"
+                            UserId = "9eb3c88f-e2e1-4d83-8b03-ad506ed4e576",
+                            RoleId = "c5012f7b-4cbc-4c66-a467-7fd5af53b57a"
                         },
                         new
                         {
-                            UserId = "7a39b716-9943-4abc-accf-8783b13c18af",
-                            RoleId = "cbbaac48-603d-4004-907b-f9fb1020309c"
+                            UserId = "aec741be-ceb7-445f-9853-6ce750f2c607",
+                            RoleId = "dd5eecad-2615-45b4-a3cf-40f262931194"
                         });
                 });
 
@@ -232,28 +232,6 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                     b.ToTable("CartItems");
                 });
 
-            modelBuilder.Entity("SalesSystem.Modules.CartItems.Domain.TempCartItem", b =>
-                {
-                    b.Property<Guid?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("ProductId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Qty")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("TempUser")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("TempCartItems");
-                });
-
             modelBuilder.Entity("SalesSystem.Modules.Carts.Domain.Cart", b =>
                 {
                     b.Property<Guid>("Id")
@@ -272,13 +250,13 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7464b959-6dab-420e-bd6a-48075a76b1e2"),
-                            UserId = "93bd6f5d-6af9-45b1-b996-ee198fb746ab"
+                            Id = new Guid("b993ecc5-3d87-4169-8b10-90245f0b9780"),
+                            UserId = "9eb3c88f-e2e1-4d83-8b03-ad506ed4e576"
                         },
                         new
                         {
-                            Id = new Guid("5dbfb477-a824-4a34-a815-78bd860d476d"),
-                            UserId = "7a39b716-9943-4abc-accf-8783b13c18af"
+                            Id = new Guid("b6a253ce-9b1d-4ec8-b959-cca2b308d01d"),
+                            UserId = "aec741be-ceb7-445f-9853-6ce750f2c607"
                         });
                 });
 
@@ -314,8 +292,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f755e198-179c-4791-92be-a6b4f2359b8b"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4329),
+                            Id = new Guid("ec818aee-633e-4089-aa36-1547155e2836"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8674),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             IsUpdated = false,
@@ -324,8 +302,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("a463d0fe-1ed9-4165-bf9b-a76c6f012cfd"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4339),
+                            Id = new Guid("30ee5a65-32f9-4807-913e-79c0902ed954"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8683),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             IsUpdated = false,
@@ -334,8 +312,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("36739425-1f4b-4eac-843c-0afb7ae019a0"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4342),
+                            Id = new Guid("be05452d-cde3-4a6f-b0fe-ae18c7b006c6"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8686),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             IsUpdated = false,
@@ -344,8 +322,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("1e2ad49d-7a99-4ad5-9f75-45bca7c4db77"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4344),
+                            Id = new Guid("7bcda787-3f97-4c4f-a48c-ab17c254cd33"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8689),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             IsUpdated = false,
@@ -354,8 +332,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("e5cb1954-be90-4594-8db6-3eac4f6fdf52"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4357),
+                            Id = new Guid("846e4eab-676f-46f6-92b6-6e4b0df92c45"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8691),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             IsUpdated = false,
@@ -364,8 +342,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("3ea92e81-dd91-4bda-88b8-025bf4e19bb0"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4374),
+                            Id = new Guid("0bfc609c-447d-453e-9ba4-49cd315026d7"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8707),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             IsUpdated = false,
@@ -374,8 +352,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("d5e1613b-61bc-4583-8cad-d05818b9ab8e"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4376),
+                            Id = new Guid("07e3a10c-f25e-4e29-93e4-96099c2e1b62"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8713),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             IsUpdated = false,
@@ -384,8 +362,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("afd4f956-fc03-408c-8f2f-c348bb583184"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4378),
+                            Id = new Guid("84186444-d216-4129-bdb9-450bdfb5ed7a"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8715),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             IsUpdated = false,
@@ -394,8 +372,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("645fdc3a-b59e-44d9-8b1b-803571621af9"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4380),
+                            Id = new Guid("9f1450be-b97a-48d1-be02-7746a3e6aa8d"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8718),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             IsUpdated = false,
@@ -404,8 +382,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("fa2c0a85-c2f7-4ebd-95a0-511d74e95cca"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4384),
+                            Id = new Guid("d2a37980-a661-48a4-ac6e-65f6f2fe8cbf"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8721),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             IsUpdated = false,
@@ -440,182 +418,182 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         new
                         {
                             Id = 1,
-                            CategoryId = new Guid("f755e198-179c-4791-92be-a6b4f2359b8b"),
-                            ProductId = new Guid("c92afc07-b66c-437e-81ed-208a9d8d02ba")
+                            CategoryId = new Guid("ec818aee-633e-4089-aa36-1547155e2836"),
+                            ProductId = new Guid("f772c8db-bfbe-4eb2-8d6c-7cd8f4447253")
                         },
                         new
                         {
                             Id = 2,
-                            CategoryId = new Guid("f755e198-179c-4791-92be-a6b4f2359b8b"),
-                            ProductId = new Guid("c5d547c0-cdc1-43c3-b273-6df9f26b9410")
+                            CategoryId = new Guid("ec818aee-633e-4089-aa36-1547155e2836"),
+                            ProductId = new Guid("e6a79b88-7ecd-4d13-bbb9-7ad317a4749d")
                         },
                         new
                         {
                             Id = 3,
-                            CategoryId = new Guid("f755e198-179c-4791-92be-a6b4f2359b8b"),
-                            ProductId = new Guid("837fcb93-492c-4808-8121-f8b8a2ceec0f")
+                            CategoryId = new Guid("ec818aee-633e-4089-aa36-1547155e2836"),
+                            ProductId = new Guid("da4ce4aa-c14a-41be-9359-6232dd97210e")
                         },
                         new
                         {
                             Id = 4,
-                            CategoryId = new Guid("a463d0fe-1ed9-4165-bf9b-a76c6f012cfd"),
-                            ProductId = new Guid("71c645cc-6bfe-4f0e-9262-aaaf09d368a5")
+                            CategoryId = new Guid("30ee5a65-32f9-4807-913e-79c0902ed954"),
+                            ProductId = new Guid("9c412375-70f7-447d-8507-c0363067624d")
                         },
                         new
                         {
                             Id = 5,
-                            CategoryId = new Guid("a463d0fe-1ed9-4165-bf9b-a76c6f012cfd"),
-                            ProductId = new Guid("38772743-0756-4077-ad8d-40c34f7279e7")
+                            CategoryId = new Guid("30ee5a65-32f9-4807-913e-79c0902ed954"),
+                            ProductId = new Guid("d73a1484-7fd4-4736-a0de-2445283687a8")
                         },
                         new
                         {
                             Id = 6,
-                            CategoryId = new Guid("a463d0fe-1ed9-4165-bf9b-a76c6f012cfd"),
-                            ProductId = new Guid("a814df1f-461e-43b9-99c6-2bdfa0e93de1")
+                            CategoryId = new Guid("30ee5a65-32f9-4807-913e-79c0902ed954"),
+                            ProductId = new Guid("5ba7b849-7e6f-469b-b796-4376116cf2d8")
                         },
                         new
                         {
                             Id = 7,
-                            CategoryId = new Guid("36739425-1f4b-4eac-843c-0afb7ae019a0"),
-                            ProductId = new Guid("2f72df20-229f-44be-ba2f-6b8e344cb690")
+                            CategoryId = new Guid("be05452d-cde3-4a6f-b0fe-ae18c7b006c6"),
+                            ProductId = new Guid("8172c711-bd72-438c-9502-7ef4ed280685")
                         },
                         new
                         {
                             Id = 8,
-                            CategoryId = new Guid("36739425-1f4b-4eac-843c-0afb7ae019a0"),
-                            ProductId = new Guid("b9f73587-1dee-4477-959c-f0b3b29d2098")
+                            CategoryId = new Guid("be05452d-cde3-4a6f-b0fe-ae18c7b006c6"),
+                            ProductId = new Guid("64691c1a-7558-4583-891c-aa52547aff06")
                         },
                         new
                         {
                             Id = 9,
-                            CategoryId = new Guid("36739425-1f4b-4eac-843c-0afb7ae019a0"),
-                            ProductId = new Guid("dde91dc3-296a-4707-98c0-74edfba5b570")
+                            CategoryId = new Guid("be05452d-cde3-4a6f-b0fe-ae18c7b006c6"),
+                            ProductId = new Guid("a3b9eca0-5298-4b83-9af0-9a6c8bdbc5bc")
                         },
                         new
                         {
                             Id = 10,
-                            CategoryId = new Guid("1e2ad49d-7a99-4ad5-9f75-45bca7c4db77"),
-                            ProductId = new Guid("82a42560-99aa-48b0-8a58-e43b68c25e4f")
+                            CategoryId = new Guid("7bcda787-3f97-4c4f-a48c-ab17c254cd33"),
+                            ProductId = new Guid("f3209d12-652c-4d00-96ee-b2e67bd275b4")
                         },
                         new
                         {
                             Id = 11,
-                            CategoryId = new Guid("1e2ad49d-7a99-4ad5-9f75-45bca7c4db77"),
-                            ProductId = new Guid("dc0c5b56-5689-410d-bc24-24c9cd103113")
+                            CategoryId = new Guid("7bcda787-3f97-4c4f-a48c-ab17c254cd33"),
+                            ProductId = new Guid("a1f465ed-46a0-491a-96d4-ad6a763a6468")
                         },
                         new
                         {
                             Id = 12,
-                            CategoryId = new Guid("1e2ad49d-7a99-4ad5-9f75-45bca7c4db77"),
-                            ProductId = new Guid("b1941ffa-9f4b-4a4d-8b96-ebf9830b9ed7")
+                            CategoryId = new Guid("7bcda787-3f97-4c4f-a48c-ab17c254cd33"),
+                            ProductId = new Guid("27767dd8-9a24-4d9b-a579-3a5e92a890cc")
                         },
                         new
                         {
                             Id = 13,
-                            CategoryId = new Guid("e5cb1954-be90-4594-8db6-3eac4f6fdf52"),
-                            ProductId = new Guid("5f3b91ca-feb4-4ac0-bc78-b7b789ceea62")
+                            CategoryId = new Guid("846e4eab-676f-46f6-92b6-6e4b0df92c45"),
+                            ProductId = new Guid("b2cf7588-dea4-4825-b593-33646ba49fa7")
                         },
                         new
                         {
                             Id = 14,
-                            CategoryId = new Guid("e5cb1954-be90-4594-8db6-3eac4f6fdf52"),
-                            ProductId = new Guid("d7cc4571-67fb-4358-bf3c-56e7448c1f23")
+                            CategoryId = new Guid("846e4eab-676f-46f6-92b6-6e4b0df92c45"),
+                            ProductId = new Guid("3e0b3723-ec2d-4dfa-8b34-6e61107a2042")
                         },
                         new
                         {
                             Id = 15,
-                            CategoryId = new Guid("e5cb1954-be90-4594-8db6-3eac4f6fdf52"),
-                            ProductId = new Guid("71a124f3-136d-4f40-95c2-945b5b3edf01")
+                            CategoryId = new Guid("846e4eab-676f-46f6-92b6-6e4b0df92c45"),
+                            ProductId = new Guid("3bc2f28e-a49a-4d36-8117-8015e4caea66")
                         },
                         new
                         {
                             Id = 16,
-                            CategoryId = new Guid("3ea92e81-dd91-4bda-88b8-025bf4e19bb0"),
-                            ProductId = new Guid("26520101-3a7a-4e33-99b3-165d0a0b9436")
+                            CategoryId = new Guid("0bfc609c-447d-453e-9ba4-49cd315026d7"),
+                            ProductId = new Guid("297ddc01-3c5d-44d7-bfaa-3ad36e96fb53")
                         },
                         new
                         {
                             Id = 17,
-                            CategoryId = new Guid("3ea92e81-dd91-4bda-88b8-025bf4e19bb0"),
-                            ProductId = new Guid("4ea174ca-fc53-456e-bf9a-49eb1b871010")
+                            CategoryId = new Guid("0bfc609c-447d-453e-9ba4-49cd315026d7"),
+                            ProductId = new Guid("3d389ed0-e764-4c4d-bfd8-b5c94f9f9d20")
                         },
                         new
                         {
                             Id = 18,
-                            CategoryId = new Guid("3ea92e81-dd91-4bda-88b8-025bf4e19bb0"),
-                            ProductId = new Guid("f05c8368-94f4-4293-878a-a96ee27047b0")
+                            CategoryId = new Guid("0bfc609c-447d-453e-9ba4-49cd315026d7"),
+                            ProductId = new Guid("8aab0882-3ebd-4984-84ca-c60f6348db4a")
                         },
                         new
                         {
                             Id = 19,
-                            CategoryId = new Guid("d5e1613b-61bc-4583-8cad-d05818b9ab8e"),
-                            ProductId = new Guid("7a7ecb1e-c7f9-47ac-bf8e-5ee76e6ce623")
+                            CategoryId = new Guid("07e3a10c-f25e-4e29-93e4-96099c2e1b62"),
+                            ProductId = new Guid("c2b623b6-33d7-482c-9b65-e65cb38df321")
                         },
                         new
                         {
                             Id = 20,
-                            CategoryId = new Guid("d5e1613b-61bc-4583-8cad-d05818b9ab8e"),
-                            ProductId = new Guid("ab6cfb55-0836-486a-bdbb-c416ca73d98b")
+                            CategoryId = new Guid("07e3a10c-f25e-4e29-93e4-96099c2e1b62"),
+                            ProductId = new Guid("8979e7a4-52a0-4128-b02d-def5dd062bca")
                         },
                         new
                         {
                             Id = 21,
-                            CategoryId = new Guid("d5e1613b-61bc-4583-8cad-d05818b9ab8e"),
-                            ProductId = new Guid("878e6080-c5a3-428e-a030-0031c6e80dcd")
+                            CategoryId = new Guid("07e3a10c-f25e-4e29-93e4-96099c2e1b62"),
+                            ProductId = new Guid("fe9f16b1-3c40-4ab7-a96d-68df023b4bd0")
                         },
                         new
                         {
                             Id = 22,
-                            CategoryId = new Guid("afd4f956-fc03-408c-8f2f-c348bb583184"),
-                            ProductId = new Guid("091dafe0-7e5a-47d1-bdd5-9871ca447c93")
+                            CategoryId = new Guid("84186444-d216-4129-bdb9-450bdfb5ed7a"),
+                            ProductId = new Guid("cdbe3ce9-1592-46d4-b98b-66cb14fa6c77")
                         },
                         new
                         {
                             Id = 23,
-                            CategoryId = new Guid("afd4f956-fc03-408c-8f2f-c348bb583184"),
-                            ProductId = new Guid("7cfbe4d7-1e5d-4797-bbf7-af19a03920be")
+                            CategoryId = new Guid("84186444-d216-4129-bdb9-450bdfb5ed7a"),
+                            ProductId = new Guid("197d5aa1-38ff-4f80-b7bc-1f9cf85db60a")
                         },
                         new
                         {
                             Id = 24,
-                            CategoryId = new Guid("afd4f956-fc03-408c-8f2f-c348bb583184"),
-                            ProductId = new Guid("ff579eb7-6313-4ae1-97e4-d550ea9065eb")
+                            CategoryId = new Guid("84186444-d216-4129-bdb9-450bdfb5ed7a"),
+                            ProductId = new Guid("4d1370ac-3d88-44ba-8a64-039f5f4b1f36")
                         },
                         new
                         {
                             Id = 25,
-                            CategoryId = new Guid("645fdc3a-b59e-44d9-8b1b-803571621af9"),
-                            ProductId = new Guid("d7c93dda-e972-4bc6-b69b-e7e0ffe2ec1b")
+                            CategoryId = new Guid("9f1450be-b97a-48d1-be02-7746a3e6aa8d"),
+                            ProductId = new Guid("7738fddd-3b46-48e2-8295-0f5dfded87ba")
                         },
                         new
                         {
                             Id = 26,
-                            CategoryId = new Guid("645fdc3a-b59e-44d9-8b1b-803571621af9"),
-                            ProductId = new Guid("56ba067d-63c5-4dc4-b880-47737cf00b1d")
+                            CategoryId = new Guid("9f1450be-b97a-48d1-be02-7746a3e6aa8d"),
+                            ProductId = new Guid("ca2e2697-761b-4361-bf06-545e99cccf19")
                         },
                         new
                         {
                             Id = 27,
-                            CategoryId = new Guid("645fdc3a-b59e-44d9-8b1b-803571621af9"),
-                            ProductId = new Guid("b7b7cb67-09b9-40b3-90ef-386ce01f8f71")
+                            CategoryId = new Guid("9f1450be-b97a-48d1-be02-7746a3e6aa8d"),
+                            ProductId = new Guid("1332d295-52e2-4ddf-a6b2-2ec201e9bb11")
                         },
                         new
                         {
                             Id = 28,
-                            CategoryId = new Guid("fa2c0a85-c2f7-4ebd-95a0-511d74e95cca"),
-                            ProductId = new Guid("ce88b4d5-d95d-4993-96ff-fd346a56eb37")
+                            CategoryId = new Guid("d2a37980-a661-48a4-ac6e-65f6f2fe8cbf"),
+                            ProductId = new Guid("ab7ff19d-fc3d-4bb1-a19d-2a10582fc5f0")
                         },
                         new
                         {
                             Id = 29,
-                            CategoryId = new Guid("fa2c0a85-c2f7-4ebd-95a0-511d74e95cca"),
-                            ProductId = new Guid("658655e0-2126-41af-8df7-e7cc34facdde")
+                            CategoryId = new Guid("d2a37980-a661-48a4-ac6e-65f6f2fe8cbf"),
+                            ProductId = new Guid("0ac6a7da-e1c4-44df-8551-274ab3412183")
                         },
                         new
                         {
                             Id = 30,
-                            CategoryId = new Guid("fa2c0a85-c2f7-4ebd-95a0-511d74e95cca"),
-                            ProductId = new Guid("dcd48f9a-560b-424e-a8c6-da9978b07414")
+                            CategoryId = new Guid("d2a37980-a661-48a4-ac6e-65f6f2fe8cbf"),
+                            ProductId = new Guid("3494e9a9-d49f-481f-90c8-336195121160")
                         });
                 });
 
@@ -663,8 +641,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c92afc07-b66c-437e-81ed-208a9d8d02ba"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4433),
+                            Id = new Guid("f772c8db-bfbe-4eb2-8d6c-7cd8f4447253"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8750),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -676,8 +654,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("c5d547c0-cdc1-43c3-b273-6df9f26b9410"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4443),
+                            Id = new Guid("e6a79b88-7ecd-4d13-bbb9-7ad317a4749d"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8761),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -689,8 +667,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("837fcb93-492c-4808-8121-f8b8a2ceec0f"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4450),
+                            Id = new Guid("da4ce4aa-c14a-41be-9359-6232dd97210e"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8764),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -702,8 +680,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("71c645cc-6bfe-4f0e-9262-aaaf09d368a5"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4452),
+                            Id = new Guid("9c412375-70f7-447d-8507-c0363067624d"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8767),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -715,8 +693,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("38772743-0756-4077-ad8d-40c34f7279e7"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4454),
+                            Id = new Guid("d73a1484-7fd4-4736-a0de-2445283687a8"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8772),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -728,8 +706,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("a814df1f-461e-43b9-99c6-2bdfa0e93de1"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4458),
+                            Id = new Guid("5ba7b849-7e6f-469b-b796-4376116cf2d8"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8776),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -741,8 +719,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("2f72df20-229f-44be-ba2f-6b8e344cb690"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4461),
+                            Id = new Guid("8172c711-bd72-438c-9502-7ef4ed280685"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8778),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -754,8 +732,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("b9f73587-1dee-4477-959c-f0b3b29d2098"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4463),
+                            Id = new Guid("64691c1a-7558-4583-891c-aa52547aff06"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8781),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -767,8 +745,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("dde91dc3-296a-4707-98c0-74edfba5b570"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4466),
+                            Id = new Guid("a3b9eca0-5298-4b83-9af0-9a6c8bdbc5bc"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8783),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -780,8 +758,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("82a42560-99aa-48b0-8a58-e43b68c25e4f"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4469),
+                            Id = new Guid("f3209d12-652c-4d00-96ee-b2e67bd275b4"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8787),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -793,8 +771,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("dc0c5b56-5689-410d-bc24-24c9cd103113"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4475),
+                            Id = new Guid("a1f465ed-46a0-491a-96d4-ad6a763a6468"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8790),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -806,8 +784,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("b1941ffa-9f4b-4a4d-8b96-ebf9830b9ed7"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4477),
+                            Id = new Guid("27767dd8-9a24-4d9b-a579-3a5e92a890cc"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8793),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -819,8 +797,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("5f3b91ca-feb4-4ac0-bc78-b7b789ceea62"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4480),
+                            Id = new Guid("b2cf7588-dea4-4825-b593-33646ba49fa7"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8798),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -832,8 +810,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("d7cc4571-67fb-4358-bf3c-56e7448c1f23"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4482),
+                            Id = new Guid("3e0b3723-ec2d-4dfa-8b34-6e61107a2042"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8800),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -845,8 +823,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("71a124f3-136d-4f40-95c2-945b5b3edf01"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4486),
+                            Id = new Guid("3bc2f28e-a49a-4d36-8117-8015e4caea66"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8802),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -858,8 +836,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("26520101-3a7a-4e33-99b3-165d0a0b9436"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4488),
+                            Id = new Guid("297ddc01-3c5d-44d7-bfaa-3ad36e96fb53"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8804),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -871,8 +849,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("4ea174ca-fc53-456e-bf9a-49eb1b871010"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4491),
+                            Id = new Guid("3d389ed0-e764-4c4d-bfd8-b5c94f9f9d20"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8807),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -884,8 +862,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("f05c8368-94f4-4293-878a-a96ee27047b0"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4632),
+                            Id = new Guid("8aab0882-3ebd-4984-84ca-c60f6348db4a"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8811),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -897,8 +875,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("7a7ecb1e-c7f9-47ac-bf8e-5ee76e6ce623"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4638),
+                            Id = new Guid("c2b623b6-33d7-482c-9b65-e65cb38df321"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8813),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -910,21 +888,21 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("ab6cfb55-0836-486a-bdbb-c416ca73d98b"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4644),
+                            Id = new Guid("8979e7a4-52a0-4128-b02d-def5dd062bca"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8815),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
                             IsUpdated = false,
-                            Name = "CD de la banda sonora original de una película popular",
+                            Name = "CD de la banda sonora original de Greace",
                             Price = 21m,
                             Stock = 485,
                             UpdateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("878e6080-c5a3-428e-a030-0031c6e80dcd"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4646),
+                            Id = new Guid("fe9f16b1-3c40-4ab7-a96d-68df023b4bd0"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8820),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -936,8 +914,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("091dafe0-7e5a-47d1-bdd5-9871ca447c93"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4649),
+                            Id = new Guid("cdbe3ce9-1592-46d4-b98b-66cb14fa6c77"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8822),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -949,47 +927,47 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("7cfbe4d7-1e5d-4797-bbf7-af19a03920be"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4652),
+                            Id = new Guid("197d5aa1-38ff-4f80-b7bc-1f9cf85db60a"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8825),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
                             IsUpdated = false,
-                            Name = "Caja de té variado con sabores exóticos",
+                            Name = "Caja de té variado con sabores exóticos: Bigelow",
                             Price = 25m,
                             Stock = 740,
                             UpdateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("ff579eb7-6313-4ae1-97e4-d550ea9065eb"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4654),
+                            Id = new Guid("4d1370ac-3d88-44ba-8a64-039f5f4b1f36"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8827),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
                             IsUpdated = false,
-                            Name = "Vino tinto reserva de una bodega reconocida",
+                            Name = "Vino tinto reserva de una bodega Alavesas",
                             Price = 128m,
                             Stock = 196,
                             UpdateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("d7c93dda-e972-4bc6-b69b-e7e0ffe2ec1b"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4657),
+                            Id = new Guid("7738fddd-3b46-48e2-8295-0f5dfded87ba"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8830),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
                             IsUpdated = false,
-                            Name = "Set de suplementos vitamínicos para la salud general",
+                            Name = "Set de suplementos vitamínicos Arete, para la salud general",
                             Price = 129m,
                             Stock = 504,
                             UpdateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("56ba067d-63c5-4dc4-b880-47737cf00b1d"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4659),
+                            Id = new Guid("ca2e2697-761b-4361-bf06-545e99cccf19"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8876),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
@@ -1001,56 +979,279 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         },
                         new
                         {
-                            Id = new Guid("b7b7cb67-09b9-40b3-90ef-386ce01f8f71"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4664),
+                            Id = new Guid("1332d295-52e2-4ddf-a6b2-2ec201e9bb11"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8878),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
                             IsUpdated = false,
-                            Name = "Mascarilla facial de cuidado intensivo con ingredientes naturales",
+                            Name = "Mascarilla facial Cucumber, de cuidado intensivo con ingredientes naturales",
                             Price = 234m,
                             Stock = 529,
                             UpdateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("ce88b4d5-d95d-4993-96ff-fd346a56eb37"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4666),
+                            Id = new Guid("ab7ff19d-fc3d-4bb1-a19d-2a10582fc5f0"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8880),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
                             IsUpdated = false,
-                            Name = "Kit de limpieza y cuidado automotriz de calidad profesional",
+                            Name = "Kit de limpieza y cuidado automotriz de calidad profesional Chemical Guys",
                             Price = 359m,
                             Stock = 74,
                             UpdateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("658655e0-2126-41af-8df7-e7cc34facdde"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4670),
+                            Id = new Guid("0ac6a7da-e1c4-44df-8551-274ab3412183"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8885),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
                             IsUpdated = false,
-                            Name = "Funda de asiento de cuero para automóvil",
+                            Name = "Funda de asiento de cuero para automóvil Handao-Us",
                             Price = 75m,
                             Stock = 56,
                             UpdateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("dcd48f9a-560b-424e-a8c6-da9978b07414"),
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 737, DateTimeKind.Utc).AddTicks(4676),
+                            Id = new Guid("3494e9a9-d49f-481f-90c8-336195121160"),
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 782, DateTimeKind.Utc).AddTicks(8887),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             IsDeleted = false,
                             IsUpdated = false,
-                            Name = "Casco de motocicleta de diseño aerodinámico y alta seguridad",
+                            Name = "Casco de motocicleta de diseño aerodinámico y alta seguridad BCBKD",
                             Price = 125m,
                             Stock = 142,
                             UpdateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
+                });
+
+            modelBuilder.Entity("SalesSystem.Modules.Products.Domain.ProductImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("dfa8872c-1da8-45d3-bffb-0fd35ecfce46"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Smartphone Samsung Galaxy S22.jpg",
+                            ProductId = new Guid("f772c8db-bfbe-4eb2-8d6c-7cd8f4447253")
+                        },
+                        new
+                        {
+                            Id = new Guid("d6844e4b-f67c-4ec4-8995-4bc33963799b"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Laptop HP Pavilion 16.jpg",
+                            ProductId = new Guid("e6a79b88-7ecd-4d13-bbb9-7ad317a4749d")
+                        },
+                        new
+                        {
+                            Id = new Guid("fc9b46f5-1dda-4cdd-899b-1f2972b697f6"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Auriculares inalámbricos Sony WH-1000XM4.jpg",
+                            ProductId = new Guid("da4ce4aa-c14a-41be-9359-6232dd97210e")
+                        },
+                        new
+                        {
+                            Id = new Guid("cca5c6e8-0a44-4179-9ce2-93851db99a72"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Camiseta de algodón con estampado floral.jpg",
+                            ProductId = new Guid("9c412375-70f7-447d-8507-c0363067624d")
+                        },
+                        new
+                        {
+                            Id = new Guid("68f5b090-8d2f-4364-9dde-7f8083cc7d66"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Pantalones vaqueros de corte ajustado.jpg",
+                            ProductId = new Guid("d73a1484-7fd4-4736-a0de-2445283687a8")
+                        },
+                        new
+                        {
+                            Id = new Guid("6955a283-ba84-4851-9837-0c030552c138"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Bolso de cuero genuino con diseño elegante.jpg",
+                            ProductId = new Guid("5ba7b849-7e6f-469b-b796-4376116cf2d8")
+                        },
+                        new
+                        {
+                            Id = new Guid("6163acda-8485-4a3b-9fb6-ffe614589271"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Juego de muebles de sala en tonos neutros.jpg",
+                            ProductId = new Guid("8172c711-bd72-438c-9502-7ef4ed280685")
+                        },
+                        new
+                        {
+                            Id = new Guid("91f116e0-23fc-495a-b07e-789ec2cc1b0b"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Juego de sábanas de algodón con diseño moderno.jpg",
+                            ProductId = new Guid("64691c1a-7558-4583-891c-aa52547aff06")
+                        },
+                        new
+                        {
+                            Id = new Guid("427f6fe8-a100-4ec1-a5fe-4136200545eb"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Lámpara de mesa de estilo industrial.jpg",
+                            ProductId = new Guid("a3b9eca0-5298-4b83-9af0-9a6c8bdbc5bc")
+                        },
+                        new
+                        {
+                            Id = new Guid("623b49e8-d596-490b-99c6-b278143dfc8f"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Set de maquillaje profesional de alta gama.jpg",
+                            ProductId = new Guid("f3209d12-652c-4d00-96ee-b2e67bd275b4")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5fa2691-61b2-4e04-bb20-a3732e3289b1"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Perfume floral y fresco para mujer.jpg",
+                            ProductId = new Guid("a1f465ed-46a0-491a-96d4-ad6a763a6468")
+                        },
+                        new
+                        {
+                            Id = new Guid("7f1044ff-81d8-445a-a5d6-5c8b676482df"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Cepillo alisador de cabello con tecnología iónica.jpg",
+                            ProductId = new Guid("27767dd8-9a24-4d9b-a579-3a5e92a890cc")
+                        },
+                        new
+                        {
+                            Id = new Guid("a5a3bcee-f350-498a-9a83-237d86ffc64f"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Bicicleta de montaña todoterreno.jpg",
+                            ProductId = new Guid("b2cf7588-dea4-4825-b593-33646ba49fa7")
+                        },
+                        new
+                        {
+                            Id = new Guid("45ea1bd4-fe84-4639-b34b-b2c34952ad3e"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Ropa deportiva para running.jpg",
+                            ProductId = new Guid("3e0b3723-ec2d-4dfa-8b34-6e61107a2042")
+                        },
+                        new
+                        {
+                            Id = new Guid("e65b370f-e7e7-4bf2-a02c-8dc07740a447"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Tienda de campaña resistente al agua para 4 personas.jpg",
+                            ProductId = new Guid("3bc2f28e-a49a-4d36-8117-8015e4caea66")
+                        },
+                        new
+                        {
+                            Id = new Guid("d1b2dbea-e67c-45f0-9987-79a2d574c224"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Juego de construcción LEGO Classic.jpg",
+                            ProductId = new Guid("297ddc01-3c5d-44d7-bfaa-3ad36e96fb53")
+                        },
+                        new
+                        {
+                            Id = new Guid("e2b15f33-8813-4c1b-b79d-952cc7f1fb91"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Peluche suave y tierno de animalito.jpg",
+                            ProductId = new Guid("3d389ed0-e764-4c4d-bfd8-b5c94f9f9d20")
+                        },
+                        new
+                        {
+                            Id = new Guid("a20b86b5-83e4-4059-9150-a5b29f8c2689"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Juego de mesa estratégico Catan.jpg",
+                            ProductId = new Guid("8aab0882-3ebd-4984-84ca-c60f6348db4a")
+                        },
+                        new
+                        {
+                            Id = new Guid("64a4755a-18b2-4cc0-b0d9-f02ad69ce0d9"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Novela de suspenso La Chica del Tren de Paula Hawkins.jpg",
+                            ProductId = new Guid("c2b623b6-33d7-482c-9b65-e65cb38df321")
+                        },
+                        new
+                        {
+                            Id = new Guid("26acf99d-4704-42ef-a4f3-fbfe54a63834"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/CD de la banda sonora original de Greace",
+                            ProductId = new Guid("8979e7a4-52a0-4128-b02d-def5dd062bca")
+                        },
+                        new
+                        {
+                            Id = new Guid("5d5ab301-6974-4a45-865d-41ccb9856a89"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/The Legend of Zelda Breath of the Wild.jpg",
+                            ProductId = new Guid("fe9f16b1-3c40-4ab7-a96d-68df023b4bd0")
+                        },
+                        new
+                        {
+                            Id = new Guid("d75e7808-d92b-4696-9146-5b7e2414c87d"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/chocolates gourmet de diferentes países.jpg",
+                            ProductId = new Guid("cdbe3ce9-1592-46d4-b98b-66cb14fa6c77")
+                        },
+                        new
+                        {
+                            Id = new Guid("aaccdc04-c1b1-40c6-8a97-a89f360d68be"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Caja de té variado Bigelow.jpg",
+                            ProductId = new Guid("197d5aa1-38ff-4f80-b7bc-1f9cf85db60a")
+                        },
+                        new
+                        {
+                            Id = new Guid("d03338f3-cda5-42f5-a841-297ae299e88a"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Vino tinto reserva de una bodega Alavesas.jpg",
+                            ProductId = new Guid("4d1370ac-3d88-44ba-8a64-039f5f4b1f36")
+                        },
+                        new
+                        {
+                            Id = new Guid("e54b38bc-310d-41c7-bdf2-cbf33dcd6e30"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Suplementos vitamínicos arete.jpg",
+                            ProductId = new Guid("7738fddd-3b46-48e2-8295-0f5dfded87ba")
+                        },
+                        new
+                        {
+                            Id = new Guid("93a5f220-9bd1-4cc6-a5a4-1d602554fca9"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Dispositivo de seguimiento de actividad física y sueño.jpg",
+                            ProductId = new Guid("ca2e2697-761b-4361-bf06-545e99cccf19")
+                        },
+                        new
+                        {
+                            Id = new Guid("ad754911-87f7-4c08-ae39-ed0b186548de"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Mascarilla facial Cucumber.jpg",
+                            ProductId = new Guid("1332d295-52e2-4ddf-a6b2-2ec201e9bb11")
+                        },
+                        new
+                        {
+                            Id = new Guid("4d03bc49-71e2-441b-a6eb-95979c4d5f1a"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Kit de limpieza y cuidado automotriz Chemical Guys.jpg",
+                            ProductId = new Guid("ab7ff19d-fc3d-4bb1-a19d-2a10582fc5f0")
+                        },
+                        new
+                        {
+                            Id = new Guid("9c2415a4-0060-4da0-abe9-23a9f9330e7b"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Funda de asiento de cuero Handao-Us.jpg",
+                            ProductId = new Guid("0ac6a7da-e1c4-44df-8551-274ab3412183")
+                        },
+                        new
+                        {
+                            Id = new Guid("b18a7575-d6ce-49a1-9fa3-0de4b116222b"),
+                            ImageUrl = "/Shared/Infrastructure/Images/Products/Casco de motocicleta BCBKD.jpg",
+                            ProductId = new Guid("3494e9a9-d49f-481f-90c8-336195121160")
+                        });
+                });
+
+            modelBuilder.Entity("SalesSystem.Modules.TempCartItems.Domain.TempCartItem", b =>
+                {
+                    b.Property<Guid?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Qty")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("TempUser")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("TempCartItems");
                 });
 
             modelBuilder.Entity("SalesSystem.Modules.Users.Domain.Entities.User", b =>
@@ -1144,10 +1345,10 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                     b.HasData(
                         new
                         {
-                            Id = "93bd6f5d-6af9-45b1-b996-ee198fb746ab",
+                            Id = "9eb3c88f-e2e1-4d83-8b03-ad506ed4e576",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d43c2d37-7167-4713-8f9c-d930f99f986a",
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 567, DateTimeKind.Utc).AddTicks(1362),
+                            ConcurrencyStamp = "12975a81-15f5-42b8-a23b-2cc400f7291b",
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 623, DateTimeKind.Utc).AddTicks(6155),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "Luis@mail.com",
                             EmailConfirmed = false,
@@ -1158,20 +1359,20 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "LUIS@MAIL.COM",
                             NormalizedUserName = "LUIS@MAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJBfwcHnXM09w53eH74bKv3XIC5bk05qTuV8Eg8k0VfhSvU7MzVJmFTPKUTbifvH7w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECB6cp6P6YggIwmj+zSYrG98N7L3hSSJ7UBTMI22eZIf9Xkgo8bptId8m7Ozf/Q/ig==",
                             PhoneNumber = "7588-5214",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "455dbdd5-65a8-48de-ae11-083352ba2038",
+                            SecurityStamp = "39f6cee6-90ab-40a7-b3b2-01a33db45763",
                             TwoFactorEnabled = false,
                             UpdateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "Luis@mail.com"
                         },
                         new
                         {
-                            Id = "7a39b716-9943-4abc-accf-8783b13c18af",
+                            Id = "aec741be-ceb7-445f-9853-6ce750f2c607",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f72acdd5-a570-4311-b75a-ed3c97e7f82f",
-                            CreateAt = new DateTime(2023, 8, 17, 3, 40, 5, 567, DateTimeKind.Utc).AddTicks(1385),
+                            ConcurrencyStamp = "369bd5f4-977e-4196-b328-312e3b768266",
+                            CreateAt = new DateTime(2023, 8, 31, 17, 53, 22, 623, DateTimeKind.Utc).AddTicks(6178),
                             DeleteAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "Steven@mail.com",
                             EmailConfirmed = false,
@@ -1182,10 +1383,10 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "STEVEN@MAIL.COM",
                             NormalizedUserName = "STEVEN@MAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELgTBbYM6wZcZENVtLGLaJRwDeU53Krhbgn0JakmjfYDSsXc/yGMOS6XuPT/G97MIA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGjsVWxB6GhW9TB2w3BpuiUQceKDq4+IpZB2beM4eU9zfmuqeeLhkbnoFMwo3YhVGw==",
                             PhoneNumber = "7588-5214",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1928f58d-e995-4d71-bcdc-dc75fbe24d60",
+                            SecurityStamp = "8083a285-20fe-4f80-bc44-979d944aed7c",
                             TwoFactorEnabled = false,
                             UpdateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "Steven@mail.com"
@@ -1336,15 +1537,6 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("SalesSystem.Modules.CartItems.Domain.TempCartItem", b =>
-                {
-                    b.HasOne("SalesSystem.Modules.Products.Domain.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("SalesSystem.Modules.Carts.Domain.Cart", b =>
                 {
                     b.HasOne("SalesSystem.Modules.Users.Domain.Entities.User", "User")
@@ -1365,6 +1557,24 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                         .HasForeignKey("ProductId");
 
                     b.Navigation("Category");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("SalesSystem.Modules.Products.Domain.ProductImage", b =>
+                {
+                    b.HasOne("SalesSystem.Modules.Products.Domain.Product", "Product")
+                        .WithMany("ImageUrl")
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("SalesSystem.Modules.TempCartItems.Domain.TempCartItem", b =>
+                {
+                    b.HasOne("SalesSystem.Modules.Products.Domain.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
 
                     b.Navigation("Product");
                 });
@@ -1402,6 +1612,8 @@ namespace SalesSystem.shared.infrastructure.persistence.migrations
                     b.Navigation("Buys");
 
                     b.Navigation("CartItems");
+
+                    b.Navigation("ImageUrl");
 
                     b.Navigation("ProductCategories");
                 });

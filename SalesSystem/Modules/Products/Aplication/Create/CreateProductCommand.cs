@@ -4,6 +4,7 @@
         (
             string Name,
             string Description,
+            string ImageUrl,
             decimal Price,
             int Stock,
             List<Guid> Categories

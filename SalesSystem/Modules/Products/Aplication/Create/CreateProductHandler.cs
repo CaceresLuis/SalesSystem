@@ -33,6 +33,11 @@ namespace SalesSystem.Modules.Products.Aplication.Create
 
             _unitOfWork.ProductRepository.Add(product);
 
+            if (!string.IsNullOrEmpty(request.ImageUrl))
+            {
+                //TODO: agregar la imagen a bd
+            }
+
             if (request.Categories is not null)
             {
                 foreach (Guid category in request.Categories)
