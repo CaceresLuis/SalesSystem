@@ -11,7 +11,6 @@ using SalesSystem.Modules.Users.Application.DeleteUserCard;
 using SalesSystem.Modules.Users.Application.CreateUserAddres;
 using SalesSystem.Modules.Users.Application.DeleteUserAddress;
 using SalesSystem.Modules.Users.Application.UpdateUserAddress;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace SalesSystem.Api.Controllers
 {
@@ -54,19 +53,6 @@ namespace SalesSystem.Api.Controllers
             return result.Match(user => Ok(user), errors => Problem(errors));
         }
 
-        [HttpGet("UserON")]
-        [Authorize(Roles = "Admin, User")]
-        public async Task<IActionResult> UserLogin()
-        {
-            var mailClaim = User.Claims.FirstOrDefault(u => u.Type == "Email")!;
-            if (mailClaim.Value == null)
-                return BadRequest();
-
-            ErrorOr<SingleUserResponseDto> result = await _mediator.Send(new GetUserQuery(mailClaim.Value)) ;
-
-            return result.Match(user => Ok(user), errors => Problem(errors));
-        }
-
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Create([FromBody] CreateUserCommand command)
@@ -83,7 +69,7 @@ namespace SalesSystem.Api.Controllers
         {
             var mailClaim = User.Claims.FirstOrDefault(u => u.Type == "Email")!;
             if (command.UserEmail != mailClaim.Value)
-                return BadRequest();
+                return BadRequest("Intestas cambiar la direccion de otro");
 
             ErrorOr<Unit> create = await _mediator.Send(command);
             return create.Match(user => Ok(user), errors => Problem(errors));
@@ -93,10 +79,6 @@ namespace SalesSystem.Api.Controllers
         [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> UpdateUserAddress([FromBody] UpdateUserAddressCommand command)
         {
-            var mailClaim = User.Claims.FirstOrDefault(u => u.Type == "Email")!;
-            if (command.UserEmail != mailClaim.Value)
-                return BadRequest();
-
             ErrorOr<Unit> create = await _mediator.Send(command);
             return create.Match(user => Ok(user), errors => Problem(errors));
         }
@@ -105,10 +87,6 @@ namespace SalesSystem.Api.Controllers
         [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> DeleteUserAddress([FromBody] DeleteUserAddressCommand command)
         {
-            var mailClaim = User.Claims.FirstOrDefault(u => u.Type == "Email")!;
-            if (command.UserEmail != mailClaim.Value)
-                return BadRequest();
-
             ErrorOr<Unit> create = await _mediator.Send(command);
             return create.Match(user => Ok(user), errors => Problem(errors));
         }
@@ -117,10 +95,6 @@ namespace SalesSystem.Api.Controllers
         [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> AddUserCard([FromBody] CreateUserCardCommand command)
         {
-            var mailClaim = User.Claims.FirstOrDefault(u => u.Type == "Email")!;
-            if (command.UserEmail != mailClaim.Value)
-                return BadRequest();
-
             ErrorOr<Unit> create = await _mediator.Send(command);
             return create.Match(user => Ok(user), errors => Problem(errors));
         }
@@ -129,10 +103,6 @@ namespace SalesSystem.Api.Controllers
         [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> DeleteUserCard([FromBody] DeleteUserCardCommand command)
         {
-            var mailClaim = User.Claims.FirstOrDefault(u => u.Type == "Email")!;
-            if (command.UserEmail != mailClaim.Value)
-                return BadRequest();
-
             ErrorOr<Unit> create = await _mediator.Send(command);
             return create.Match(user => Ok(user), errors => Problem(errors));
         }
