@@ -25,7 +25,6 @@
   <ItemGroup>
     <Folder Include="Modules\Carts\Application\" />
     <Folder Include="Modules\Categories\Domain\ValueObjects\" />
-    <Folder Include="Shared\Infrastructure\Images\Products\" />
     <Folder Include="Shared\Infrastructure\Persistence\" />
   </ItemGroup>
 

@@ -12,7 +12,6 @@
         DateTime DeleteAt,
         bool IsUpdated,
         bool IsDeleted,
-        List<ProductImageResponse> ProductImages,
         List<ProductCategoryResponseDto> Categorias
     );
 }
