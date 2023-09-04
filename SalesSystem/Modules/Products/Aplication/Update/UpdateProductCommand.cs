@@ -1,4 +1,6 @@
-﻿namespace SalesSystem.Modules.Products.Aplication.Update
+﻿using Microsoft.AspNetCore.Http;
+
+namespace SalesSystem.Modules.Products.Aplication.Update
 {
     public record UpdateProductCommand
         (
@@ -6,7 +8,8 @@
             string Name,
             string Description,
             decimal Price,
-            int Stock
+            int Stock,
+            IFormFile File
         ) : IRequest<ErrorOr<Unit>>;
 
 }

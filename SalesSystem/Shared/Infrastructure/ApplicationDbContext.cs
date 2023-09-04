@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SalesSystem.Modules.Buys.Domain;
 using SalesSystem.Modules.Carts.Domain;
+using SalesSystem.Modules.Images.Domain;
 using SalesSystem.Modules.Products.Domain;
 using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.CartItems.Domain;
@@ -24,6 +25,7 @@ namespace SalesSystem.Shared.Infrastructure
 
         public DbSet<Buy> Buys { get; set; }
         public DbSet<Cart> Carts { get; set; }
+        public DbSet<Image> Images { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<UserCard> UserCards { get; set; }

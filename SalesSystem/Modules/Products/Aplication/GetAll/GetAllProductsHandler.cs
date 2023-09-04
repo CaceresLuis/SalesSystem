@@ -1,4 +1,5 @@
-﻿using SalesSystem.Modules.Products.Domain;
+﻿using SalesSystem.Modules.Images.Domain;
+using SalesSystem.Modules.Products.Domain;
 using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.Products.Domain.Dto;
 
@@ -29,6 +30,11 @@ namespace SalesSystem.Modules.Products.Aplication.GetAll
                 product.DeleteAt,
                 product.IsUpdated,
                 product.IsDeleted,
+                product.Images!.Select(pc => new ImageResponse
+                (
+                    pc.Id,
+                    pc.ImageUrl
+                )).ToList(),
                 product.ProductCategories!.Select(pc => new ProductCategoryResponseDto
                 (
                     pc.Category!.Id!.Value,

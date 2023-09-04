@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SalesSystem.Modules.Carts.Domain;
 using SalesSystem.Modules.Categories.Domain;
+using SalesSystem.Modules.Images.Domain;
 using SalesSystem.Modules.ProductCategories.Domain;
 using SalesSystem.Modules.Products.Domain;
 using SalesSystem.Modules.Users.Domain.Entities;

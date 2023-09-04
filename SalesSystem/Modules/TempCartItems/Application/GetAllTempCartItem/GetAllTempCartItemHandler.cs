@@ -1,4 +1,5 @@
-﻿using SalesSystem.Shared.Domain.Primitives;
+﻿using SalesSystem.Modules.Images.Domain;
+using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.Products.Domain.Dto;
 using SalesSystem.Modules.TempCartItems.Domain;
 using SalesSystem.Modules.TempCartItems.Domain.Dto;
@@ -35,6 +36,11 @@ namespace SalesSystem.Modules.TempCartItems.Application.GetAllTempCartItem
                     tempCartItem.Product.DeleteAt,
                     tempCartItem.Product.IsUpdated,
                     tempCartItem.Product.IsDeleted,
+                    tempCartItem.Product.Images!.Select(pc => new ImageResponse
+                    (
+                        pc.Id,
+                        pc.ImageUrl
+                    )).ToList(),
                     tempCartItem.Product.ProductCategories!.Select(pc => new ProductCategoryResponseDto
                     (
                         pc.Category!.Id!.Value,

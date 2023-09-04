@@ -1,4 +1,6 @@
-﻿namespace SalesSystem.Modules.Products.Domain.Dto
+﻿using SalesSystem.Modules.Images.Domain;
+
+namespace SalesSystem.Modules.Products.Domain.Dto
 {
     public record ProductResponseDto
     (
@@ -12,6 +14,7 @@
         DateTime DeleteAt,
         bool IsUpdated,
         bool IsDeleted,
+        List<ImageResponse> Images,
         List<ProductCategoryResponseDto> Categorias
     );
 }

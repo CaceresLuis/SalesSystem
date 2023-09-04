@@ -1,4 +1,5 @@
-﻿using SalesSystem.Modules.Products.Domain;
+﻿using SalesSystem.Modules.Images.Domain;
+using SalesSystem.Modules.Products.Domain;
 using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Shared.Domain.ValueObjects;
 using SalesSystem.Modules.Products.Domain.DomainErrors;
@@ -34,6 +35,29 @@ namespace SalesSystem.Modules.Products.Aplication.Update
                 );
 
             _unitOfWork.ProductRepository.Update(product);
+
+            if(request.File != null)
+            {
+                Stream file = request.File.OpenReadStream();
+                FirebaseImage firebaseImage = new()
+                {
+                    File = file,
+                    Folder = "Product",
+                    Name = Guid.NewGuid().ToString(),
+                };
+
+                string imageUrl = await _unitOfWork.ImagenRepository.UploadImageAsync(firebaseImage);
+
+                Image image = new()
+                {
+                    Id = Guid.NewGuid(),
+                    ImageUrl = imageUrl,
+                    ProductId = product.Id
+                };
+
+                _unitOfWork.ImagenRepository.Add(image);
+            }
+
             if (await _unitOfWork.SaveChangesAsync(cancellationToken) < 1)
                 return SaveError.GenericError;
 

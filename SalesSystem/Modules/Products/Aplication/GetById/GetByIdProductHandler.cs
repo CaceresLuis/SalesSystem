@@ -2,6 +2,7 @@
 using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.Products.Domain.Dto;
 using SalesSystem.Modules.Products.Domain.DomainErrors;
+using SalesSystem.Modules.Images.Domain;
 
 namespace SalesSystem.Modules.Products.Aplication.GetById
 {
@@ -31,6 +32,11 @@ namespace SalesSystem.Modules.Products.Aplication.GetById
                 product.DeleteAt,
                 product.IsUpdated,
                 product.IsDeleted,
+                product.Images!.Select(pc => new ImageResponse
+                (
+                    pc.Id,
+                    pc.ImageUrl
+                )).ToList(),
                 product.ProductCategories!.Select(pc => new ProductCategoryResponseDto
                 (
                     pc.Category!.Id!.Value,

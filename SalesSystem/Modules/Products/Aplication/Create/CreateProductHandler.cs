@@ -3,6 +3,7 @@ using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.Categories.Domain;
 using SalesSystem.Shared.Domain.ValueObjects;
 using SalesSystem.Modules.ProductCategories.Domain;
+using SalesSystem.Modules.Images.Domain;
 
 namespace SalesSystem.Modules.Products.Aplication.Create
 {
@@ -49,6 +50,28 @@ namespace SalesSystem.Modules.Products.Aplication.Create
                         _unitOfWork.ProductCategoryRepository.Add(productCategory);
                     }
                 }
+            }
+
+            if (request.File != null)
+            {
+                Stream file = request.File.OpenReadStream();
+                FirebaseImage firebaseImage = new()
+                {
+                    File = file,
+                    Folder = "Product",
+                    Name = Guid.NewGuid().ToString(),
+                };
+
+                string imageUrl = await _unitOfWork.ImagenRepository.UploadImageAsync(firebaseImage);
+
+                Image image = new()
+                {
+                    Id = Guid.NewGuid(),
+                    ImageUrl = imageUrl,
+                    ProductId = product.Id
+                };
+
+                _unitOfWork.ImagenRepository.Add(image);
             }
 
             if (await _unitOfWork.SaveChangesAsync(cancellationToken) < 1)

@@ -1,4 +1,6 @@
-﻿namespace SalesSystem.Modules.Products.Aplication.Create
+﻿using Microsoft.AspNetCore.Http;
+
+namespace SalesSystem.Modules.Products.Aplication.Create
 {
     public record CreateProductCommand
         (
@@ -6,6 +8,8 @@
             string Description,
             decimal Price,
             int Stock,
+            IFormFile File,
             List<Guid> Categories
+
         ) : IRequest<ErrorOr<Unit>>;
 }

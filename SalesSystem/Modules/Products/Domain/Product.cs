@@ -1,7 +1,8 @@
-﻿using SalesSystem.Modules.CartItems.Domain;
+﻿using SalesSystem.Modules.Buys.Domain;
+using SalesSystem.Modules.Images.Domain;
+using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Shared.Domain.Primitives;
 using SalesSystem.Modules.ProductCategories.Domain;
-using SalesSystem.Modules.Buys.Domain;
 
 namespace SalesSystem.Modules.Products.Domain
 {
@@ -22,6 +23,7 @@ namespace SalesSystem.Modules.Products.Domain
         public ICollection<Buy>? Buys { get; set; }
         public ICollection<CartItem>? CartItems { get; set; }
         public ICollection<ProductCategory>? ProductCategories { get; set; }
+        public ICollection<Image>? Images { get; set; }
 
         public Product(ProductId id, string name, string description, decimal price, int stock, DateTime createAt, DateTime upDateAt, DateTime deleteAt, bool isUpdated, bool isDeleted)
         {

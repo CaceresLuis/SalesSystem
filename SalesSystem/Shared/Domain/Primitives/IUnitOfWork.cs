@@ -2,6 +2,7 @@
 using SalesSystem.Modules.Roles.Domain;
 using SalesSystem.Modules.Users.Domain;
 using SalesSystem.Modules.Carts.Domain;
+using SalesSystem.Modules.Images.Domain;
 using SalesSystem.Modules.Products.Domain;
 using SalesSystem.Modules.CartItems.Domain;
 using SalesSystem.Modules.Categories.Domain;
@@ -16,6 +17,7 @@ namespace SalesSystem.Shared.Domain.Primitives
         public IRoleRepository RoleRepository { get; }
         public ICartRepository CartRepository { get; }
         public IUserRepository UserRepository { get; }
+        public IImagenRepository ImagenRepository { get; }
         public IProductRepository ProductRepository { get; }
         public IUserCardRepository UserCardRepository{ get; }
         public ICategoryRepository CategoryRepository { get; }

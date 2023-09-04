@@ -52,25 +52,16 @@ namespace SalesSystem.Api.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([FromBody] CreateProductCommand command)
+        public async Task<IActionResult> Create([FromForm] CreateProductCommand command)
         {
             ErrorOr<Unit> createResult = await _mediator.Send(command);
 
             return createResult.Match(productId => Ok(productId), errors => Problem(errors));
         }
-
-        [HttpPost("AddCategoryToProduct")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AddCategoryToProduct([FromBody] CreateProductCategoryCommand command)
-        {
-            ErrorOr<Unit> createResult = await _mediator.Send(command);
-
-            return createResult.Match(productId => Ok(productId), errors => Problem(errors));
-        }
-
+        
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateProductCommand command)
+        public async Task<IActionResult> Update(Guid id, [FromForm] UpdateProductCommand command)
         {
             if (id != command.Id)
             {
@@ -85,6 +76,15 @@ namespace SalesSystem.Api.Controllers
             ErrorOr<Unit> result = await _mediator.Send(command);
 
             return result.Match(categoryId => NoContent(), errors => Problem(errors));
+        }
+
+        [HttpPost("AddCategoryToProduct")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddCategoryToProduct([FromBody] CreateProductCategoryCommand command)
+        {
+            ErrorOr<Unit> createResult = await _mediator.Send(command);
+
+            return createResult.Match(productId => Ok(productId), errors => Problem(errors));
         }
 
         [HttpDelete("{id}")]

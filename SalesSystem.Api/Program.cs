@@ -1,6 +1,7 @@
 using SalesSystem.Api;
 using SalesSystem.Api.Extension;
 using SalesSystem.Api.Middlerware;
+using SalesSystem.Modules.Images.Domain;
 using SalesSystem.Shared.Aplication;
 using SalesSystem.Shared.Infrastructure.Services;
 
@@ -8,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddApplication().AddPresentation(builder.Configuration).AddInfrastructure(builder.Configuration);
+
+builder.Services.Configure<FireBaseConfiguration>(builder.Configuration.GetSection("FireBase"));
 
 var app = builder.Build();
 
