@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using SalesSystem.Modules.Roles.Application.GetAll;
 using SalesSystem.Modules.Roles.Application.Create;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -22,7 +21,7 @@ namespace SalesSystem.Api.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _mediator.Send(new GetAllRolesQuery());
+            ErrorOr<IReadOnlyList<Microsoft.AspNetCore.Identity.IdentityRole>> result = await _mediator.Send(new GetAllRolesQuery());
 
             return result.Match(roles => Ok(roles), error => Problem(error));
         }

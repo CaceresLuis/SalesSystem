@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SalesSystem.Api.Commom.Http;
+﻿using SalesSystem.Api.Commom.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace SalesSystem.Api.Controllers

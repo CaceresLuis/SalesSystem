@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using SalesSystem.Modules.CartItems.Domain.Dto;
 using SalesSystem.Modules.TempCartItems.Domain.Dto;

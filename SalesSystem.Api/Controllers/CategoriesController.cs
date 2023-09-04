@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using SalesSystem.Modules.Categories.Domain.Dto;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SalesSystem.Modules.Categories.Aplication.Create;

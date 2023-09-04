@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using SalesSystem.Modules.Products.Domain.Dto;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SalesSystem.Modules.Products.Aplication.Create;
@@ -58,7 +57,7 @@ namespace SalesSystem.Api.Controllers
 
             return createResult.Match(productId => Ok(productId), errors => Problem(errors));
         }
-        
+
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(Guid id, [FromForm] UpdateProductCommand command)

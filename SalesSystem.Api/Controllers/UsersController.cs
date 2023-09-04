@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using SalesSystem.Modules.Users.Domain.Dto;
 using SalesSystem.Modules.Users.Application.Get;
 using SalesSystem.Modules.Users.Application.Login;
@@ -67,7 +66,7 @@ namespace SalesSystem.Api.Controllers
         [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> AddUserAddress([FromBody] CreateUserAddresCommand command)
         {
-            var mailClaim = User.Claims.FirstOrDefault(u => u.Type == "Email")!;
+            System.Security.Claims.Claim mailClaim = User.Claims.FirstOrDefault(u => u.Type == "Email")!;
             if (command.UserEmail != mailClaim.Value)
                 return BadRequest("Intestas cambiar la direccion de otro");
 
