@@ -1,3 +1,4 @@
+using Microsoft.Net.Http.Headers;
 using SalesSystem.Api;
 using SalesSystem.Api.Extension;
 using SalesSystem.Api.Middlerware;
@@ -21,6 +22,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.ApplyMigrations();
 }
+
+app.UseCors(policy =>
+{
+    policy.WithOrigins("http://localhost:5000", "https://localhost:5001")
+    .AllowAnyMethod()
+    .WithHeaders(HeaderNames.ContentType);
+});
 
 app.UseExceptionHandler("/error");
 
